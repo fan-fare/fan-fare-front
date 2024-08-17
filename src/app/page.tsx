@@ -1,95 +1,77 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Cake from '@/components/Cake';
+import { flexCenterContainer } from '@/styles/common/common.css';
+import {
+  balloon1,
+  balloon2,
+  balloon3,
+  balloon4,
+  balloon5,
+  balloonContainer,
+  effectContainer,
+  flagsImg,
+  glitterImg,
+} from '@/styles/main.css';
+import Image from 'next/image';
 
 export default function Home() {
+  const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME;
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className={flexCenterContainer}>
+      <h1>{serviceName}</h1>
+      <div className={effectContainer}>
+        <Image
+          src={'/assets/glitter.svg'}
+          alt="glitter"
+          width={0}
+          height={0}
+          className={glitterImg}
+        />
+        <Image
+          src={'/assets/flags.svg'}
+          alt="flags"
+          width={0}
+          height={0}
+          className={flagsImg}
+        />
+        <div className={balloonContainer}>
+          <Image
+            src={'/assets/balloon/1.svg'}
+            alt="balloon"
+            width={0}
+            height={0}
+            className={balloon1}
+          />
+          <Image
+            src={'/assets/balloon/2.svg'}
+            alt="balloon"
+            width={0}
+            height={0}
+            className={balloon2}
+          />
+          <Image
+            src={'/assets/balloon/3.svg'}
+            alt="balloon"
+            width={0}
+            height={0}
+            className={balloon3}
+          />
+          <Image
+            src={'/assets/balloon/4.svg'}
+            alt="balloon"
+            width={0}
+            height={0}
+            className={balloon4}
+          />
+          <Image
+            src={'/assets/balloon/5.svg'}
+            alt="balloon"
+            width={0}
+            height={0}
+            className={balloon5}
+          />
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Cake />
     </main>
   );
 }
