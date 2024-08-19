@@ -47,7 +47,7 @@ export default function Home() {
       </div>
       <Timer />
       <div className={cakeContainer}>
-        <Cake />
+        <Cake candles={[1, 3, 5, 4]}/>
         <div className={cakePageCountContainer}>
           {`${currentCake} / ${cakeCount}`}
         </div>

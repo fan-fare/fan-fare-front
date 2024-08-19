@@ -1,5 +1,6 @@
 'use client';
 
+import { signinMutationOption } from '@/app/api/queryOptions';
 import AuthLinks from '@/components/AuthLinks';
 import { buttonDarkHalf } from '@/styles/button.css';
 import {
@@ -10,11 +11,21 @@ import {
   authFormInput,
   authFormLabel,
 } from '@/styles/pages/auth/auth.css';
+import { useMutation } from '@tanstack/react-query';
+
 export default function Page() {
+  // Mutation
+  const signin = useMutation(signinMutationOption);
+  
+  // Mutation Action
+  const signinAction = async (formData: FormData) => {
+    await signin.mutateAsync(formData);
+  }
+
   return (
     <div className={authPageContainer}>
       <AuthLinks current="signin" />
-      <form className={authForm} action="">
+      <form className={authForm} action={signinAction}>
         <div className={formElement}>
           <label htmlFor="nickname" className={authFormLabel}>
             닉네임

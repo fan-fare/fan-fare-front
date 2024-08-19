@@ -11,18 +11,23 @@ import {
 } from '@/styles/pages/auth/auth.css';
 import { buttonDarkHalf } from '@/styles/button.css';
 import { FormEvent } from 'react';
-import { authApi } from '@/app/api/fetch';
+import { api } from '@/app/api/fetch';
+import { useMutation } from '@tanstack/react-query';
+import { signupMutationOption } from '@/app/api/queryOptions';
 
 export default function Page() {
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    const formData = new FormData(event.currentTarget);
-    const response = await authApi.signup(formData);
-  }
+  // Mutation
+  const signup = useMutation(signupMutationOption);
+
+  // Mutation Action
+  const signupAction = async (formData: FormData) => {
+    await signup.mutateAsync(formData);
+  };
 
   return (
     <div className={authPageContainer}>
       <AuthLinks current="signup" />
-      <form action="" className={authForm}>
+      <form action={signupAction} className={authForm}>
         <div className={formElement}>
           <label htmlFor="nickname" className={authFormLabel}>
             닉네임

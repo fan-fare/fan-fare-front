@@ -2,7 +2,7 @@
 
 import Candle from '@/components/Candle';
 import PrevPage from '@/components/PrevPage';
-import { buttonGrayHalf, buttonPrimaryHalf } from '@/styles/button.css';
+import { disabledButtonHalf, buttonPrimaryHalf } from '@/styles/button.css';
 import {
   activatedCandleContainer,
   candleContainer,
@@ -15,7 +15,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Page() {
+  // Constants
   const candleCount = 6;
+
+  // State
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
@@ -38,8 +41,10 @@ export default function Page() {
         </div>
         <div className={decoButtonContainer}>
           <Link
-            href={selected !== null ? '/decoration/message' : '#'}
-            className={selected !== null ? buttonPrimaryHalf : buttonGrayHalf}
+            href={selected ? `/decoration/message?candle_id=${selected}` : '#'}
+            className={
+              selected !== null ? buttonPrimaryHalf : disabledButtonHalf
+            }
           >
             다음으로
           </Link>

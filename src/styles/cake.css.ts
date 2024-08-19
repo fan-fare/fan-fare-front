@@ -67,4 +67,3 @@ export const candle2 = style([candleBase, { ...candleProp[1] }]);
 export const candle3 = style([candleBase, { ...candleProp[2] }]);
 export const candle4 = style([candleBase, { ...candleProp[3] }]);
 export const candle5 = style([candleBase, { ...candleProp[4] }]);
-export const candle6 = style([candleBase, { ...candleProp[5] }]);
