@@ -11,11 +11,11 @@ export const cake = style({
   position: 'relative',
 
   '@media': {
-    [smallMobile]: {
-      width: '70%',
-    },
     [tablet]: {
       width: '50%',
+    },
+    [smallMobile]: {
+      width: '70%',
     },
     [pc]: {
       width: '250px',

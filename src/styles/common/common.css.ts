@@ -3,9 +3,9 @@ import { globalFontFace, globalStyle, style } from '@vanilla-extract/css';
 export const pretendard = 'Pretendard';
 export const uiyeun = 'Ownglyph EuiyeonChae';
 
-export const pc = '(min-width: 769px)';
-export const smallMobile = '(min-width: 400px), (min-height: 800px)';
-export const tablet = '(min-width: 768px)';
+export const pc = '(min-width: 769px) and (min-height: 601px)';
+export const smallMobile = '(max-width: 400px), (max-height: 600px)';
+export const tablet = '(min-width: 500px) and (min-height: 500px)';
 
 globalStyle('html, body', {
   display: 'flex',
