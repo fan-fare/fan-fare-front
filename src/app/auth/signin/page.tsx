@@ -15,7 +15,7 @@ export default function Page() {
     <PrevPage url="/">
       <div className={authPageContainer}>
         <AuthLinks current="signin" />
-        <form action="POST" className={authForm}>
+        <form action="" className={authForm}>
           <div className={formElement}>
             <label htmlFor="nickname" className={authFormLabel}>
               닉네임
