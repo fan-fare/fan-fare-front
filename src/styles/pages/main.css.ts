@@ -1,15 +1,26 @@
 import { style } from '@vanilla-extract/css';
-import { fullScreenContainer, pretendard } from '../common/common.css';
-
-export const mainPageContainer = style([
+import {
   fullScreenContainer,
-  {
-    display: 'grid',
-    placeItems: 'center',
-    gridTemplateColumns: '1fr',
-    gridTemplateRows: '1fr 1fr 3fr 1fr',
+  pcWidth,
+  pretendard,
+  smallMobileWidth,
+} from '../common/common.css';
+
+export const mainPageContainer = style({
+  display: 'grid',
+  width: '100%',
+  height: '100%',
+  placeItems: 'center',
+  gridTemplateColumns: '1fr',
+  gridTemplateRows: '1fr 1fr 3fr 1fr',
+
+  '@media': {
+    [pcWidth]: {
+      width: '680px',
+      height: '100%',
+    },
   },
-]);
+});
 
 export const pageTop = style({
   display: 'flex',
@@ -19,12 +30,24 @@ export const pageTop = style({
   width: '100%',
   padding: '2rem',
   boxSizing: 'border-box',
+
+  '@media': {
+    [smallMobileWidth]: {
+      padding: '1rem',
+    },
+  },
 });
 
 export const pageTopText = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '0.25rem',
+
+  '@media': {
+    [smallMobileWidth]: {
+      gap: '0.125rem',
+    },
+  },
 });
 
 export const cakeTitle = style({
@@ -33,6 +56,12 @@ export const cakeTitle = style({
   fontSize: '1.75rem',
   fontWeight: 800,
   alignItems: 'center',
+
+  '@media': {
+    [smallMobileWidth]: {
+      fontSize: '1.5rem',
+    },
+  },
 });
 
 export const textPoint = style({
@@ -45,6 +74,12 @@ export const cakeMessage = style({
   fontWeight: 600,
   letterSpacing: '-0.05em',
   color: '#160042',
+
+  '@media': {
+    [smallMobileWidth]: {
+      fontSize: '0.875rem',
+    },
+  },
 });
 
 export const questionMark = style({
@@ -52,6 +87,12 @@ export const questionMark = style({
   fontSize: '1.5rem',
   color: '#160042',
   opacity: '70%',
+
+  '@media': {
+    [smallMobileWidth]: {
+      fontSize: '1.25rem',
+    },
+  },
 });
 
 export const cakeContainer = style({
@@ -64,9 +105,16 @@ export const cakeContainer = style({
   gap: '2rem',
   padding: '3rem',
   boxSizing: 'border-box',
+
+  '@media': {
+    [smallMobileWidth]: {
+      padding: '1rem 3rem',
+      gap: '1rem',
+    },
+  },
 });
 
-export const cakePageDotContainer = style({
+export const cakePageCountContainer = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -75,7 +123,7 @@ export const cakePageDotContainer = style({
   height: 'auto',
   padding: '0.5rem',
   boxSizing: 'border-box',
-  borderRadius: '98px', 
+  borderRadius: '98px',
   color: '#F58989',
   fontWeight: 700,
   fontFamily: pretendard,
@@ -83,6 +131,13 @@ export const cakePageDotContainer = style({
   letterSpacing: '0.05em',
   whiteSpace: 'nowrap',
   minWidth: '6rem',
+
+  '@media': {
+    [smallMobileWidth]: {
+      fontSize: '0.75rem',
+      padding: '0.25rem',
+    },
+  },
 });
 
 export const buttonContainer = style({

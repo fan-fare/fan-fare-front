@@ -1,13 +1,24 @@
 import { style } from "@vanilla-extract/css";
-import { flexCenterContainer, pcWidth } from "./common/common.css";
+import { flexCenterContainer, pcWidth, smallMobileWidth } from "./common/common.css";
 
 export const effectContainer = style([
-  flexCenterContainer,
   {
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
     position: 'absolute',
     flexDirection: 'column',
     overflow: 'hidden',
     zIndex: -10,
+
+    '@media': {
+      [pcWidth]: {
+        width: '680px',
+        height: '100%',
+      },
+    },
   },
 ]);
 
@@ -39,6 +50,15 @@ export const balloonContainer = style({
   width: '100%',
   height: '50%',
   bottom: 0,
+
+  '@media': {
+    [smallMobileWidth]: {
+      width: '120%',
+    },
+    [pcWidth]: {
+      width: '90%',
+    },
+  },
 });
 
 export const balloonProp = [
