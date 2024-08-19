@@ -8,12 +8,12 @@ export const cake = style({
   height: 'auto',
   alignItems: 'center',
   justifyContent: 'center',
-  maxWidth: '300px',
   position: 'relative',
 
   '@media': {
     [pcWidth]: {
-      width: '30%',
+      width: '250px',
+      height: 'auto',
     },
   },
 });

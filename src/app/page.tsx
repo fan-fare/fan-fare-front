@@ -14,7 +14,7 @@ import {
   questionMark,
   buttonContainer,
   cakeContainer,
-  cakePageDotContainer,
+  cakePageCountContainer,
 } from '@/styles/pages/main.css';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -48,7 +48,7 @@ export default function Home() {
       <Timer />
       <div className={cakeContainer}>
         <Cake />
-        <div className={cakePageDotContainer}>
+        <div className={cakePageCountContainer}>
           {`${currentCake} / ${cakeCount}`}
         </div>
       </div>

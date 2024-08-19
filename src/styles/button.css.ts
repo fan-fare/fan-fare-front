@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css';
+import { smallMobileWidth } from './common/common.css';
 
 export const buttonDefault = style({
   display: 'flex',
@@ -15,6 +16,13 @@ export const buttonDefault = style({
 export const halfSize = style({
   width: '148px',
   height: '55px',
+
+  '@media': {
+    [smallMobileWidth]: {
+      width: '122px',
+      height: '48px',
+    },
+  },
 });
 
 export const fullSize = style({
