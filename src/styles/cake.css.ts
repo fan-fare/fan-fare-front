@@ -1,17 +1,23 @@
 import { style } from '@vanilla-extract/css';
-import { pcWidth } from './common/common.css';
+import { pc, smallMobile, tablet } from './common/common.css';
 
 export const cake = style({
   display: 'flex',
   flexDirection: 'column',
-  width: '100%',
+  width: '80%',
   height: 'auto',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
 
   '@media': {
-    [pcWidth]: {
+    [smallMobile]: {
+      width: '70%',
+    },
+    [tablet]: {
+      width: '50%',
+    },
+    [pc]: {
       width: '250px',
       height: 'auto',
     },

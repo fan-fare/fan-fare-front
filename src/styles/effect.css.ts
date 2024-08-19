@@ -1,5 +1,5 @@
-import { style } from "@vanilla-extract/css";
-import { flexCenterContainer, pcWidth, smallMobileWidth } from "./common/common.css";
+import { style } from '@vanilla-extract/css';
+import { flexCenterContainer, pc, smallMobile } from './common/common.css';
 
 export const effectContainer = style([
   {
@@ -14,7 +14,7 @@ export const effectContainer = style([
     zIndex: -10,
 
     '@media': {
-      [pcWidth]: {
+      [pc]: {
         width: '680px',
         height: '100%',
       },
@@ -38,7 +38,7 @@ export const flagsImg = style({
   overflow: 'hidden',
 
   '@media': {
-    [pcWidth]: {
+    [pc]: {
       top: '20%',
       height: '20%',
     },
@@ -52,10 +52,10 @@ export const balloonContainer = style({
   bottom: 0,
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       width: '120%',
     },
-    [pcWidth]: {
+    [pc]: {
       width: '90%',
     },
   },
