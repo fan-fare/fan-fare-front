@@ -1,9 +1,10 @@
 import { style } from '@vanilla-extract/css';
 import {
   fullScreenContainer,
-  pcWidth,
+  pc,
   pretendard,
-  smallMobileWidth,
+  smallMobile,
+  tablet,
 } from '../common/common.css';
 
 export const mainPageContainer = style({
@@ -15,7 +16,7 @@ export const mainPageContainer = style({
   gridTemplateRows: '1fr 1fr 3fr 1fr',
 
   '@media': {
-    [pcWidth]: {
+    [pc]: {
       width: '680px',
       height: '100%',
     },
@@ -32,7 +33,7 @@ export const pageTop = style({
   boxSizing: 'border-box',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       padding: '1rem',
     },
   },
@@ -44,7 +45,7 @@ export const pageTopText = style({
   gap: '0.25rem',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       gap: '0.125rem',
     },
   },
@@ -58,7 +59,7 @@ export const cakeTitle = style({
   alignItems: 'center',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       fontSize: '1.5rem',
     },
   },
@@ -76,7 +77,7 @@ export const cakeMessage = style({
   color: '#160042',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       fontSize: '0.875rem',
     },
   },
@@ -89,7 +90,7 @@ export const questionMark = style({
   opacity: '70%',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       fontSize: '1.25rem',
     },
   },
@@ -107,7 +108,7 @@ export const cakeContainer = style({
   boxSizing: 'border-box',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       padding: '1rem 3rem',
       gap: '1rem',
     },
@@ -133,9 +134,11 @@ export const cakePageCountContainer = style({
   minWidth: '6rem',
 
   '@media': {
-    [smallMobileWidth]: {
+    [smallMobile]: {
       fontSize: '0.75rem',
-      padding: '0.25rem',
+    },
+    [tablet]: {
+      fontSize: '1rem',
     },
   },
 });
