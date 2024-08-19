@@ -66,21 +66,23 @@ export const buttonPrimaryFull = style([
   },
 ]);
 
-export const buttonGrayHalf = style([
+export const disabledButtonHalf = style([
   buttonDefault,
   halfSize,
   {
     backgroundColor: '#D2D2D2',
     color: '#FFFFFF',
+    pointerEvents: 'none',
   },
 ]);
 
-export const buttonGrayFull = style([
+export const disabledButtonGray = style([
   buttonDefault,
   fullSize,
   {
     backgroundColor: '#D2D2D2',
     color: '#FFFFFF',
+    pointerEvents: 'none',
   },
 ]);
 

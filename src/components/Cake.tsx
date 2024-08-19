@@ -1,13 +1,30 @@
-import { cake, cakeImg, candle2 } from '@/styles/cake.css';
+import {
+  cake,
+  cakeImg,
+  candle1,
+  candle2,
+  candle3,
+  candle4,
+  candle5,
+} from '@/styles/cake.css';
 import Image from 'next/image';
-import Candle from './Candle';
+import CakeCandle from './CakeCandle';
 
-export default function Cake() {
+export default function Cake({ candles }: { candles: Array<number> }) {
+  const candlePositions = [candle1, candle2, candle3, candle4, candle5];
+
   return (
     <div className={cake}>
-      <div className={candle2}>
-        <Candle id={2} />
-      </div>
+      {candles.map(
+        (candle, i) =>
+          candlePositions.length > i && (
+            <CakeCandle
+              key={i}
+              id={candle}
+              candlePositionClass={candlePositions[i]}
+            />
+          )
+      )}
       <Image
         src={'/assets/cake.svg'}
         alt="cake"

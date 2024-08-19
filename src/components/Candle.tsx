@@ -1,10 +1,13 @@
-import { candleImg, candleImgContainer, glittering } from "@/styles/candle.css";
-import Image from "next/image";
+import { candleImg, candleImgContainer, glittering } from '@/styles/candle.css';
+import Image from 'next/image';
+import { memo } from 'react';
 
-export default function Candle({
+export default memo(function Candle({
   id,
+  isGlittering = false,
 }: {
   id: number;
+  isGlittering?: boolean;
 }) {
   const path = '/assets/candle/';
   const candleMap = new Map([
@@ -15,9 +18,10 @@ export default function Candle({
     [5, '5.svg'],
     [6, '6.svg'],
   ]);
+
   return (
     <div className={candleImgContainer}>
-      <div className={glittering}></div>
+      {isGlittering && <div className={glittering}></div>}
       <Image
         src={`${path}${candleMap.get(id)}`}
         alt={candleMap.get(id) || ''}
@@ -27,4 +31,4 @@ export default function Candle({
       />
     </div>
   );
-}
+});

@@ -28,6 +28,8 @@ export const cakeImg = style({
   display: 'block',
   width: '100%',
   height: 'auto',
+  filter: 'drop-shadow(0px 0px 6px #000000B2)',
+  zIndex: 1,
 });
 
 export const candleProp = [
@@ -65,4 +67,3 @@ export const candle2 = style([candleBase, { ...candleProp[1] }]);
 export const candle3 = style([candleBase, { ...candleProp[2] }]);
 export const candle4 = style([candleBase, { ...candleProp[3] }]);
 export const candle5 = style([candleBase, { ...candleProp[4] }]);
-export const candle6 = style([candleBase, { ...candleProp[5] }]);

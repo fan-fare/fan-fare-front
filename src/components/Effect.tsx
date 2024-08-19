@@ -20,6 +20,7 @@ export default function Effect() {
         width={0}
         height={0}
         className={glitterImg}
+        priority
       />
       <Image
         src={'/assets/flags.svg'}
