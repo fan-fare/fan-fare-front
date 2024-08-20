@@ -4,7 +4,6 @@ import { uiyeun } from "./common/common.css";
 export const formLabel = style({
   display: 'flex',
   width: '100%',
-  alignContent: 'flex-start',
   fontWeight: 400,
   color: '#000000',
 });
@@ -20,6 +19,8 @@ export const formInput = style({
   textAlign: 'center',
   fontFamily: uiyeun,
   color: '#000000',
+  justifyContent: 'center',
+  backgroundColor: '#FFFFFF',
   WebkitAppearance: 'none',
 
   '::placeholder': {
