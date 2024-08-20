@@ -9,12 +9,10 @@ import {
   decoFormTextArea,
   decoMessage,
   decoPageContainer,
-  decoFormSubmitBtnContainer,
   decoFormInputContainer,
   decoBtnContainer,
 } from '@/styles/pages/decoration/decoration.css';
 import { useMutation } from '@tanstack/react-query';
-import { log } from 'console';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
