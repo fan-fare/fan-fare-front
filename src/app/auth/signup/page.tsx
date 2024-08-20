@@ -10,8 +10,6 @@ import {
   authFormLabel,
 } from '@/styles/pages/auth/auth.css';
 import { buttonDarkHalf } from '@/styles/button.css';
-import { FormEvent } from 'react';
-import { api } from '@/app/api/fetch';
 import { useMutation } from '@tanstack/react-query';
 import { signupMutationOption } from '@/app/api/queryOptions';
 

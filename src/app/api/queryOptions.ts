@@ -1,4 +1,4 @@
-import { queryOptions, UseMutationOptions } from '@tanstack/react-query';
+import { UseMutationOptions } from '@tanstack/react-query';
 import { api } from './fetch';
 
 const normalRetryCount = 3;
