@@ -1,6 +1,9 @@
 import {
   flexCenterContainer,
+  pc,
   pretendard,
+  smallMobile,
+  tablet,
   uiyeun,
 } from '@/styles/common/common.css';
 import { formInput } from '@/styles/form.css';
@@ -14,6 +17,14 @@ export const decoPageContainer = style([
     paddingTop: '3rem',
     paddingBottom: '3rem',
     maxWidth: '40rem',
+    gap: '1rem',
+
+    '@media': {
+      [smallMobile]: {
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+      },
+    },
   },
 ]);
 
@@ -60,22 +71,37 @@ export const activatedCandleContainer = style([
   },
 ]);
 
-export const decoForm = style({
-  display: 'flex',
-  width: '100%',
-  height: 'auto',
-  padding: '2rem',
-  flexDirection: 'column',
-  gap: '1rem',
-  boxSizing: 'border-box',
-});
-
-export const decoButtonContainer = style({
+export const decoBtnContainer = style({
   display: 'flex',
   height: '100%',
   flexDirection: 'column',
   justifyContent: 'flex-end',
   fontFamily: pretendard,
+});
+
+export const decoForm = style({
+  display: 'flex',
+  width: '100%',
+  height: '100%',
+  padding: '0 2rem',
+  flexDirection: 'column',
+  boxSizing: 'border-box',
+  gap: '1rem',
+
+  '@media': {
+    [pc]: {
+      height: 'auto',
+    },
+  },
+});
+
+export const decoFormInputContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
+  width: '100%',
+  height: '100%',
+  boxSizing: 'border-box',
 });
 
 export const decoFormTextArea = style([
@@ -86,6 +112,18 @@ export const decoFormTextArea = style([
     boxSizing: 'border-box',
     alignContent: 'center',
     justifyContent: 'center',
+
+    '@media': {
+      [smallMobile]: {
+        height: '13rem',
+      },
+      [tablet]: {
+        height: '17rem',
+      },
+      [pc]: {
+        height: '20rem',
+      }
+    },
   },
 ]);
 
@@ -95,3 +133,17 @@ export const decoFormNickname = style([
     height: '3rem',
   },
 ]);
+
+export const decoFormSubmitBtnContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  justifyContent: 'flex-end',
+
+  '@media': {
+    [pc]: {
+      height: 'auto',
+    },
+  },
+});

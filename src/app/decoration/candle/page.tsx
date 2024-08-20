@@ -7,7 +7,7 @@ import {
   activatedCandleContainer,
   candleContainer,
   candleSelector,
-  decoButtonContainer,
+  decoBtnContainer,
   decoMessage,
   decoPageContainer,
 } from '@/styles/pages/decoration/decoration.css';
@@ -39,7 +39,7 @@ export default function Page() {
             </div>
           ))}
         </div>
-        <div className={decoButtonContainer}>
+        <div className={decoBtnContainer}>
           <Link
             href={selected ? `/decoration/message?candle_id=${selected}` : '#'}
             className={
