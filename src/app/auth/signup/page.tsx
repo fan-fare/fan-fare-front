@@ -46,7 +46,7 @@ export default function Page() {
             id="birth"
             name="birth"
             type="date"
-            placeholder="생일을 입력해주세요."
+            defaultValue={new Date().toISOString().split('T')[0]}
             className={authFormInput}
           />
         </div>
