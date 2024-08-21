@@ -29,7 +29,7 @@ import { FaQuestionCircle } from 'react-icons/fa';
 export default function Home() {
   const [currentCake, setCurrentCake] = useState(1);
   const [cakeCount, setCakeCount] = useState(14);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME;
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? '';
