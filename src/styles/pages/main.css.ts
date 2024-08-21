@@ -107,13 +107,15 @@ export const cakeContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2rem',
-  padding: '1rem 3rem 1rem 3rem',
+  padding: '1rem 3rem',
   boxSizing: 'border-box',
 
   '@media': {
     [smallMobile]: {
-      padding: '1rem 3rem',
       gap: '1rem',
+    },
+    [tablet]: {
+      padding: '2rem 3rem',
     },
   },
 });

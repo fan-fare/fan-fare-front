@@ -4,7 +4,7 @@ import { pc, smallMobile, tablet } from './common/common.css';
 export const cake = style({
   display: 'flex',
   flexDirection: 'column',
-  width: '50%',
+  width: '30%',
   height: 'auto',
   alignItems: 'center',
   justifyContent: 'center',
@@ -18,7 +18,7 @@ export const cake = style({
       width: '50%',
     },
     [pc]: {
-      width: '210px',
+      width: '280px',
       height: 'auto',
     },
   },

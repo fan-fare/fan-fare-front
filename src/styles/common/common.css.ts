@@ -4,7 +4,7 @@ export const pretendard = 'Pretendard';
 export const uiyeun = 'Ownglyph EuiyeonChae';
 
 export const pc = '(min-width: 769px) and (min-height: 601px)';
-export const smallMobile = '(max-width: 400px), (max-height: 600px)';
+export const smallMobile = '(max-width: 400px), (min-height: 400px)';
 export const tablet = '(min-width: 500px) and (min-height: 500px)';
 
 globalStyle('html, body', {
