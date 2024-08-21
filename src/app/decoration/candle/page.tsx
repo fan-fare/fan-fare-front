@@ -35,7 +35,7 @@ export default function Page() {
               onClick={() => setSelected(i + 1)}
               onTouchEnd={() => setSelected(i + 1)}
             >
-              <Candle id={i + 1} />
+              <Candle candleType={i + 1} />
             </div>
           ))}
         </div>

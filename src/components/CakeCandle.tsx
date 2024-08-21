@@ -1,18 +1,19 @@
 import { memo } from 'react';
 import Candle from './Candle';
+import { CandleType } from '@/interfaces/candles';
 
 export default memo(function CakeCandle({
-  id,
+  candleType,
   candlePositionClass,
   isGlittering = true,
 }: {
-  id: number;
+  candleType: CandleType;
   candlePositionClass: string;
   isGlittering?: boolean;
 }) {
   return (
     <div className={candlePositionClass}>
-      <Candle id={id} isGlittering={isGlittering} />
+      <Candle candleType={candleType} isGlittering={isGlittering} />
     </div>
   );
 });
