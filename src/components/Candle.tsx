@@ -1,30 +1,38 @@
+import { CandleType } from '@/interfaces/candles';
 import { candleImg, candleImgContainer, glittering } from '@/styles/candle.css';
 import Image from 'next/image';
 import { memo } from 'react';
 
+/**
+ * Candle component
+ * @param candleType type of candle
+ * @param isGlittering whether the candle is glittering
+ * @returns candle component
+ */
 export default memo(function Candle({
-  id,
+  candleType,
   isGlittering = false,
 }: {
-  id: number;
+  candleType: CandleType;
   isGlittering?: boolean;
 }) {
-  const path = '/assets/candle/';
-  const candleMap = new Map([
-    [1, '1.svg'],
-    [2, '2.svg'],
-    [3, '3.svg'],
-    [4, '4.svg'],
-    [5, '5.svg'],
-    [6, '6.svg'],
+  // Constants
+  const path = '/assets/candle/'; // path to candle images
+  const candleMap = new Map<CandleType, string>([ // candle image map
+    ['1', '1.svg'],
+    ['2', '2.svg'],
+    ['3', '3.svg'],
+    ['4', '4.svg'],
+    ['5', '5.svg'],
+    ['6', '6.svg'],
   ]);
 
   return (
     <div className={candleImgContainer}>
       {isGlittering && <div className={glittering}></div>}
       <Image
-        src={`${path}${candleMap.get(id)}`}
-        alt={candleMap.get(id) || ''}
+        src={`${path}${candleMap.get(candleType)}`}
+        alt={candleMap.get(candleType) || ''}
         width={0}
         height={0}
         className={candleImg}

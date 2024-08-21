@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css';
 import {
-  fullScreenContainer,
   pc,
   pretendard,
   smallMobile,
@@ -13,10 +12,13 @@ export const mainPageContainer = style({
   height: '100%',
   placeItems: 'center',
   gridTemplateColumns: '1fr',
-  gridTemplateRows: '1fr 1fr 3fr 1fr',
+  gridTemplateRows: '1fr 2fr 3fr 2fr',
+  padding: '2rem 0',
+  boxSizing: 'border-box',
 
   '@media': {
     [pc]: {
+    gridTemplateRows: '1fr 1fr 3fr 1fr',
       width: '680px',
       height: '100%',
     },
@@ -29,12 +31,13 @@ export const pageTop = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  padding: '2rem',
+  height: '100%',
+  padding: '0 2rem',
   boxSizing: 'border-box',
 
   '@media': {
     [smallMobile]: {
-      padding: '1rem',
+      padding: '0 1rem',
     },
   },
 });
@@ -104,13 +107,15 @@ export const cakeContainer = style({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2rem',
-  padding: '3rem',
+  padding: '1rem 3rem',
   boxSizing: 'border-box',
 
   '@media': {
     [smallMobile]: {
-      padding: '1rem 3rem',
       gap: '1rem',
+    },
+    [tablet]: {
+      padding: '2rem 3rem',
     },
   },
 });
@@ -143,7 +148,19 @@ export const cakePageCountContainer = style({
   },
 });
 
-export const buttonContainer = style({
+export const fullButtonContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  padding: '0 2rem',
+  boxSizing: 'border-box',
+  gap: '1rem',
+});
+
+export const halfButtonContainer = style({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
