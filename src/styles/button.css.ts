@@ -103,3 +103,10 @@ export const buttonDarkFull = style([
     color: '#fff',
   },
 ]);
+
+export const buttonWhiteLinkFull = style([
+  buttonWhiteFull,
+  {
+    border: '2px dashed #3E3E3E',
+  },
+]);

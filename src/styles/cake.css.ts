@@ -4,21 +4,21 @@ import { pc, smallMobile, tablet } from './common/common.css';
 export const cake = style({
   display: 'flex',
   flexDirection: 'column',
-  width: '80%',
+  width: '50%',
   height: 'auto',
   alignItems: 'center',
   justifyContent: 'center',
   position: 'relative',
 
   '@media': {
-    [tablet]: {
-      width: '50%',
-    },
     [smallMobile]: {
       width: '70%',
     },
+    [tablet]: {
+      width: '50%',
+    },
     [pc]: {
-      width: '250px',
+      width: '210px',
       height: 'auto',
     },
   },
