@@ -34,7 +34,7 @@ export default function Page() {
   // Mutation Action
   const createPostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const candleId = Number(searchParams.get('candle_id'));
+    const candleId = Number(searchParams.get('candle_type'));
     await createPost.mutateAsync({
       candleId,
       message,
