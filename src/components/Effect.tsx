@@ -11,6 +11,7 @@ import {
 } from '@/styles/effect.css';
 import Image from 'next/image';
 
+// Main page effect component
 export default function Effect() {
   return (
     <div className={effectContainer}>

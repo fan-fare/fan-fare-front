@@ -5,6 +5,12 @@ import {
 } from '@/styles/layout.css';
 import Link from 'next/link';
 
+/**
+ * AuthLinks component
+ * @param current Current page
+ * @returns AuthLinks component
+ * @example <AuthLinks current="signin" />
+ */
 export default function AuthLinks({
   current,
 }: {

@@ -12,6 +12,11 @@ import CakeCandle from './CakeCandle';
 import { CakeType } from '@/interfaces/cakes';
 import { CandleType } from '@/interfaces/candles';
 
+/**
+ * @param cakeType type of cake
+ * @param candles array of candles
+ * @returns cake component
+ */
 export default function Cake({
   cakeType = '1',
   candles,
@@ -19,9 +24,9 @@ export default function Cake({
   cakeType?: CakeType;
   candles: Array<CandleType>;
 }) {
-  const candlePositions = [candle1, candle2, candle3, candle4, candle5];
-
-  const cakeImage = new Map<CakeType, string>([['1', '1.svg']]);
+  // Constants
+  const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
+  const cakeImage = new Map<CakeType, string>([['1', '1.svg']]); // cake image map
 
   return (
     <div className={cake}>

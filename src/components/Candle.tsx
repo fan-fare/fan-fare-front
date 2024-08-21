@@ -3,6 +3,12 @@ import { candleImg, candleImgContainer, glittering } from '@/styles/candle.css';
 import Image from 'next/image';
 import { memo } from 'react';
 
+/**
+ * Candle component
+ * @param candleType type of candle
+ * @param isGlittering whether the candle is glittering
+ * @returns candle component
+ */
 export default memo(function Candle({
   candleType,
   isGlittering = false,
@@ -10,8 +16,9 @@ export default memo(function Candle({
   candleType: CandleType;
   isGlittering?: boolean;
 }) {
-  const path = '/assets/candle/';
-  const candleMap = new Map<CandleType, string>([
+  // Constants
+  const path = '/assets/candle/'; // path to candle images
+  const candleMap = new Map<CandleType, string>([ // candle image map
     ['1', '1.svg'],
     ['2', '2.svg'],
     ['3', '3.svg'],

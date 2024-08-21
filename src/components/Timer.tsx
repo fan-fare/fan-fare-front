@@ -8,6 +8,7 @@ import {
 } from '@/styles/timer.css';
 import Image from 'next/image';
 
+// Timer component
 export default function Timer() {
   return (
     <div className={timerContainer}>

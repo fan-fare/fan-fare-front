@@ -2,6 +2,11 @@ import { prevPageLayout, prevPageLink } from '@/styles/layout.css';
 import Link from 'next/link';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 
+/**
+ * PrevPage component
+ * @param url URL to go back
+ * @param children children components
+ */
 export default function PrevPage({
   url,
   children,
