@@ -1,10 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import {
-  pc,
-  pretendard,
-  smallMobile,
-  tablet,
-} from '../common/common.css';
+import { pc, pretendard, smallMobile, tablet } from '../common/common.css';
 
 export const mainPageContainer = style({
   display: 'grid',
@@ -12,13 +7,12 @@ export const mainPageContainer = style({
   height: '100%',
   placeItems: 'center',
   gridTemplateColumns: '1fr',
-  gridTemplateRows: '1fr 2fr 3fr 2fr',
+  gridTemplateRows: '1fr 2fr 4fr 1fr',
   padding: '2rem 0',
   boxSizing: 'border-box',
 
   '@media': {
     [pc]: {
-    gridTemplateRows: '1fr 1fr 3fr 1fr',
       width: '680px',
       height: '100%',
     },
@@ -148,6 +142,15 @@ export const cakePageCountContainer = style({
   },
 });
 
+export const cakePageBottomContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+});
+
 export const fullButtonContainer = style({
   display: 'flex',
   flexDirection: 'column',
@@ -163,7 +166,7 @@ export const fullButtonContainer = style({
 export const halfButtonContainer = style({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   alignItems: 'center',
   gap: '1rem',
 });

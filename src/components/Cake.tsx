@@ -6,6 +6,11 @@ import {
   candle3,
   candle4,
   candle5,
+  candleName1,
+  candleName2,
+  candleName3,
+  candleName4,
+  candleName5,
 } from '@/styles/cake.css';
 import Image from 'next/image';
 import CakeCandle from './CakeCandle';
@@ -20,12 +25,15 @@ import { CandleType } from '@/interfaces/candles';
 export default function Cake({
   cakeType = '1',
   candles,
+  names,
 }: {
   cakeType?: CakeType;
   candles: Array<CandleType>;
+  names: Array<string>;
 }) {
   // Constants
   const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
+  const candleNamePositions = [candleName1, candleName2, candleName3, candleName4, candleName5]; // candle name positions
   const cakeImage = new Map<CakeType, string>([['1', '1.svg']]); // cake image map
 
   return (
@@ -37,6 +45,8 @@ export default function Cake({
               key={i}
               candleType={candle}
               candlePositionClass={candlePositions[i]}
+              candleNamePositionClass={candleNamePositions[i]}
+              name={names[i]}
             />
           )
       )}

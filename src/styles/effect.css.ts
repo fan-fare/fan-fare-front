@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { flexCenterContainer, pc, smallMobile } from './common/common.css';
+import { pc } from './common/common.css';
 
 export const effectContainer = style([
   {
@@ -9,7 +9,6 @@ export const effectContainer = style([
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    flexDirection: 'column',
     overflow: 'hidden',
     zIndex: -10,
 
@@ -22,39 +21,64 @@ export const effectContainer = style([
   },
 ]);
 
+export const effect = style({
+  display: 'grid',
+  width: '100%',
+  height: '100%',
+  position: 'relative',
+  placeItems: 'center',
+  gridTemplateColumns: '1fr',
+  gridTemplateRows: '1.8fr 1fr 4fr',
+  padding: '2rem 0',
+  boxSizing: 'border-box',
+
+  '@media': {
+    [pc]: {
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: '1.5fr 1fr 4fr',
+    },
+  },
+});
+
 export const glitterImg = style({
   position: 'absolute',
   top: '20%',
-  width: '200%',
+  width: '150%',
   height: 'auto',
   overflow: 'hidden',
 });
 
+export const flagsImgContainer = style({
+  display: 'flex',
+  flexDirection: 'row',
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
 export const flagsImg = style({
+  display: 'block',
   position: 'absolute',
-  top: '26%',
-  width: 'auto',
-  height: '14%',
+  width: '230%',
+  height: 'auto',
   overflow: 'hidden',
 
   '@media': {
     [pc]: {
-      top: '20%',
-      height: '20%',
+      width: '100%',
     },
   },
 });
 
 export const balloonContainer = style({
-  position: 'absolute',
+  display: 'flex',
+  position: 'relative',
   width: '100%',
-  height: '50%',
-  bottom: 0,
+  height: '100%',
 
   '@media': {
-    [smallMobile]: {
-      width: '120%',
-    },
     [pc]: {
       width: '90%',
     },
@@ -63,24 +87,24 @@ export const balloonContainer = style({
 
 export const balloonProp = [
   {
-    top: '35%',
-    left: '-1%',
+    bottom: '10%',
+    left: '0%',
   },
   {
-    top: '10%',
+    bottom: '40%',
     left: '9%',
   },
   {
-    bottom: '24%',
+    bottom: '8%',
     right: '14%',
   },
   {
-    bottom: '18%',
+    bottom: '3%',
     right: '6%',
   },
   {
-    bottom: '14%',
-    right: '16%',
+    bottom: '0%',
+    right: '12%',
   },
 ];
 
