@@ -3,7 +3,7 @@ import { globalFontFace, globalStyle, style } from '@vanilla-extract/css';
 export const pretendard = 'Pretendard';
 export const uiyeun = 'Ownglyph EuiyeonChae';
 
-export const pc = '(min-width: 769px) and (min-height: 601px)';
+export const pc = '(min-width: 769px) and (min-height: 501px)';
 export const smallMobile = '(max-width: 400px), (min-height: 400px)';
 export const tablet = '(min-width: 500px) and (min-height: 500px)';
 
