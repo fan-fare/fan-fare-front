@@ -34,16 +34,16 @@ export const cakeImg = style({
 
 export const candleProp = [
   {
-    top: '-12%',
+    top: '-13%',
     right: '48%',
   },
   {
-    top: '-17%',
-    right: '60%',
+    top: '-19%',
+    right: '65%',
   },
   {
-    top: '-17%',
-    left: '60%',
+    top: '-19%',
+    left: '65%',
   },
   {
     top: '21%',
