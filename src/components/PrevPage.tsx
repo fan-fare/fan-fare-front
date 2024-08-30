@@ -1,3 +1,4 @@
+'use client';
 import { prevPageLayout, prevPageLink } from '@/styles/layout.css';
 import Link from 'next/link';
 import { MdKeyboardArrowLeft } from 'react-icons/md';

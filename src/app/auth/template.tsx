@@ -1,5 +1,11 @@
+'use client';
+
 import PrevPage from '@/components/PrevPage';
+import { useSearchParams } from 'next/navigation';
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <PrevPage url="/">{children}</PrevPage>;
+  // Search Params
+  const member = useSearchParams().get('member');
+
+  return <PrevPage url={member ? `/${member}` : '/'}>{children}</PrevPage>;
 }

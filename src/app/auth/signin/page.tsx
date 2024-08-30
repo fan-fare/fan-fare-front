@@ -12,19 +12,24 @@ import {
   authFormLabel,
 } from '@/styles/pages/auth/auth.css';
 import { useMutation } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Page() {
+  // Search Params
+  const member = useSearchParams().get('member');
+
   // Mutation
   const signin = useMutation(signinMutationOption);
-  
+
   // Mutation Action
   const signinAction = async (formData: FormData) => {
     await signin.mutateAsync(formData);
-  }
+  };
 
   return (
     <div className={authPageContainer}>
-      <AuthLinks current="signin" />
+      <AuthLinks current="signin" member={member} />
       <form className={authForm} action={signinAction}>
         <div className={formElement}>
           <label htmlFor="nickname" className={authFormLabel}>

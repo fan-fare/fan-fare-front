@@ -25,10 +25,11 @@ import {
   cakePageBottomContainer,
 } from '@/styles/pages/main.css';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
 
-export default function Home() {
+export default function Home({ params }: { params: { member: string } }) {
   const [currentCake, setCurrentCake] = useState(1);
   const [cakeCount, setCakeCount] = useState(14);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -48,7 +49,6 @@ export default function Home() {
 
   const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME;
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? '';
-
   return (
     <main className={mainPageContainer}>
       <Effect />
@@ -88,10 +88,16 @@ export default function Home() {
       {!loggedIn && (
         <div className={cakePageBottomContainer}>
           <div className={halfButtonContainer}>
-            <Link href={'/auth/signin'} className={buttonWhiteHalf}>
+            <Link
+              href={`/auth/signin?member=${params.member}`}
+              className={buttonWhiteHalf}
+            >
               로그인
             </Link>
-            <Link href={'/decoration/candle'} className={buttonPrimaryHalf}>
+            <Link
+              href={`/decoration/candle?member=${params.member}`}
+              className={buttonPrimaryHalf}
+            >
               이 케이크 꾸미기
             </Link>
           </div>

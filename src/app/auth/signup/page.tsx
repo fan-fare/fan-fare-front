@@ -12,19 +12,30 @@ import {
 import { buttonDarkHalf } from '@/styles/button.css';
 import { useMutation } from '@tanstack/react-query';
 import { signupMutationOption } from '@/app/api/queryOptions';
+import { ISignupRequest } from '@/interfaces/request';
+import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
+  // Search Params
+  const member = useSearchParams().get('member');
+
   // Mutation
   const signup = useMutation(signupMutationOption);
 
   // Mutation Action
   const signupAction = async (formData: FormData) => {
-    await signup.mutateAsync(formData);
+    const data: ISignupRequest = {
+      nickname: formData.get('nickname') as string,
+      username: formData.get('id') as string,
+      password: formData.get('password') as string,
+      birthday: new Date(formData.get('birth') as string),
+    };
+    await signup.mutateAsync(data);
   };
 
   return (
     <div className={authPageContainer}>
-      <AuthLinks current="signup" />
+      <AuthLinks current="signup" member={member} />
       <form action={signupAction} className={authForm}>
         <div className={formElement}>
           <label htmlFor="nickname" className={authFormLabel}>
