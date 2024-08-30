@@ -26,6 +26,7 @@ export const signupMutationOption: UseMutationOptions<void, Error, any> = {
     await api.signup(data);
   },
 };
+
 export const getCakeQueryOption = (memberId: BigInt, page: number) => {
   queryOptions({
     queryKey: ['getCake', memberId, page],

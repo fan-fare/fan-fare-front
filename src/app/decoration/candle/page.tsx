@@ -17,7 +17,14 @@ import { useState } from 'react';
 
 export default function Page() {
   // Constants
-  const candleList: Array<CandleType> = ['1', '2', '3', '4', '5', '6'];
+  const candleList: Array<CandleType> = [
+    'CANDLE_COLOR_1',
+    'CANDLE_COLOR_2',
+    'CANDLE_COLOR_3',
+    'CANDLE_COLOR_4',
+    'CANDLE_COLOR_5',
+    'CANDLE_COLOR_6',
+  ];
 
   // State
   const [selected, setSelected] = useState<string | null>(null);
