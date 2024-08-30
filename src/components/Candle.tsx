@@ -19,12 +19,12 @@ export default memo(function Candle({
   // Constants
   const path = '/assets/candle/'; // path to candle images
   const candleMap = new Map<CandleType, string>([ // candle image map
-    ['CANDLE_COLOR_1', 'candle1.png'],
-    ['CANDLE_COLOR_2', 'candle2.png'],
-    ['CANDLE_COLOR_3', 'candle3.png'],
-    ['CANDLE_COLOR_4', 'candle4.png'],
-    ['CANDLE_COLOR_5', 'candle5.png'],
-    ['CANDLE_COLOR_6', 'candle6.png'],
+    ['CANDLE_COLOR_1', 'candle1.svg'],
+    ['CANDLE_COLOR_2', 'candle2.svg'],
+    ['CANDLE_COLOR_3', 'candle3.svg'],
+    ['CANDLE_COLOR_4', 'candle4.svg'],
+    ['CANDLE_COLOR_5', 'candle5.svg'],
+    ['CANDLE_COLOR_6', 'candle6.svg'],
   ]);
 
   return (
