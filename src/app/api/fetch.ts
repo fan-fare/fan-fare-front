@@ -1,9 +1,19 @@
 const url = {
-  signin: '/api/auth/signin',
-  signup: '/api/auth/signup',
+  isExisting: '/members/exist',
+  signin: '/login',
+  signup: '/signup',
+  getCake: '/cake',
+  writeMessage: '/message',
+  readMessage: '/message',
+  deleteMessage: '/message',
 };
 
 export const api = {
+  isExisting: async (id: BigInt) => {
+    return await fetch(`${url.isExisting}?id=${id}`, {
+      method: 'GET',
+    });
+  },
   login: async (data: FormData) => {
     return await fetch(url.signin, {
       method: 'POST',
@@ -16,7 +26,12 @@ export const api = {
       body: data,
     });
   },
-  createPost: async ({
+  getCake: async ({ memberId, page }: { memberId: BigInt; page: number }) => {
+    return await fetch(`${url.getCake}/${memberId}?page=${page}`, {
+      method: 'GET',
+    });
+  },
+  writeMessage: async ({
     candleId,
     message,
     nickname,
@@ -32,5 +47,15 @@ export const api = {
       },
       body: JSON.stringify({ candleId, message, nickname }),
     });
-  }
+  },
+  readMessage: async (messageId: BigInt) => {
+    return await fetch(`${url.readMessage}/${messageId}`, {
+      method: 'GET',
+    });
+  },
+  deleteMessage: async (messageId: BigInt) => {
+    return await fetch(`${url.deleteMessage}/${messageId}`, {
+      method: 'DELETE',
+    });
+  },
 };
