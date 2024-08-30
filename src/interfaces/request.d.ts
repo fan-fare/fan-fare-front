@@ -1,6 +1,6 @@
 import { CandleType } from "./candles";
 
-export interface ISigninRequest {
+export interface ISignupRequest {
   nickname: string;
   username: string;
   password: string;
