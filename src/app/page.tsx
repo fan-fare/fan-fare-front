@@ -32,8 +32,19 @@ export default function Home() {
   const [currentCake, setCurrentCake] = useState(1);
   const [cakeCount, setCakeCount] = useState(14);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [candles, setCandles] = useState<CandleType[]>(['1', '3', '3', '2', '6']);
-  const [names, setNames] = useState(['이편지는영국에서전달된편지입니다', '누구', '홍길동', 'adsfdafasf', '아무개']);
+  const [candles, setCandles] = useState<CandleType[]>([
+    'CANDLE_COLOR_1',
+    'CANDLE_COLOR_2',
+    'CANDLE_COLOR_3',
+    'CANDLE_COLOR_4',
+  ]);
+  const [names, setNames] = useState([
+    '이편지는영국에서전달된편지입니다',
+    '누구',
+    '홍길동',
+    'adsfdafasf',
+    '아무개',
+  ]);
 
   const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME;
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? '';
@@ -75,14 +86,14 @@ export default function Home() {
       )}
       {!loggedIn && (
         <div className={cakePageBottomContainer}>
-        <div className={halfButtonContainer}>
-          <Link href={'/auth/signin'} className={buttonWhiteHalf}>
-            로그인
-          </Link>
-          <Link href={'/decoration/candle'} className={buttonPrimaryHalf}>
-            이 케이크 꾸미기
-          </Link>
-        </div>
+          <div className={halfButtonContainer}>
+            <Link href={'/auth/signin'} className={buttonWhiteHalf}>
+              로그인
+            </Link>
+            <Link href={'/decoration/candle'} className={buttonPrimaryHalf}>
+              이 케이크 꾸미기
+            </Link>
+          </div>
         </div>
       )}
     </main>
