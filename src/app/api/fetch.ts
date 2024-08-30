@@ -1,6 +1,7 @@
-import { ICreateMessageRequest } from '@/interfaces/request';
+import { ICreateMessageRequest, ISignupRequest } from '@/interfaces/request';
 import {
   ICheckIdResponse,
+  ICreateMessageResponse,
   IReadMessageResponse,
   ISignupResponse,
 } from '@/interfaces/response';
@@ -58,10 +59,10 @@ export const api = {
       body: data,
     });
   },
-  signup: async (data: FormData) => {
+  signup: async (data: ISignupRequest) => {
     return await customFetch<ISignupResponse>(url.signup, {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(data),
     });
   },
   getCake: async ({ memberId, page }: { memberId: BigInt; page: number }) => {
@@ -69,21 +70,13 @@ export const api = {
       method: 'GET',
     });
   },
-  writeMessage: async ({
-    candleId,
-    message,
-    nickname,
-  }: {
-    candleId: number;
-    message: string;
-    nickname: string;
-  }) => {
-    return await customFetch<ICreateMessageRequest>('/api/post', {
+  writeMessage: async (data: ICreateMessageRequest) => {
+    return await customFetch<ICreateMessageResponse>('/api/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ candleId, message, nickname }),
+      body: JSON.stringify(data),
     });
   },
   readMessage: async (messageId: BigInt) => {

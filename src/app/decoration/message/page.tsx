@@ -2,6 +2,8 @@
 
 import { createPostMutationOption } from '@/app/api/queryOptions';
 import PrevPage from '@/components/PrevPage';
+import { CandleType } from '@/interfaces/candles';
+import { ICreateMessageRequest } from '@/interfaces/request';
 import { buttonPrimaryHalf, disabledButtonHalf } from '@/styles/button.css';
 import {
   decoForm,
@@ -34,12 +36,14 @@ export default function Page() {
   // Mutation Action
   const createPostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const candleId = Number(searchParams.get('candle_type'));
-    await createPost.mutateAsync({
-      candleId,
-      message,
-      nickname,
-    });
+    const candleColor = searchParams.get('candle_type') as CandleType
+    const data: ICreateMessageRequest = {
+      memberId: BigInt(searchParams.get('member_id') as string),
+      color: candleColor,
+      content: message,
+      nickname: nickname,
+    }
+    await createPost.mutateAsync(data);
     router.push('/');
   };
 

@@ -1,5 +1,6 @@
 import { queryOptions, UseMutationOptions } from '@tanstack/react-query';
 import { api } from './fetch';
+import { ICreateMessageRequest, ISignupRequest } from '@/interfaces/request';
 
 const normalRetryCount = 3;
 
@@ -20,9 +21,9 @@ export const signinMutationOption: UseMutationOptions<void, Error, FormData> = {
   },
 };
 
-export const signupMutationOption: UseMutationOptions<void, Error, any> = {
+export const signupMutationOption: UseMutationOptions<void, Error, ISignupRequest> = {
   retry: normalRetryCount,
-  mutationFn: async (data: FormData) => {
+  mutationFn: async (data: ISignupRequest) => {
     await api.signup(data);
   },
 };
@@ -40,15 +41,11 @@ export const getCakeQueryOption = (memberId: BigInt, page: number) => {
 export const createPostMutationOption: UseMutationOptions<
   void,
   Error,
-  { candleId: number; message: string; nickname: string }
+  ICreateMessageRequest
 > = {
   retry: normalRetryCount,
-  mutationFn: async ({ candleId, message, nickname }) => {
-    await api.writeMessage({
-      candleId,
-      message,
-      nickname,
-    });
+  mutationFn: async (data: ICreateMessageRequest) => {
+    await api.writeMessage(data);
   },
 };
 
