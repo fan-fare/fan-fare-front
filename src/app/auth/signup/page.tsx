@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import AuthLinks from '@/components/AuthLinks';
+import AuthLinks from "@/components/AuthLinks";
 import {
   authPageContainer,
   authForm,
@@ -8,29 +8,49 @@ import {
   formElement,
   authFormInput,
   authFormLabel,
-} from '@/styles/pages/auth/auth.css';
-import { buttonDarkHalf } from '@/styles/button.css';
-import { useMutation } from '@tanstack/react-query';
-import { signupMutationOption } from '@/app/api/queryOptions';
-import { ISignupRequest } from '@/interfaces/request';
-import { useSearchParams } from 'next/navigation';
+} from "@/styles/pages/auth/auth.css";
+import { buttonDarkHalf } from "@/styles/button.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  isExistingQueryOption,
+  signupMutationOption,
+} from "@/app/api/queryOptions";
+import { ISignupRequest } from "@/interfaces/request";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  // Router
+  const router = useRouter();
+
   // Search Params
-  const member = useSearchParams().get('member');
+  const member = useSearchParams().get("member");
 
   // Mutation
   const signup = useMutation(signupMutationOption);
 
+  // Query
+  const queryClient = useQueryClient();
+
   // Mutation Action
   const signupAction = async (formData: FormData) => {
     const data: ISignupRequest = {
-      nickname: formData.get('nickname') as string,
-      username: formData.get('id') as string,
-      password: formData.get('password') as string,
-      birthday: new Date(formData.get('birth') as string),
+      nickname: formData.get("nickname") as string,
+      username: formData.get("id") as string,
+      password: formData.get("password") as string,
+      birthday: new Date(formData.get("birth") as string),
     };
-    await signup.mutateAsync(data);
+
+    await queryClient
+      .fetchQuery(isExistingQueryOption(data.username))
+      .catch(() => {
+        // error handling
+      });
+
+    await signup.mutateAsync(data).then(() => {
+      // navigate to login page
+      router.push(member ? `/auth/signin?member=${member}` : "/auth/signin");
+    });
   };
 
   return (
@@ -57,7 +77,7 @@ export default function Page() {
             id="birth"
             name="birth"
             type="date"
-            defaultValue={new Date().toISOString().split('T')[0]}
+            defaultValue={new Date().toISOString().split("T")[0]}
             className={authFormInput}
           />
         </div>

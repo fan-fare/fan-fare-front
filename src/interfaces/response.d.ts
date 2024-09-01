@@ -7,6 +7,12 @@ export interface IResponse<T = undefined | any> {
   data: T;
 }
 
+export interface ISigninResponse {
+  status?: number;
+  message: string;
+  code?: string;
+}
+
 export interface ICheckIdResponse extends IResponse<boolean> {}
 
 export interface ISignupResponse extends IResponse<BigInt | undefined> {}
@@ -21,3 +27,7 @@ export interface IReadMessageResponse
     beforeMessageId: BigInt;
     nextMessageId: BigInt;
   }> {}
+
+export interface IGetCakeResponse extends IResponse<{}> {}
+
+export interface IDeleteMessageResponse extends IResponse<{}> {}

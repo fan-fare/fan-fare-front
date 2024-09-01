@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { uiyeun } from "./common/common.css";
 
 export const formLabel = style({
-  display: 'flex',
+ display: 'flex',
   width: '100%',
   fontWeight: 400,
   color: '#000000',

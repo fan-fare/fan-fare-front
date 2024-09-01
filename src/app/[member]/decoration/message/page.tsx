@@ -18,10 +18,10 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
-export default function Page() {
+export default function Page({ params }: { params: { member: string } }) {
   // Constants
   const messageInputText = `친구 생일을 진심으로 축하해주는 당신은 멋쟁이!!\n여기에 메세지를 입력해주세요`;
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
 
   // Router
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function Page() {
     e.preventDefault();
     const candleColor = searchParams.get('candle_type') as CandleType
     const data: ICreateMessageRequest = {
-      memberId: BigInt(searchParams.get('member_id') as string),
+      memberId: BigInt(params.member),
       color: candleColor,
       content: message,
       nickname: nickname,
@@ -48,7 +48,7 @@ export default function Page() {
   };
 
   return (
-    <PrevPage url="/decoration/candle">
+    <PrevPage url={`/${params.member}/decoration/candle`}>
       <div className={decoPageContainer}>
         <div className={decoMessage}>생일을 축하해주세요!</div>
         <form className={decoForm} onSubmit={createPostEvent}>

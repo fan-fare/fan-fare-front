@@ -1,10 +1,14 @@
-import { ICreateMessageRequest, ISignupRequest } from '@/interfaces/request';
+import { ICreateMessageRequest, ISigninRequest, ISignupRequest } from '@/interfaces/request';
 import {
   ICheckIdResponse,
   ICreateMessageResponse,
+  IDeleteMessageResponse,
+  IGetCakeResponse,
   IReadMessageResponse,
+  ISigninResponse,
   ISignupResponse,
 } from '@/interfaces/response';
+import { useUserStore } from '@/store/user.store';
 
 // API base URL
 const apiBase = process.env.API_URL;
@@ -27,9 +31,14 @@ const url = {
  * @returns promise of json response
  */
 const customFetch = async <T = unknown>(
-  input: string | URL | globalThis.Request,
-  init?: RequestInit
+  input: string | URL | globalThis.Request, // url string
+  init?: RequestInit, // optional parameter
+  useToken: boolean = false // default to false
 ) => {
+  let token: string | null = null;
+  if (useToken) {
+    token = useUserStore.getState().accessToken;
+  }
   // create a new URL object with the input string
   const url = new URL(input as string, apiBase);
   const response = await fetch(url, {
@@ -38,9 +47,17 @@ const customFetch = async <T = unknown>(
       ...init?.headers,
       // set the content type to application/json
       'Content-Type': 'application/json',
+      // set the Authorization header to the token
+      // if the token is not null
+      // otherwise, set it to an empty string
+      Authorization: token ? `Bearer ${token}` : '',
     },
   });
-  return response.json() as Promise<T>;
+  const headers = response.headers;
+  return {
+    headers, // pass the headers along
+    body: response.json() as Promise<T>, // parse the response body as json
+  }
 };
 
 /**
@@ -48,30 +65,30 @@ const customFetch = async <T = unknown>(
  * @returns promise of json response
  */
 export const api = {
-  isExisting: async (id: BigInt) => {
-    return await customFetch<ICheckIdResponse>(`${url.isExisting}?id=${id}`, {
+  isExisting: async (username: string) => {
+    return customFetch<ICheckIdResponse>(`${url.isExisting}?id=${username}`, {
       method: 'GET',
     });
   },
-  login: async (data: FormData) => {
-    return await customFetch<{}>(url.signin, {
+  login: async (data: ISigninRequest) => {
+    return customFetch<ISigninResponse>(url.signin, {
       method: 'POST',
-      body: data,
+      body: JSON.stringify(data),
     });
   },
   signup: async (data: ISignupRequest) => {
-    return await customFetch<ISignupResponse>(url.signup, {
+    return customFetch<ISignupResponse>(url.signup, {
       method: 'POST',
       body: JSON.stringify(data),
     });
   },
   getCake: async ({ memberId, page }: { memberId: BigInt; page: number }) => {
-    return await customFetch<{}>(`${url.getCake}/${memberId}?page=${page}`, {
+    return customFetch<IGetCakeResponse>(`${url.getCake}/${memberId}?page=${page}`, {
       method: 'GET',
     });
   },
   writeMessage: async (data: ICreateMessageRequest) => {
-    return await customFetch<ICreateMessageResponse>('/api/post', {
+    return customFetch<ICreateMessageResponse>('/api/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +97,7 @@ export const api = {
     });
   },
   readMessage: async (messageId: BigInt) => {
-    return await customFetch<IReadMessageResponse>(
+    return customFetch<IReadMessageResponse>(
       `${url.readMessage}/${messageId}`,
       {
         method: 'GET',
@@ -88,7 +105,7 @@ export const api = {
     );
   },
   deleteMessage: async (messageId: BigInt) => {
-    return await customFetch<{}>(`${url.deleteMessage}/${messageId}`, {
+    return customFetch<IDeleteMessageResponse>(`${url.deleteMessage}/${messageId}`, {
       method: 'DELETE',
     });
   },

@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { signinMutationOption } from '@/app/api/queryOptions';
-import AuthLinks from '@/components/AuthLinks';
-import { buttonDarkHalf } from '@/styles/button.css';
+import { signinMutationOption } from "@/app/api/queryOptions";
+import AuthLinks from "@/components/AuthLinks";
+import { ISigninRequest } from "@/interfaces/request";
+import { buttonDarkHalf } from "@/styles/button.css";
 import {
   authPageContainer,
   authForm,
@@ -10,21 +11,30 @@ import {
   formElement,
   authFormInput,
   authFormLabel,
-} from '@/styles/pages/auth/auth.css';
-import { useMutation } from '@tanstack/react-query';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+} from "@/styles/pages/auth/auth.css";
+import { useMutation } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  // Router
+  const router = useRouter();
+
   // Search Params
-  const member = useSearchParams().get('member');
+  const member = useSearchParams().get("member");
 
   // Mutation
   const signin = useMutation(signinMutationOption);
 
   // Mutation Action
   const signinAction = async (formData: FormData) => {
-    await signin.mutateAsync(formData);
+    const data: ISigninRequest = {
+      username: formData.get("id") as string,
+      password: formData.get("password") as string,
+    };
+    await signin.mutateAsync(data).then(() => {
+      router.push(member ? `/${member}` : "/");
+    });
   };
 
   return (

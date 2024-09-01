@@ -14,7 +14,6 @@ import {
   cakeMessage,
   textPoint,
   cakeTitle,
-  mainPageContainer,
   pageTop,
   pageTopText,
   questionMark,
@@ -23,6 +22,7 @@ import {
   cakePageCountContainer,
   fullButtonContainer,
   cakePageBottomContainer,
+  cakePageContainer,
 } from '@/styles/pages/main.css';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ export default function Home() {
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? '';
 
   return (
-    <main className={mainPageContainer}>
+    <main className={cakePageContainer}>
       <Effect />
       <div className={pageTop}>
         <div className={pageTopText}>

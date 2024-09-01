@@ -15,7 +15,7 @@ import {
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function Page() {
+export default function Page({ params }: { params: { member: string } }) {
   // Constants
   const candleList: Array<CandleType> = [
     'CANDLE_COLOR_1',
@@ -30,7 +30,7 @@ export default function Page() {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <PrevPage url="/">
+    <PrevPage url={`/${params.member}`}>
       <div className={decoPageContainer}>
         <div className={decoMessage}>케이크 장식을 선택해주세요.</div>
         <div className={candleSelector}>
@@ -49,7 +49,7 @@ export default function Page() {
         </div>
         <div className={decoBtnContainer}>
           <Link
-            href={selected ? `/decoration/message?candle_type=${selected}` : '#'}
+            href={selected ? `/${params.member}/decoration/message?candle_type=${selected}` : '#'}
             className={
               selected !== null ? buttonPrimaryHalf : disabledButtonHalf
             }

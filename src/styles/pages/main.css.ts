@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { pc, pretendard, smallMobile, tablet } from '../common/common.css';
 
-export const mainPageContainer = style({
+export const cakePageContainer = style({
   display: 'grid',
   width: '100%',
   height: '100%',
