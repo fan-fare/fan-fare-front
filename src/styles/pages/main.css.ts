@@ -25,7 +25,7 @@ export const pageTop = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: '100%',
-  height: '100%',
+  height: 'auto',
   padding: '0 2rem',
   boxSizing: 'border-box',
 
