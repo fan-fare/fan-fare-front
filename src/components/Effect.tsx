@@ -3,75 +3,122 @@ import {
   glitterImg,
   flagsImg,
   balloonContainer,
-  balloon1,
-  balloon2,
-  balloon3,
-  balloon4,
-  balloon5,
   effect,
-  flagsImgContainer,
-} from '@/styles/effect.css';
-import Image from 'next/image';
+  balloonBase,
+  papersImg,
+} from "@/styles/effect.css";
+import Image from "next/image";
 
 // Main page effect component
-export default function Effect() {
+export default function Effect({ main = false }: { main?: boolean }) {
+
+  const ballonImgs = [
+    "/assets/balloon/1.svg",
+    "/assets/balloon/2.svg",
+    "/assets/balloon/3.svg",
+    "/assets/balloon/4.svg",
+    "/assets/balloon/5.svg",
+  ];
+
+  const defaultBallonProps = [
+    {
+      bottom: "5%",
+      left: "0%",
+      zIndex: 1,
+    },
+    {
+      bottom: "20%",
+      left: "9%",
+    },
+    {
+      bottom: "8%",
+      right: "14%",
+      zIndex: 1,
+    },
+    {
+      bottom: "3%",
+      right: "6%",
+      zIndex: 0,
+    },
+    {
+      bottom: "2%",
+      right: "15%",
+      zIndex: 2,
+    },
+  ];
+
+  const mainPageBallonProps = [
+    {
+      top: "35%",
+      left: "0%",
+      zIndex: 1,
+    },
+    {
+      top: "20%",
+      left: "9%",
+    },
+    {
+      bottom: "26%",
+      right: "14%",
+    },
+    {
+      bottom: "23%",
+      right: "6%",
+    },
+    {
+      bottom: "20%",
+      right: "14%",
+    },
+  ];
+
+  const defaultFlagsProps = {
+    top: "27%",
+  };
+
+  const mainPageFlagsProps = {
+    top: "40%",
+  };
+
   return (
     <div className={effectContainer}>
-      <Image
-        src={'/assets/glitter.svg'}
-        alt="glitter"
-        width={0}
-        height={0}
-        className={glitterImg}
-        priority
-      />
       <div className={effect}>
-        <div></div>
-        <div className={flagsImgContainer}>
+        <Image
+          src={"/assets/glitter.svg"}
+          alt="glitter"
+          width={0}
+          height={0}
+          className={glitterImg}
+          priority
+        />
+        <Image
+          src={"/assets/flags.svg"}
+          alt="flags"
+          width={0}
+          height={0}
+          className={flagsImg}
+          style={main ? mainPageFlagsProps : defaultFlagsProps}
+        />
+        {main && (
           <Image
-            src={'/assets/flags.svg'}
-            alt="flags"
-            width={0}
+            src={"/assets/papers.png"}
+            alt="papers"
+            width={1000}
             height={0}
-            className={flagsImg}
+            className={papersImg}
           />
-        </div>
+        )}
         <div className={balloonContainer}>
-          <Image
-            src={'/assets/balloon/2.svg'}
-            alt="balloon"
-            width={0}
-            height={0}
-            className={balloon2}
-          />
-          <Image
-            src={'/assets/balloon/1.svg'}
-            alt="balloon"
-            width={0}
-            height={0}
-            className={balloon1}
-          />
-          <Image
-            src={'/assets/balloon/3.svg'}
-            alt="balloon"
-            width={0}
-            height={0}
-            className={balloon3}
-          />
-          <Image
-            src={'/assets/balloon/4.svg'}
-            alt="balloon"
-            width={0}
-            height={0}
-            className={balloon4}
-          />
-          <Image
-            src={'/assets/balloon/5.svg'}
-            alt="balloon"
-            width={0}
-            height={0}
-            className={balloon5}
-          />
+          {ballonImgs.map((src, i) => (
+            <Image
+              src={src}
+              alt="balloon"
+              width={0}
+              height={0}
+              className={`${balloonBase}`}
+              key={i}
+              style={main ? mainPageBallonProps[i] : defaultBallonProps[i]}
+            />
+          ))}
         </div>
       </div>
     </div>

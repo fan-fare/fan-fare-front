@@ -1,6 +1,6 @@
 'use client';
 
-import { createPostMutationOption } from '@/app/api/queryOptions';
+import { createPostMutationOption } from '@/api/queryOptions';
 import PrevPage from '@/components/PrevPage';
 import { CandleType } from '@/interfaces/candles';
 import { ICreateMessageRequest } from '@/interfaces/request';

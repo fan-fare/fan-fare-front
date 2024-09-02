@@ -4,7 +4,7 @@ import {
   cakeTitle,
   pageTopText,
   textPoint,
-} from "@/styles/pages/main.css";
+} from "@/styles/pages/member/memberMain.css";
 
 export default function CakeName() {
   const userName = useUserStore((state) => state.userName);

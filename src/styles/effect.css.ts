@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { pc } from './common/common.css';
+import { flexCenterContainer, pc } from './common/common.css';
 
 export const effectContainer = style([
   {
@@ -21,24 +21,11 @@ export const effectContainer = style([
   },
 ]);
 
-export const effect = style({
-  display: 'grid',
-  width: '100%',
-  height: '100%',
+export const effect = style([flexCenterContainer, {
   position: 'relative',
-  placeItems: 'center',
-  gridTemplateColumns: '1fr',
-  gridTemplateRows: '1.8fr 1fr 4fr',
   padding: '2rem 0',
   boxSizing: 'border-box',
-
-  '@media': {
-    [pc]: {
-      gridTemplateColumns: '1fr',
-      gridTemplateRows: '1.5fr 1fr 4fr',
-    },
-  },
-});
+}]);
 
 export const glitterImg = style({
   position: 'absolute',
@@ -48,22 +35,14 @@ export const glitterImg = style({
   overflow: 'hidden',
 });
 
-export const flagsImgContainer = style({
-  display: 'flex',
-  flexDirection: 'row',
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
 export const flagsImg = style({
   display: 'block',
   position: 'absolute',
+  top: '27%',
   width: '230%',
   height: 'auto',
   overflow: 'hidden',
+  zIndex: 1,
 
   '@media': {
     [pc]: {
@@ -71,6 +50,15 @@ export const flagsImg = style({
     },
   },
 });
+
+export const papersImg = style({
+  display: 'block',
+  position: 'absolute',
+  width: '100%',
+  height: 'auto',
+  overflow: 'hidden',
+  bottom: 0,
+})
 
 export const balloonContainer = style({
   display: 'flex',
@@ -85,29 +73,6 @@ export const balloonContainer = style({
   },
 });
 
-export const balloonProp = [
-  {
-    bottom: '10%',
-    left: '0%',
-  },
-  {
-    bottom: '40%',
-    left: '9%',
-  },
-  {
-    bottom: '8%',
-    right: '14%',
-  },
-  {
-    bottom: '3%',
-    right: '6%',
-  },
-  {
-    bottom: '0%',
-    right: '12%',
-  },
-];
-
 export const balloonBase = style({
   position: 'absolute',
   width: 'auto',
@@ -115,9 +80,3 @@ export const balloonBase = style({
   overflow: 'hidden',
   scale: 1.3,
 });
-
-export const balloon1 = style([balloonBase, { ...balloonProp[0] }]);
-export const balloon2 = style([balloonBase, { ...balloonProp[1] }]);
-export const balloon3 = style([balloonBase, { ...balloonProp[2] }]);
-export const balloon4 = style([balloonBase, { ...balloonProp[3] }]);
-export const balloon5 = style([balloonBase, { ...balloonProp[4] }]);

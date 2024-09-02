@@ -12,22 +12,17 @@ import {
   buttonWhiteLinkFull,
 } from "@/styles/button.css";
 import {
-  cakeMessage,
-  textPoint,
-  cakeTitle,
   cakePageContainer,
   pageTop,
-  pageTopText,
   questionMark,
   halfButtonContainer,
   cakeContainer,
   cakePageCountContainer,
   fullButtonContainer,
   cakePageBottomContainer,
-} from "@/styles/pages/main.css";
+} from "@/styles/pages/member/memberMain.css";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {

@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   isExistingQueryOption,
   signupMutationOption,
-} from "@/app/api/queryOptions";
+} from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";

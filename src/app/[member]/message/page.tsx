@@ -1,7 +1,7 @@
 "use client";
 
 import CakeName from "@/components/CakeName";
-import { cakePageContainer, cakePageCountContainer, pageTop } from "@/styles/pages/main.css";
+import { cakePageContainer, cakePageCountContainer, pageTop } from "@/styles/pages/member/memberMain.css";
 import {
   MessageContentContainer,
   messageContainer,

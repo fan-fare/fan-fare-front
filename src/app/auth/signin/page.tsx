@@ -1,6 +1,6 @@
 "use client";
 
-import { signinMutationOption } from "@/app/api/queryOptions";
+import { signinMutationOption } from "@/api/queryOptions";
 import AuthLinks from "@/components/AuthLinks";
 import { ISigninRequest } from "@/interfaces/request";
 import { buttonDarkHalf } from "@/styles/button.css";

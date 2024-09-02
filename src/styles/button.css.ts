@@ -48,6 +48,15 @@ export const buttonWhiteFull = style([
   },
 ]);
 
+export const buttonPinkFull = style([
+  buttonDefault,
+  fullSize,
+  {
+    backgroundColor: '#F589A9',
+    color: '#fff',
+  },
+]);
+
 export const buttonPrimaryHalf = style([
   buttonDefault,
   halfSize,
@@ -110,3 +119,7 @@ export const buttonWhiteLinkFull = style([
     border: '2px dashed #3E3E3E',
   },
 ]);
+
+export const buttonShadow = style({
+  'boxShadow': '0px 4px 4px 0px #0000001A',
+})
