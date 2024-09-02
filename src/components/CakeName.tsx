@@ -6,8 +6,13 @@ import {
   textPoint,
 } from "@/styles/pages/member/memberMain.css";
 
-export default function CakeName() {
-  const userName = useUserStore((state) => state.userName);
+export default function CakeName({
+  userName,
+  messageCount,
+}: {
+  userName: string;
+  messageCount: number;
+}) {
   return (
     <div className={pageTopText}>
       <div className={cakeTitle}>
@@ -16,7 +21,7 @@ export default function CakeName() {
       </div>
       <div className={cakeMessage}>
         지금까지
-        <div className={textPoint}>&nbsp;{`N`}</div>
+        <div className={textPoint}>&nbsp;{messageCount}</div>
         개의 생일축하를 받았어요!
       </div>
     </div>

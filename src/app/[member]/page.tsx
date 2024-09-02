@@ -1,10 +1,12 @@
 "use client";
 
+import { getCakeQueryOption } from "@/api/queryOptions";
 import Cake from "@/components/Cake";
 import CakeName from "@/components/CakeName";
 import Effect from "@/components/Effect";
 import Timer from "@/components/Timer";
 import { CandleType } from "@/interfaces/candles";
+import { useUserStore } from "@/store/user.store";
 import {
   buttonPrimaryFull,
   buttonPrimaryHalf,
@@ -21,35 +23,42 @@ import {
   fullButtonContainer,
   cakePageBottomContainer,
 } from "@/styles/pages/member/memberMain.css";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
-  const [currentCake, setCurrentCake] = useState(1);
-  const [cakeCount, setCakeCount] = useState(14);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [candles, setCandles] = useState<CandleType[]>([
-    "CANDLE_COLOR_1",
-    "CANDLE_COLOR_2",
-    "CANDLE_COLOR_3",
-    "CANDLE_COLOR_4",
-  ]);
-  const [names, setNames] = useState([
-    "이편지는영국에서전달된편지입니다",
-    "누구",
-    "홍길동",
-    "adsfdafasf",
-    "아무개",
-  ]);
+  // Query
+  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member), 1));
 
-  const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME;
+  // State
+  const [totalCakeCount, setTotalCakeCount] = useState(14); // total cake count
+  const [currentCake, setCurrentCake] = useState(1); // current cake number
+  const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
+  const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
+  const [names, setNames] = useState([]); // name of message sender
+  const [candles, setCandles] = useState<CandleType[]>([]);
+
+  // Store
+  const loggedIn = useUserStore((state) => state.loggedIn);
+
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? "";
+
+  useEffect(() => {
+    const data = cakeInfo.data?.data;
+    if (data) {
+      setTotalCakeCount(data.totalCakeCount ?? 1);
+      setTotalMessageCount(data.totalMessageCount ?? 0);
+      setOwnerNickname(data.nickname ?? "빵빠레");
+    }
+  }, [cakeInfo.data]);
+
   return (
     <main className={cakePageContainer}>
       <Effect />
       <div className={pageTop}>
-        <CakeName />
+        <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
         <Link href={questionMarkLink}>
           <FaQuestionCircle className={questionMark} />
         </Link>
@@ -58,7 +67,7 @@ export default function Home({ params }: { params: { member: string } }) {
       <div className={cakeContainer}>
         <Cake cakeType="1" candles={candles} names={names} />
         <div className={cakePageCountContainer}>
-          {`${currentCake} / ${cakeCount}`}
+          {`${currentCake} / ${totalCakeCount}`}
         </div>
       </div>
       {loggedIn && (
