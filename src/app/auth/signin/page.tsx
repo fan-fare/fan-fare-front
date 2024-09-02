@@ -32,7 +32,8 @@ export default function Page() {
       username: formData.get("id") as string,
       password: formData.get("password") as string,
     };
-    await signin.mutateAsync(data).then(() => {
+    await signin.mutateAsync(data).then((res) => {
+      if (res && res.status === 200) 
       router.push(member ? `/${member}` : "/");
     });
   };

@@ -9,7 +9,7 @@ import { useUserStore } from "@/store/user.store";
 import {
   ICreateMessageResponse,
   IDeleteMessageResponse,
-  ISigninResponse,
+  ISigninResponse1,
   ISignupResponse,
 } from "@/interfaces/response";
 
@@ -25,7 +25,7 @@ export const isExistingQueryOption = (username: string) =>
   });
 
 export const signinMutationOption: UseMutationOptions<
-  void | ISigninResponse,
+  void | ISigninResponse1,
   Error,
   ISigninRequest
 > = {
@@ -51,7 +51,7 @@ export const signupMutationOption: UseMutationOptions<
   },
 };
 
-export const getCakeQueryOption = (memberId: BigInt, page: number) =>
+export const getCakeQueryOption = (memberId: string, page: number) => 
   queryOptions({
     queryKey: ["getCake", memberId, page],
     queryFn: async () => {
@@ -71,7 +71,7 @@ export const createPostMutationOption: UseMutationOptions<
   },
 };
 
-export const readMessageQueryOption = (messageId: BigInt) => {
+export const readMessageQueryOption = (messageId: string) => {
   queryOptions({
     queryKey: ["readMessage", messageId],
     queryFn: async () => {
@@ -84,10 +84,10 @@ export const readMessageQueryOption = (messageId: BigInt) => {
 export const deleteMessageMutationOption: UseMutationOptions<
   void | IDeleteMessageResponse,
   Error,
-  BigInt
+  string
 > = {
   retry: normalRetryCount,
-  mutationFn: async (messageId: BigInt) => {
+  mutationFn: async (messageId: string) => {
     return await api.deleteMessage(messageId).then(({ body }) => body);
   },
 };

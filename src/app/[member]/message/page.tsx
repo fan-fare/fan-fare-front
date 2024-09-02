@@ -23,23 +23,26 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Query
-  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member), 1));
+  const cakeInfo = useQuery(getCakeQueryOption(params.member, 1));
 
   // State
   const [currentMessage, setCurrentMessage] = useState(1); // current message number
-  const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
+  const [totalMessageCount, setTotalMessageCount] = useState(1); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
+
   // Message State
-  const [senderNickname, setSenderNickname] = useState(""); // name of message sender
-  const [message, setMessage] = useState(""); // message content
+  const [senderNickname, setSenderNickname] = useState("빵빠레"); // name of message sender
+  const [message, setMessage] = useState("생일을 진심으로 축하해요!!"); // message content
   const [date, setDate] = useState(new Date()); // message date
 
   // Effect
   useEffect(() => {
     const data = cakeInfo.data?.data;
-    if (data) {
-      setTotalMessageCount(data.totalMessageCount ?? 0);
+    if (data && data.nickname) {
       setOwnerNickname(data.nickname ?? "빵빠레");
+    }
+    if (data && data.totalMessageCount) {
+      setTotalMessageCount(data.totalMessageCount);
     }
   }, [cakeInfo.data]);
 
@@ -55,7 +58,15 @@ export default function Page({ params }: { params: { member: string } }) {
             <div className={MessageContentContainer}>
               <div className={messageText}>{message}</div>
               <div className={messageInfoContainer}>
-                <div>{date.toLocaleDateString()}</div>
+                <div>
+                  {`${Math.floor(date.getFullYear())
+                    .toString()
+                    .padStart(4, "0")}.${Math.floor(date.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0")}.${Math.floor(date.getDate())
+                    .toString()
+                    .padStart(2, "0")}`}
+                </div>
                 <div>by. {senderNickname}</div>
               </div>
             </div>

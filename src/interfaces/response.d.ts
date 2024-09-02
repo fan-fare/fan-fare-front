@@ -7,7 +7,7 @@ export interface IResponse<T = undefined | any> {
   data: T | undefined;
 }
 
-export interface ISigninResponse {
+export interface ISigninResponse1 {
   status?: number;
   message: string;
   code?: string;

@@ -5,7 +5,7 @@ import {
   IDeleteMessageResponse,
   IGetCakeResponse,
   IReadMessageResponse,
-  ISigninResponse,
+  ISigninResponse1,
   ISignupResponse,
 } from '@/interfaces/response';
 import { useUserStore } from '@/store/user.store';
@@ -71,7 +71,7 @@ export const api = {
     });
   },
   login: async (data: ISigninRequest) => {
-    return customFetch<ISigninResponse>(url.signin, {
+    return customFetch<ISigninResponse1>(url.signin, {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -82,7 +82,7 @@ export const api = {
       body: JSON.stringify(data),
     });
   },
-  getCake: async ({ memberId, page }: { memberId: BigInt; page: number }) => {
+  getCake: async ({ memberId, page }: { memberId: string; page: number }) => {
     return customFetch<IGetCakeResponse>(`${url.getCake}/${memberId}?page=${page}`, {
       method: 'GET',
     });
@@ -96,15 +96,15 @@ export const api = {
       body: JSON.stringify(data),
     });
   },
-  readMessage: async (messageId: BigInt) => {
+  readMessage: async (messageId: string) => {
     return customFetch<IReadMessageResponse>(
-      `${url.readMessage}/${messageId}`,
+      `${url.readMessage}/${messageId.toString()}`,
       {
         method: 'GET',
       }
     );
   },
-  deleteMessage: async (messageId: BigInt) => {
+  deleteMessage: async (messageId: string) => {
     return customFetch<IDeleteMessageResponse>(`${url.deleteMessage}/${messageId}`, {
       method: 'DELETE',
     });

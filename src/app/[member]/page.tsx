@@ -30,7 +30,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Query
-  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member), 1));
+  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member).toString(), 1));
 
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(14); // total cake count
@@ -39,6 +39,7 @@ export default function Home({ params }: { params: { member: string } }) {
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
   const [names, setNames] = useState([]); // name of message sender
   const [candles, setCandles] = useState<CandleType[]>([]);
+  const [birthday, setBirthday] = useState(new Date());
 
   // Store
   const loggedIn = useUserStore((state) => state.loggedIn);
@@ -51,6 +52,7 @@ export default function Home({ params }: { params: { member: string } }) {
       setTotalCakeCount(data.totalCakeCount ?? 1);
       setTotalMessageCount(data.totalMessageCount ?? 0);
       setOwnerNickname(data.nickname ?? "빵빠레");
+      setBirthday(new Date(data.birthDay));
     }
   }, [cakeInfo.data]);
 
@@ -63,7 +65,7 @@ export default function Home({ params }: { params: { member: string } }) {
           <FaQuestionCircle className={questionMark} />
         </Link>
       </div>
-      <Timer birthday={new Date("2025-06-03T00:00:00+09:00")} />
+      <Timer birthday={birthday} member={params.member}/>
       <div className={cakeContainer}>
         <Cake cakeType="1" candles={candles} names={names} />
         <div className={cakePageCountContainer}>
