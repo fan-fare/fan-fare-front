@@ -51,7 +51,7 @@ export const signupMutationOption: UseMutationOptions<
   },
 };
 
-export const getCakeQueryOption = (memberId: BigInt, page: number) => {
+export const getCakeQueryOption = (memberId: BigInt, page: number) =>
   queryOptions({
     queryKey: ["getCake", memberId, page],
     queryFn: async () => {
@@ -59,7 +59,6 @@ export const getCakeQueryOption = (memberId: BigInt, page: number) => {
     },
     retry: normalRetryCount,
   });
-};
 
 export const createPostMutationOption: UseMutationOptions<
   void | ICreateMessageResponse,
