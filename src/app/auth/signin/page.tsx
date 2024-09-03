@@ -3,6 +3,7 @@
 import { signinMutationOption } from "@/api/queryOptions";
 import AuthLinks from "@/components/AuthLinks";
 import { ISigninRequest } from "@/interfaces/request";
+import { useUserStore } from "@/store/user.store";
 import { buttonDarkHalf } from "@/styles/button.css";
 import {
   authPageContainer,
@@ -17,6 +18,9 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
+  // Store
+  const setLoggedIn = useUserStore((state) => state.setLoggedIn);
+
   // Router
   const router = useRouter();
 
@@ -33,8 +37,14 @@ export default function Page() {
       password: formData.get("password") as string,
     };
     await signin.mutateAsync(data).then((res) => {
-      if (res && res.status === 200) 
-      router.push(member ? `/${member}` : "/");
+      console.log(res);
+      if (res && res.status === 200) {
+        setLoggedIn(true);
+        router.push(member ? `/${member}` : "/");
+      } else if (res && res.status === 401) {
+        // TODO: Show error message
+        console.error("Invalid username or password");
+      }
     });
   };
 
@@ -43,6 +53,7 @@ export default function Page() {
       <AuthLinks current="signin" member={member} />
       <form className={authForm} action={signinAction}>
         <div className={formElement}>
+          {/*
           <label htmlFor="nickname" className={authFormLabel}>
             닉네임
           </label>
@@ -53,6 +64,7 @@ export default function Page() {
             placeholder="닉네임을 입력해주세요."
             className={authFormInput}
           />
+          */}
         </div>
         <div className={formElement}>
           <label htmlFor="id" className={authFormLabel}>

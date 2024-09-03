@@ -38,7 +38,10 @@ export default function Page() {
       nickname: formData.get("nickname") as string,
       username: formData.get("id") as string,
       password: formData.get("password") as string,
-      birthday: new Date(formData.get("birth") as string),
+      // "yyyy-MM-dd" format
+      birthDay: new Date(formData.get("birth") as string)
+        .toISOString()
+        .split("T")[0],
     };
 
     await queryClient
@@ -47,9 +50,14 @@ export default function Page() {
         // error handling
       });
 
-    await signup.mutateAsync(data).then(() => {
-      // navigate to login page
-      router.push(member ? `/auth/signin?member=${member}` : "/auth/signin");
+    await signup.mutateAsync(data).then((res) => {
+      if (res && res.status === 200) {
+        // navigate to login page
+        router.push(member ? `/auth/signin?member=${member}` : "/auth/signin");
+      } else {
+        // error handling
+        console.error(res);
+      }
     });
   };
 
@@ -77,7 +85,11 @@ export default function Page() {
             id="birth"
             name="birth"
             type="date"
-            defaultValue={new Date().toISOString().split("T")[0]}
+            defaultValue={
+              new Date(new Date().setFullYear(new Date().getFullYear() - 10))
+                .toISOString()
+                .split("T")[0]
+            }
             className={authFormInput}
           />
         </div>
