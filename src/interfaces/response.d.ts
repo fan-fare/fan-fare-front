@@ -1,5 +1,11 @@
 import { CandleType } from "./candles";
 
+export interface IFetchResponse<T = undefined | any> {
+  headers: Headers;
+  status: number;
+  body: T;
+}
+
 export interface IResponse<T = undefined | any> {
   status: number;
   message: string;
@@ -34,7 +40,7 @@ export interface IGetCakeResponse
     totalCakeCount: number;
     messageIdList: BigInt[];
     nickname: string;
-    birthDay: Date;
+    birthDay: string;
   }> {}
 
 export interface IDeleteMessageResponse extends IResponse<string> {}

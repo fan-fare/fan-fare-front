@@ -9,7 +9,7 @@ export interface ISignupRequest {
   nickname: string;
   username: string;
   password: string;
-  birthday: Date;
+  birthDay: string;
 }
 
 export interface ICreateMessageRequest {
