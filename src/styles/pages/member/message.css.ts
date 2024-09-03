@@ -1,4 +1,8 @@
-import { flexCenterContainer, uiyeun } from "@/styles/common/common.css";
+import {
+  flexCenterContainer,
+  fullScreenContainer,
+  uiyeun,
+} from "@/styles/common/common.css";
 import { style } from "@vanilla-extract/css";
 
 export const messagePageContainer = style({
@@ -44,9 +48,15 @@ export const messageContainer = style({
   boxSizing: "border-box",
   padding: "1.125rem",
   boxShadow: "0px 4px 4px 0px #00000040",
+  overflow: "hidden",
 });
 
-export const MessageContentContainer = style([
+export const fullWhiteScreenContainer = style([
+  fullScreenContainer,
+  { backgroundColor: "white" },
+]);
+
+export const messageContentContainer = style([
   flexCenterContainer,
   {
     flexDirection: "column",
@@ -56,6 +66,7 @@ export const MessageContentContainer = style([
     border: "2px dashed #F58989",
     fontFamily: uiyeun,
     fontSize: "1.25rem",
+    backgroundColor: "none",
   },
 ]);
 

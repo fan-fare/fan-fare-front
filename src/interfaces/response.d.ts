@@ -32,6 +32,9 @@ export interface IReadMessageResponse
     candleColor: CandleType;
     beforeMessageId: BigInt;
     nextMessageId: BigInt;
+    createAt: string;
+    totalCount: number;
+    currentCount: number;
   }> {}
 
 export interface IGetCakeResponse

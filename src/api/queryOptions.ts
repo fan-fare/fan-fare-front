@@ -36,6 +36,7 @@ export const signinMutationOption: UseMutationOptions<
       const setAccessToken = useUserStore.getState().setAccessToken;
       const accessToken = headers.get("Authorization") ?? "";
       setAccessToken(accessToken);
+      localStorage.setItem("token", accessToken);
       return { headers, status, body };
     });
   },

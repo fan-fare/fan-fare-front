@@ -26,6 +26,7 @@ export default function Page() {
 
   // Search Params
   const member = useSearchParams().get("member");
+  const redirect = useSearchParams().get("redirect");
 
   // Mutation
   const signin = useMutation(signinMutationOption);
@@ -37,10 +38,17 @@ export default function Page() {
       password: formData.get("password") as string,
     };
     await signin.mutateAsync(data).then((res) => {
-      console.log(res);
       if (res && res.status === 200) {
         setLoggedIn(true);
-        router.push(member ? `/${member}` : "/");
+        if (redirect) {
+          router.push(redirect);
+        }
+        else if (member) {
+          router.push(`/${member}`);
+        }
+        else {
+          router.push("/");
+        }
       } else if (res && res.status === 401) {
         // TODO: Show error message
         console.error("Invalid username or password");

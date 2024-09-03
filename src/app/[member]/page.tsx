@@ -30,7 +30,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Query
-  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member).toString(), 1));
+  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member).toString(), 0));
 
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
