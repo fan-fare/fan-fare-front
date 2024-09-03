@@ -11,7 +11,7 @@ import {
 import { useUserStore } from '@/store/user.store';
 
 // API base URL
-const apiBase = process.env.API_URL;
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 
 // API URL paths
 const url = {
@@ -54,9 +54,12 @@ const customFetch = async <T = unknown>(
     },
   });
   const headers = response.headers;
+  const status = response.status;
+  const body = await response.json() as T;
   return {
     headers, // pass the headers along
-    body: response.json() as Promise<T>, // parse the response body as json
+    status, // pass the status along
+    body, // pass the body along
   }
 };
 

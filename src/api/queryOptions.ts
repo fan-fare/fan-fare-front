@@ -9,6 +9,7 @@ import { useUserStore } from "@/store/user.store";
 import {
   ICreateMessageResponse,
   IDeleteMessageResponse,
+  IFetchResponse,
   ISigninResponse1,
   ISignupResponse,
 } from "@/interfaces/response";
@@ -25,29 +26,29 @@ export const isExistingQueryOption = (username: string) =>
   });
 
 export const signinMutationOption: UseMutationOptions<
-  void | ISigninResponse1,
+  IFetchResponse<ISigninResponse1>,
   Error,
   ISigninRequest
 > = {
   retry: normalRetryCount,
   mutationFn: async (data: ISigninRequest) => {
-    return await api.login(data).then(({ headers, body }) => {
+    return await api.login(data).then(({ headers, status, body }) => {
       const setAccessToken = useUserStore.getState().setAccessToken;
       const accessToken = headers.get("Authorization") ?? "";
       setAccessToken(accessToken);
-      return body;
+      return { headers, status, body };
     });
   },
 };
 
 export const signupMutationOption: UseMutationOptions<
-  void | ISignupResponse,
+  IFetchResponse<ISignupResponse>,
   Error,
   ISignupRequest
 > = {
   retry: normalRetryCount,
   mutationFn: async (data: ISignupRequest) => {
-    return await api.signup(data).then(({ body }) => body);
+    return await api.signup(data);
   },
 };
 
@@ -61,17 +62,17 @@ export const getCakeQueryOption = (memberId: string, page: number) =>
   });
 
 export const createPostMutationOption: UseMutationOptions<
-  void | ICreateMessageResponse,
+  IFetchResponse<ICreateMessageResponse>,
   Error,
   ICreateMessageRequest
 > = {
   retry: normalRetryCount,
   mutationFn: async (data: ICreateMessageRequest) => {
-    return await api.writeMessage(data).then(({ body }) => body);
+    return await api.writeMessage(data)
   },
 };
 
-export const readMessageQueryOption = (messageId: string) => {
+export const readMessageQueryOption = (messageId: string) =>
   queryOptions({
     queryKey: ["readMessage", messageId],
     queryFn: async () => {
@@ -79,15 +80,14 @@ export const readMessageQueryOption = (messageId: string) => {
     },
     retry: normalRetryCount,
   });
-};
 
 export const deleteMessageMutationOption: UseMutationOptions<
-  void | IDeleteMessageResponse,
+  IFetchResponse<IDeleteMessageResponse>,
   Error,
   string
 > = {
   retry: normalRetryCount,
   mutationFn: async (messageId: string) => {
-    return await api.deleteMessage(messageId).then(({ body }) => body);
+    return await api.deleteMessage(messageId);
   },
 };
