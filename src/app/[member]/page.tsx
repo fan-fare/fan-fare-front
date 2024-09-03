@@ -33,13 +33,13 @@ export default function Home({ params }: { params: { member: string } }) {
   const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member).toString(), 1));
 
   // State
-  const [totalCakeCount, setTotalCakeCount] = useState(14); // total cake count
+  const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
   const [currentCake, setCurrentCake] = useState(1); // current cake number
   const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
   const [names, setNames] = useState([]); // name of message sender
   const [candles, setCandles] = useState<CandleType[]>([]);
-  const [birthday, setBirthday] = useState(new Date());
+  const [birthday, setBirthday] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
 
   // Store
   const loggedIn = useUserStore((state) => state.loggedIn);
@@ -49,10 +49,11 @@ export default function Home({ params }: { params: { member: string } }) {
   useEffect(() => {
     const data = cakeInfo.data?.data;
     if (data) {
-      setTotalCakeCount(data.totalCakeCount ?? 1);
+      setTotalCakeCount(data.totalCakeCount !== 0 ? data.totalCakeCount : 1 );
       setTotalMessageCount(data.totalMessageCount ?? 0);
       setOwnerNickname(data.nickname ?? "빵빠레");
-      setBirthday(new Date(data.birthDay));
+      // korean time
+      setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
     }
   }, [cakeInfo.data]);
 

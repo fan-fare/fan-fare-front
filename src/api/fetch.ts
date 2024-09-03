@@ -91,7 +91,7 @@ export const api = {
     });
   },
   writeMessage: async (data: ICreateMessageRequest) => {
-    return customFetch<ICreateMessageResponse>('/api/post', {
+    return customFetch<ICreateMessageResponse>(`${url.writeMessage}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

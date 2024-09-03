@@ -38,13 +38,20 @@ export default function Page({ params }: { params: { member: string } }) {
     e.preventDefault();
     const candleColor = searchParams.get('candle_type') as CandleType
     const data: ICreateMessageRequest = {
-      memberId: BigInt(params.member),
+      memberId: params.member,
       color: candleColor,
       content: message,
       nickname: nickname,
     }
-    await createPost.mutateAsync(data);
-    router.push('/');
+    await createPost.mutateAsync(data).then((res) => {
+      if (res && res.status === 200) {
+        console.log(res)
+        router.push(`/${params.member}`)
+      } else {
+        // error handling
+        console.error(res);
+      }
+    });
   };
 
   return (
