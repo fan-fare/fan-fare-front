@@ -47,6 +47,8 @@ export default function Timer({ birthday, member }: { birthday: Date, member: st
     // If the birthday is today or the birthday has passed, set box active for a week
     if (diff === 0 || diff > (365 - activeDays) * 24 * 60 * 60 * 1000) {
       setBoxActive(true);
+    } else {
+      setBoxActive(false);
     }
   }, [birthday]);
 
