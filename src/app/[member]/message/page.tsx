@@ -2,21 +2,17 @@
 
 import { getCakeQueryOption, readMessageQueryOption } from "@/api/queryOptions";
 import CakeName from "@/components/CakeName";
-import { fullScreenContainer } from "@/styles/common/common.css";
+import Message from "@/components/Message";
 import {
   cakePageCountContainer,
   pageTop,
 } from "@/styles/pages/member/memberMain.css";
 import {
-  messageContentContainer,
-  messageContainer,
+  messageDisplay,
   messageDisplayContainer,
-  messageInfoContainer,
   messagePageContainer,
-  messagePageContentContainer,
-  messageText,
+  messagePageMain,
   navigationIcon,
-  fullWhiteScreenContainer,
 } from "@/styles/pages/member/message.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
@@ -114,7 +110,7 @@ export default function Page({ params }: { params: { member: string } }) {
     if (messageRef.current) {
       // create inner shadow effect
       messageRef.current.style.boxShadow =
-        "inset 0 0 10px rgba(100, 100, 100, 0.3)";
+        "inset 0 0 10px rgba(100, 100, 100, 0.1)";
       setStartX(e.touches[0].clientX);
       setEndX(e.touches[0].clientX);
     }
@@ -165,14 +161,13 @@ export default function Page({ params }: { params: { member: string } }) {
     if (messageRef.current) {
       // Color will change to gradient by swipe direction and distance
       const windowWidth = window.innerWidth;
-      const gradient = Math.abs(startX - endX) / (windowWidth * 3);
+      const gradient = Math.abs(startX - endX) / (windowWidth * 5);
       if (startX - endX > 0) {
         messageRef.current.style.background = `linear-gradient(to left, rgba(150, 150, 150, ${gradient}) 0%, white 100%)`;
       } else if (endX - startX > 0) {
         messageRef.current.style.background = `linear-gradient(to right, rgba(150, 150, 150, ${gradient}) 0%, white 100%)`;
       } else {
-        messageRef.current.style.background = "white";
-        messageRef.current.style.opacity = "1";
+        messageRef.current.style.background = "none";
       }
     }
   }, [endX, startX]);
@@ -181,42 +176,52 @@ export default function Page({ params }: { params: { member: string } }) {
     changeBackground();
   }, [changeBackground]);
 
+  // On scroll, change the number of the current message based on the scroll position
+  // This function is called when the user scrolls the page.
+  //
+  const handleScroll = () => {
+    if (messageRef.current) {
+      // left is 1
+      const windowWidth = window.innerWidth;
+      const scrollLeft = messageRef.current.scrollLeft;
+      const messageCount =
+        Math.floor((scrollLeft + windowWidth / 2) / windowWidth) + 1;
+      setCurrentMessage(messageCount);
+    }
+  };
+
   return (
-    <div
-      className={messagePageContainer}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div className={messagePageContainer}>
       <div className={pageTop}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
       </div>
-      <div className={messagePageContentContainer}>
+      <div className={messagePageMain}>
         <div className={messageDisplayContainer}>
-          <IoIosArrowBack className={navigationIcon} onClick={swipeRight} />
-          <div className={fullWhiteScreenContainer}>
-            <div
-              className={messageContainer}
-              ref={messageRef}
-              onTouchStart={handleTouchStart}
-            >
-              <div className={messageContentContainer}>
-                <div className={messageText}>{messages}</div>
-                <div className={messageInfoContainer}>
-                  <div>
-                    {`${Math.floor(sendDates.getFullYear())
-                      .toString()
-                      .padStart(4, "0")}.${Math.floor(sendDates.getMonth() + 1)
-                      .toString()
-                      .padStart(2, "0")}.${Math.floor(sendDates.getDate())
-                      .toString()
-                      .padStart(2, "0")}`}
-                  </div>
-                  <div>by. {senderNicknames}</div>
-                </div>
-              </div>
-            </div>
+          <IoIosArrowBack
+            className={navigationIcon}
+            onClick={swipeRight}
+            style={{ left: "0" }}
+          />
+          <div
+            className={messageDisplay}
+            ref={messageRef}
+            onScroll={handleScroll}
+          >
+            {messageIdList.map((messageId, idx) => (
+              <Message
+                key={messageId}
+                senderNicknames={senderNicknames}
+                messages={messages}
+                sendDates={sendDates}
+                style={{ left: `${100 * idx}%` }}
+              />
+            ))}
           </div>
-          <IoIosArrowForward className={navigationIcon} onClick={swipeLeft} />
+          <IoIosArrowForward
+            className={navigationIcon}
+            onClick={swipeLeft}
+            style={{ right: "0" }}
+          />
         </div>
         <div className={cakePageCountContainer}>
           {`${currentMessage} / ${totalMessageCount}`}

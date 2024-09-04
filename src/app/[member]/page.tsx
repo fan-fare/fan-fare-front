@@ -6,7 +6,6 @@ import CakeName from "@/components/CakeName";
 import Effect from "@/components/Effect";
 import Timer from "@/components/Timer";
 import { CandleType } from "@/interfaces/candles";
-import { useUserStore } from "@/store/user.store";
 import {
   buttonPrimaryFull,
   buttonPrimaryHalf,
@@ -40,12 +39,12 @@ export default function Home({ params }: { params: { member: string } }) {
   const [names, setNames] = useState([]); // name of message sender
   const [candles, setCandles] = useState<CandleType[]>([]);
   const [birthday, setBirthday] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  // Store
-  const loggedIn = useUserStore((state) => state.loggedIn);
-
+  // Constants
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? "";
 
+  // Set current cake number
   useEffect(() => {
     const data = cakeInfo.data?.data;
     if (data) {
@@ -56,6 +55,17 @@ export default function Home({ params }: { params: { member: string } }) {
       setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
     }
   }, [cakeInfo.data]);
+
+  // Set logged in status
+  useEffect(() => {
+    // Below is temporary code
+    // Need to Authenticate with the server
+    // 
+    // const token = localStorage.getItem("token");
+    // if (token) {
+    //   setLoggedIn(true);
+    // }
+  }, []);
 
   return (
     <main className={cakePageContainer}>

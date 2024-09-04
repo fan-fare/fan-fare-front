@@ -41,10 +41,7 @@ const customFetch = async <T = unknown>(
 ) => {
   let token: string | null = null;
   if (useToken) {
-    token = useUserStore.getState().accessToken;
-    if (!token) {
-      token = localStorage.getItem("token");
-    }
+    token = localStorage.getItem("token");
   }
   // create a new URL object with the input string
   const url = new URL(input as string, apiBase);

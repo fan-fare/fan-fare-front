@@ -16,7 +16,7 @@ export const messagePageContainer = style({
   justifyContent: "flex-start",
 });
 
-export const messagePageContentContainer = style({
+export const messagePageMain = style({
   display: "flex",
   flexDirection: "column",
   width: "100%",
@@ -29,6 +29,7 @@ export const messagePageContentContainer = style({
 
 export const messageDisplayContainer = style({
   display: "flex",
+  position: "relative",
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
@@ -36,69 +37,35 @@ export const messageDisplayContainer = style({
   boxSizing: "border-box",
 });
 
-export const messageContainer = style({
+// Message display container
+export const messageDisplay = style({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
   width: "100%",
-  aspectRatio: "1 / 1",
-  backgroundColor: "white",
-  borderRadius: "10px",
-  boxSizing: "border-box",
-  padding: "1.125rem",
-  boxShadow: "0px 4px 4px 0px #00000040",
-  overflow: "hidden",
-});
+  height: "100vw",
+  backgroundColor: "none",
+  position: "relative",
 
-export const fullWhiteScreenContainer = style([
-  fullScreenContainer,
-  { backgroundColor: "white" },
-]);
+  overflowX: "auto",
+  overflowY: "hidden",
 
-export const messageContentContainer = style([
-  flexCenterContainer,
-  {
-    flexDirection: "column",
-    position: "relative",
-    boxSizing: "border-box",
-    borderRadius: "16px",
-    border: "2px dashed #F58989",
-    fontFamily: uiyeun,
-    fontSize: "1.25rem",
-    backgroundColor: "none",
+  flexFlow: "row nowrap",
+
+  scrollSnapType: "x mandatory",
+
+  // Hide scrollbar
+  scrollbarWidth: "none",
+  msOverflowStyle: "none",
+  "::-webkit-scrollbar": {
+    display: "none",
   },
-]);
-
-export const messageText = style([
-  flexCenterContainer,
-  {
-    color: "#474747",
-    fontWeight: 400,
-  },
-]);
-
-export const messageInfoContainer = style({
-  display: "flex",
-  position: "absolute",
-  bottom: 0,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
-  boxSizing: "border-box",
-  padding: "1rem",
-});
-
-export const messageInfo = style({
-  display: "block",
-  color: "#474747",
-  fontWeight: 400,
-});
+})
 
 export const navigationIcon = style({
   display: "block",
-  fontSize: "3rem",
+  position: "absolute",
+  fontSize: "2rem",
   margin: "0.25rem",
   boxSizing: "border-box",
+  zIndex: 10,
 });
