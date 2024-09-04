@@ -6,8 +6,8 @@ export const messageContainer = style({
   position: "absolute",
   alignItems: "center",
   justifyContent: "center",
-  width: "100vw",
-  height: "100vw",
+  width: "100%",
+  height: "100%",
   boxSizing: "border-box",
   padding: "2.5rem",
 

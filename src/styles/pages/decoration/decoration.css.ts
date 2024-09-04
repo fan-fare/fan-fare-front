@@ -49,7 +49,7 @@ export const candleSelector = style({
 });
 
 export const candleContainer = style({
-  display: 'flex',
+  display: 'block',
   position: 'relative',
   flexDirection: 'column',
   gap: '1rem',
