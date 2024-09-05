@@ -1,5 +1,5 @@
 import { CandleType } from '@/interfaces/candles';
-import { candleImg, candleImgContainer, glittering } from '@/styles/candle.css';
+import { candleImg, candleImgContainer, glittering } from '@/styles/components/candle.css';
 import Image from 'next/image';
 import { memo } from 'react';
 

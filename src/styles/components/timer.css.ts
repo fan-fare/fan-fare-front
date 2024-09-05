@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { flexCenterContainer, uiyeun } from './common/common.css';
+import { flexCenterContainer, uiyeun } from '../common/common.css';
 
 export const timerComponentContainer = style([
   flexCenterContainer,

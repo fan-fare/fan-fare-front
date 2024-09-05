@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { pc, smallMobile, tablet } from './common/common.css';
+import { pc, smallMobile, tablet } from '../common/common.css';
 
 export const cake = style({
   display: 'flex',

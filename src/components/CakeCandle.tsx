@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import Candle from './Candle';
 import { CandleType } from '@/interfaces/candles';
-import { candleName1, candleNameBase } from '@/styles/cake.css';
 import { flexCenterContainer } from '@/styles/common/common.css';
 
 /**

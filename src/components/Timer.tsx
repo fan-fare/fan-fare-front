@@ -12,7 +12,7 @@ import {
   textBalloon,
   endedTimerComponentContainer,
   boxesAndTimerContainer,
-} from "@/styles/timer.css";
+} from "@/styles/components/timer.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";

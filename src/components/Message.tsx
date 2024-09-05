@@ -4,7 +4,7 @@ import {
   messageContentContainer,
   messageInfoContainer,
   messageText,
-} from "@/styles/message.css";
+} from "@/styles/components/message.css";
 import { memo, useRef } from "react";
 
 export default memo(function Message({
