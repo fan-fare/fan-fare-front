@@ -6,7 +6,7 @@ import {
   effect,
   balloonBase,
   papersImg,
-} from "@/styles/effect.css";
+} from "@/styles/components/effect.css";
 import Image from "next/image";
 
 // Main page effect component

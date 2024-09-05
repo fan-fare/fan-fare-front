@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { flexCenterContainer, pc } from './common/common.css';
+import { flexCenterContainer, pc } from '../common/common.css';
 
 export const effectContainer = style([
   {
