@@ -44,11 +44,9 @@ export default function Page({ params }: { params: { member: string } }) {
     };
     await createPost.mutateAsync(data).then((res) => {
       if (res && res.status === 200) {
-        console.log(res);
         router.push(`/${params.member}`);
       } else {
         // error handling
-        console.error(res);
       }
     });
   };

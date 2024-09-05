@@ -80,6 +80,8 @@ export const readMessageQueryOption = (messageId: string) =>
       return await api.readMessage(messageId);
     },
     retry: normalRetryCount,
+    // 10 minutes
+    staleTime: 1000 * 60 * 10,
   });
 
 export const deleteMessageMutationOption: UseMutationOptions<

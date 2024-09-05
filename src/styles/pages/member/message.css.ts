@@ -42,7 +42,7 @@ export const messageDisplay = style({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  height: "100vw",
+  aspectRatio: "1 / 1",
   backgroundColor: "none",
   position: "relative",
 
@@ -59,6 +59,9 @@ export const messageDisplay = style({
   "::-webkit-scrollbar": {
     display: "none",
   },
+
+  // Scroll slowly
+  scrollBehavior: "smooth",
 })
 
 export const navigationIcon = style({

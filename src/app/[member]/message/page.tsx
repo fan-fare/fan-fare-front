@@ -15,6 +15,7 @@ import {
   navigationIcon,
 } from "@/styles/pages/member/message.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -38,12 +39,15 @@ export default function Page({ params }: { params: { member: string } }) {
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
 
   // Refs
+  const pageRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 
   // Message Content State
-  const [senderNicknames, setSenderNicknames] = useState("빵빠레"); // name of message sender
-  const [messages, setMessages] = useState("생일을 진심으로 축하해요!!"); // message content
-  const [sendDates, setSendDates] = useState(new Date()); // message date
+  const [senderNicknames, setSenderNicknames] = useState<string[]>(["빵빠레"]); // name of message sender
+  const [messages, setMessages] = useState<string[]>([
+    "생일을 진심으로 축하해요!!",
+  ]); // message content
+  const [sendDates, setSendDates] = useState<Date[]>([new Date()]); // message date
 
   /* Message Content */
   // Set cake owner nickname, total message count, and message list
@@ -63,18 +67,26 @@ export default function Page({ params }: { params: { member: string } }) {
   // Preload messages
   useEffect(() => {
     if (messageIdList.length > 0) {
-      const messageIds = messageIdList.slice(0, preloadCount);
+      const messageIds = messageIdList.slice(
+        currentMessage - preloadCount - 1,
+        currentMessage + preloadCount - 1,
+      );
       messageIds.forEach((messageId) => {
         queryClient.prefetchQuery(readMessageQueryOption(messageId));
       });
     }
-  }, [messageIdList, queryClient]);
+  }, [messageIdList, currentMessage, queryClient]);
 
   // Update message content
   const updateMessage = useCallback(
-    async (messageId: string) => {
+    async (messageId: string, idx: number) => {
+
+      if (senderNicknames[idx] && messages[idx] && sendDates[idx]) {
+        return;
+      }
+
       const message = await queryClient
-        .fetchQuery(readMessageQueryOption(messageId))
+        .ensureQueryData(readMessageQueryOption(messageId))
         .then((res) => {
           if (res.status === 403) {
             router.push(`/auth/signin?redirect=${pathname}`);
@@ -86,115 +98,70 @@ export default function Page({ params }: { params: { member: string } }) {
           }
         });
       if (message) {
-        setSenderNicknames(message.nickname);
-        setMessages(message.content);
-        setSendDates(new Date());
+        setSenderNicknames((prev) => {
+          prev[idx] = message.nickname;
+          const newSenderNicknames = [...prev];
+          return newSenderNicknames;
+        });
+        setMessages((prev) => {
+          prev[idx] = message.content;
+          const newMessages = [...prev];
+          return newMessages;
+        });
+        setSendDates((prev) => {
+          // createAt is a string in the format of "YYYY-MM-DD"
+          prev[idx] = new Date(`${message.createdAt}`);
+          const newSendDates = [...prev];
+          return newSendDates;
+        });
       }
     },
-    [queryClient, router, pathname],
+    [queryClient, router, pathname, senderNicknames, messages, sendDates],
   );
 
   useEffect(() => {
-    console.log(messageIdList);
     if (messageIdList.length > 0) {
-      updateMessage(messageIdList[0]);
+      updateMessage(messageIdList[currentMessage - 1], currentMessage - 1);
     }
-  }, [messageIdList, updateMessage]);
-
-  /* Swipe Motion */
-  const [startX, setStartX] = useState(0);
-  const [endX, setEndX] = useState(0);
-
-  // Swipe start
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (messageRef.current) {
-      // create inner shadow effect
-      messageRef.current.style.boxShadow =
-        "inset 0 0 10px rgba(100, 100, 100, 0.1)";
-      setStartX(e.touches[0].clientX);
-      setEndX(e.touches[0].clientX);
-    }
-  };
-
-  // Swipe
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    setEndX(e.touches[0].clientX);
-  };
+  }, [messageIdList, currentMessage, updateMessage]);
 
   // Swipe left
   const swipeLeft = () => {
-    if (currentMessage < totalMessageCount) {
-      setCurrentMessage(currentMessage + 1);
-      updateMessage(messageIdList[currentMessage]);
+    if (messageRef.current) {
+      const windowWidth = window.innerWidth;
+      messageRef.current.scrollLeft += windowWidth;
     }
   };
 
   // Swipe right
   const swipeRight = () => {
-    if (currentMessage > 1) {
-      setCurrentMessage(currentMessage - 1);
-      updateMessage(messageIdList[currentMessage - 2]);
-    }
-  };
-
-  // Swipe end
-  const handleTouchEnd = () => {
     if (messageRef.current) {
-      messageRef.current.style.boxShadow = "none";
-    }
-    const windowWidth = window.innerWidth;
-    const swipeDistance = Math.abs(startX - endX) / windowWidth;
-    if (swipeDistance > 0.3) {
-      if (startX - endX > 0) {
-        swipeLeft();
-      } else if (endX - startX > 0) {
-        swipeRight();
-      }
-    }
-    setStartX(0);
-    setEndX(0);
-  };
-
-  // Change message content background color based on swipe direction and distance
-  // Gradient color change based on swipe distance and direction
-  const changeBackground = useCallback(() => {
-    if (messageRef.current) {
-      // Color will change to gradient by swipe direction and distance
       const windowWidth = window.innerWidth;
-      const gradient = Math.abs(startX - endX) / (windowWidth * 5);
-      if (startX - endX > 0) {
-        messageRef.current.style.background = `linear-gradient(to left, rgba(150, 150, 150, ${gradient}) 0%, white 100%)`;
-      } else if (endX - startX > 0) {
-        messageRef.current.style.background = `linear-gradient(to right, rgba(150, 150, 150, ${gradient}) 0%, white 100%)`;
-      } else {
-        messageRef.current.style.background = "none";
-      }
+      messageRef.current.scrollLeft -= windowWidth;
     }
-  }, [endX, startX]);
-
-  useEffect(() => {
-    changeBackground();
-  }, [changeBackground]);
+  };
 
   // On scroll, change the number of the current message based on the scroll position
   // This function is called when the user scrolls the page.
   //
   const handleScroll = () => {
-    if (messageRef.current) {
+    if (messageRef.current && pageRef.current) {
       // left is 1
-      const windowWidth = window.innerWidth;
+      const pageWidth = pageRef.current.clientWidth;
       const scrollLeft = messageRef.current.scrollLeft;
       const messageCount =
-        Math.floor((scrollLeft + windowWidth / 2) / windowWidth) + 1;
+        Math.floor((scrollLeft + pageWidth / 2) / pageWidth) + 1;
       setCurrentMessage(messageCount);
     }
   };
 
   return (
-    <div className={messagePageContainer}>
-      <div className={pageTop}>
+    <div className={messagePageContainer}
+      ref={pageRef}
+    >
+      <Link className={pageTop} href={`/${params.member}`}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
-      </div>
+      </Link >
       <div className={messagePageMain}>
         <div className={messageDisplayContainer}>
           <IoIosArrowBack
@@ -210,9 +177,9 @@ export default function Page({ params }: { params: { member: string } }) {
             {messageIdList.map((messageId, idx) => (
               <Message
                 key={messageId}
-                senderNicknames={senderNicknames}
-                messages={messages}
-                sendDates={sendDates}
+                senderNicknames={senderNicknames[idx]}
+                messages={messages[idx]}
+                sendDates={sendDates[idx]}
                 style={{ left: `${100 * idx}%` }}
               />
             ))}

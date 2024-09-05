@@ -18,6 +18,7 @@ import {
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import PrevPage from "@/components/PrevPage";
 
 export default function Page() {
   // Router
@@ -56,13 +57,13 @@ export default function Page() {
         router.push(member ? `/auth/signin?member=${member}` : "/auth/signin");
       } else {
         // error handling
-        console.error(res);
       }
     });
   };
 
   return (
     <div className={authPageContainer}>
+      <PrevPage url={member ? `/${member}` : "/"} />
       <AuthLinks current="signup" member={member} />
       <form action={signupAction} className={authForm}>
         <div className={formElement}>

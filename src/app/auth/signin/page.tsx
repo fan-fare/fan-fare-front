@@ -2,6 +2,7 @@
 
 import { signinMutationOption } from "@/api/queryOptions";
 import AuthLinks from "@/components/AuthLinks";
+import PrevPage from "@/components/PrevPage";
 import { ISigninRequest } from "@/interfaces/request";
 import { useUserStore } from "@/store/user.store";
 import { buttonDarkHalf } from "@/styles/button.css";
@@ -58,6 +59,7 @@ export default function Page() {
 
   return (
     <div className={authPageContainer}>
+      <PrevPage url={member ? `/${member}` : "/"} />
       <AuthLinks current="signin" member={member} />
       <form className={authForm} action={signinAction}>
         <div className={formElement}>

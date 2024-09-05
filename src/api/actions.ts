@@ -23,7 +23,6 @@ export async function signin(
     id: formData.get('id') as string,
     password: formData.get('password') as string,
   };
-  console.log(rawData);
 
   return rawData;
 }

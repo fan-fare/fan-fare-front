@@ -28,54 +28,11 @@ export const pageTop = style({
   height: 'auto',
   padding: '0 2rem',
   boxSizing: 'border-box',
+  textDecoration: 'none',
 
   '@media': {
     [smallMobile]: {
       padding: '0 1rem',
-    },
-  },
-});
-
-export const pageTopText = style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.25rem',
-
-  '@media': {
-    [smallMobile]: {
-      gap: '0.125rem',
-    },
-  },
-});
-
-export const cakeTitle = style({
-  display: 'flex',
-  width: 'auto',
-  fontSize: '1.75rem',
-  fontWeight: 800,
-  alignItems: 'center',
-
-  '@media': {
-    [smallMobile]: {
-      fontSize: '1.5rem',
-    },
-  },
-});
-
-export const textPoint = style({
-  color: '#F58989',
-});
-
-export const cakeMessage = style({
-  display: 'flex',
-  fontSize: '1rem',
-  fontWeight: 600,
-  letterSpacing: '-0.05em',
-  color: '#160042',
-
-  '@media': {
-    [smallMobile]: {
-      fontSize: '0.875rem',
     },
   },
 });

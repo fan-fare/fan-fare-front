@@ -32,7 +32,7 @@ export interface IReadMessageResponse
     candleColor: CandleType;
     beforeMessageId: BigInt;
     nextMessageId: BigInt;
-    createAt: string;
+    createdAt: string;
     totalCount: number;
     currentCount: number;
   }> {}

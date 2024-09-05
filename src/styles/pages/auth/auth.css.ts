@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { flexCenterContainer, uiyeun } from '../../common/common.css';
-import { formInput, formLabel } from '@/styles/form.css';
+import { formInput, formLabel } from '@/styles/common/form.css';
 
 export const authPageContainer = style([
   flexCenterContainer,

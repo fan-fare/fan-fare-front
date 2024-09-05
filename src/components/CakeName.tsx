@@ -1,9 +1,6 @@
 import { useUserStore } from "@/store/user.store";
+import { cakeMessage, cakeNameContainer, cakeTitle, textPoint } from "@/styles/components/cakeName.css";
 import {
-  cakeMessage,
-  cakeTitle,
-  pageTopText,
-  textPoint,
 } from "@/styles/pages/member/memberMain.css";
 
 export default function CakeName({
@@ -14,7 +11,7 @@ export default function CakeName({
   messageCount: number;
 }) {
   return (
-    <div className={pageTopText}>
+    <div className={cakeNameContainer}>
       <div className={cakeTitle}>
         <div className={textPoint}>{userName}</div>
         🎂&apos;s cake
