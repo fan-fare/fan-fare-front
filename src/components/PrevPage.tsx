@@ -1,4 +1,5 @@
-import { prevPageLayout, prevPageLink } from '@/styles/layout.css';
+'use client';
+import { prevLink } from '@/styles/components/prevPage.css';
 import Link from 'next/link';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 
@@ -9,18 +10,13 @@ import { MdKeyboardArrowLeft } from 'react-icons/md';
  */
 export default function PrevPage({
   url,
-  children,
 }: {
   url: string;
-  children: React.ReactNode;
 }) {
   return (
-    <div className={prevPageLayout}>
-      <Link href={url} className={prevPageLink}>
+      <Link href={url} className={prevLink}>
         <MdKeyboardArrowLeft />
         이전으로
       </Link>
-      {children}
-    </div>
   );
 }

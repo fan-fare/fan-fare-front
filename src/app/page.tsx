@@ -1,90 +1,82 @@
-'use client';
-
-import Cake from '@/components/Cake';
-import Effect from '@/components/Effect';
-import Timer from '@/components/Timer';
-import { CandleType } from '@/interfaces/candles';
+import Cake from "@/components/Cake";
+import Effect from "@/components/Effect";
+import { CandleType } from "@/interfaces/candles";
 import {
-  buttonPrimaryFull,
-  buttonPrimaryHalf,
-  buttonWhiteHalf,
-  buttonWhiteLinkFull,
-} from '@/styles/button.css';
+  buttonPinkFull,
+  buttonShadow,
+  buttonWhiteFull,
+} from "@/styles/common/button.css";
 import {
-  cakeMessage,
-  textPoint,
-  cakeTitle,
+  buttonContainer,
+  mainPageCakeContainer,
+  mainLogoImage,
   mainPageContainer,
-  pageTop,
-  pageTopText,
-  questionMark,
-  halfButtonContainer,
-  cakeContainer,
-  cakePageCountContainer,
-  fullButtonContainer,
-  cakePageBottomContainer,
-} from '@/styles/pages/main.css';
-import Link from 'next/link';
-import { useState } from 'react';
-import { FaQuestionCircle } from 'react-icons/fa';
+  mainPageInfo,
+  mainPageBottomContainer,
+  teamNameImage,
+  teamInfoContainer,
+  mainPageQuestionMark,
+  mainPageBottomText,
+} from "@/styles/pages/main.css";
+import Image from "next/image";
+import Link from "next/link";
+import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home() {
-  const [currentCake, setCurrentCake] = useState(1);
-  const [cakeCount, setCakeCount] = useState(14);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [candles, setCandles] = useState<CandleType[]>(['1', '3', '3', '2', '6']);
-  const [names, setNames] = useState(['이편지는영국에서전달된편지입니다', '누구', '홍길동', 'adsfdafasf', '아무개']);
-
-  const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME;
-  const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? '';
+  const candles: CandleType[] = [
+    "CANDLE_COLOR_1",
+    "CANDLE_COLOR_2",
+    "CANDLE_COLOR_3",
+    "CANDLE_COLOR_4",
+    "CANDLE_COLOR_5",
+  ];
   return (
-    <main className={mainPageContainer}>
-      <Effect />
-      <div className={pageTop}>
-        <div className={pageTopText}>
-          <div className={cakeTitle}>
-            <div className={textPoint}>{serviceName}</div>
-            🎂&apos;s cake
-          </div>
-          <div className={cakeMessage}>
-            지금까지
-            <div className={textPoint}>&nbsp;{`N`}</div>
-            개의 생일축하를 받았어요!
-          </div>
-        </div>
-        <Link href={questionMarkLink}>
-          <FaQuestionCircle className={questionMark} />
+    <div className={mainPageContainer}>
+      <Effect main />
+      <Image
+        src={"/assets/happy_birthday.svg"}
+        alt="happy birthday"
+        width={0}
+        height={0}
+        className={mainLogoImage}
+      />
+      <div className={mainPageInfo}>
+        생일을 더 특별하게, 생일 축하 롤링페이퍼
+      </div>
+      <div className={mainPageCakeContainer}>
+        <Cake cakeType="1" candles={candles} names={[]} />
+      </div>
+      <div className={buttonContainer}>
+        <Link
+          href={"/auth/signin"}
+          className={`${buttonWhiteFull} ${buttonShadow}`}
+        >
+          로그인하고 케이크 만들러 가기 🥳
+        </Link>
+        <Link
+          href={"/auth/signup"}
+          className={`${buttonPinkFull} ${buttonShadow}`}
+        >
+          회원가입하고 케이크 만들러 가기 🎉
         </Link>
       </div>
-      <Timer birthday={new Date('2025-06-03T00:00:00+09:00')} />
-      <div className={cakeContainer}>
-        <Cake cakeType="1" candles={candles} names={names} />
-        <div className={cakePageCountContainer}>
-          {`${currentCake} / ${cakeCount}`}
+      <div className={mainPageBottomContainer}>
+        <div className={teamInfoContainer}>
+          <Image
+            className={teamNameImage}
+            src={"/assets/team_name.svg"}
+            alt="team name"
+            width={0}
+            height={0}
+          />
+          <FaQuestionCircle className={mainPageQuestionMark} />
+        </div>
+        <div className={mainPageBottomText}>
+          광고문의: doun2008@naver.com
+          <br />
+          Copyright ©Fanfare. All rights reserved.
         </div>
       </div>
-      {loggedIn && (
-        <div className={fullButtonContainer}>
-          <Link href={'/dummy'} className={buttonWhiteLinkFull}>
-            🔗 링크 공유하고 축하받기
-          </Link>
-          <Link href={'/decoration/candle'} className={buttonPrimaryFull}>
-            🥳 사진 저장하고 자랑하기
-          </Link>
-        </div>
-      )}
-      {!loggedIn && (
-        <div className={cakePageBottomContainer}>
-        <div className={halfButtonContainer}>
-          <Link href={'/auth/signin'} className={buttonWhiteHalf}>
-            로그인
-          </Link>
-          <Link href={'/decoration/candle'} className={buttonPrimaryHalf}>
-            이 케이크 꾸미기
-          </Link>
-        </div>
-        </div>
-      )}
-    </main>
+    </div>
   );
 }

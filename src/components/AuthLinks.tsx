@@ -2,7 +2,7 @@ import {
   activatedLink,
   authLinksContainer,
   defaultLink,
-} from '@/styles/layout.css';
+} from '@/styles/components/authLink.css';
 import Link from 'next/link';
 
 /**
@@ -13,19 +13,21 @@ import Link from 'next/link';
  */
 export default function AuthLinks({
   current,
+  member,
 }: {
   current: 'signin' | 'signup';
+  member: string | null;
 }) {
   return (
     <div className={authLinksContainer}>
       <Link
-        href="/auth/signin"
+        href={member ? `/auth/signin?member=${member}` : '/auth/signin'}
         className={current === 'signin' ? activatedLink : defaultLink}
       >
         로그인
       </Link>
       <Link
-        href="/auth/signup"
+        href={member ? `/auth/signup?member=${member}` : '/auth/signup'}
         className={current === 'signup' ? activatedLink : defaultLink}
       >
         회원가입

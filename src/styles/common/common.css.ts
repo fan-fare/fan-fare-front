@@ -23,6 +23,7 @@ globalStyle('html, body', {
   backgroundRepeat: 'no-repeat',
   fontFamily: pretendard,
   zIndex: -100,
+  minHeight: "700px",
 });
 
 globalFontFace(pretendard, {

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { smallMobile } from './common/common.css';
+import { smallMobile } from './common.css';
 
 export const buttonDefault = style({
   display: 'flex',
@@ -45,6 +45,15 @@ export const buttonWhiteFull = style([
   {
     backgroundColor: '#FFFFFF',
     color: '#474747',
+  },
+]);
+
+export const buttonPinkFull = style([
+  buttonDefault,
+  fullSize,
+  {
+    backgroundColor: '#F589A9',
+    color: '#fff',
   },
 ]);
 
@@ -110,3 +119,7 @@ export const buttonWhiteLinkFull = style([
     border: '2px dashed #3E3E3E',
   },
 ]);
+
+export const buttonShadow = style({
+  'boxShadow': '0px 4px 4px 0px #0000001A',
+})

@@ -1,8 +1,7 @@
-import { style } from '@vanilla-extract/css';
-import { flexCenterContainer, pc, uiyeun } from '../../common/common.css';
-import { formInput, formLabel } from '@/styles/common/form.css';
+import { pc, pretendard, uiyeun } from "@/styles/common/common.css";
+import { style } from "@vanilla-extract/css";
 
-export const authPageContainer = style({
+export const decoPageContainer = style({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -22,7 +21,7 @@ export const authPageContainer = style({
   },
 })
 
-export const authPageWrapper = style({
+export const decoPageWrapper = style({
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
@@ -45,35 +44,27 @@ export const prevPageContainer = style({
   boxSizing: 'border-box',
 })
 
-export const authForm = style({
+export const decoMessage = style({
   display: 'flex',
+  fontSize: '2.5rem',
+  fontWeight: 400,
+  color: '#3E3E3E',
   width: '100%',
-  height: '100%',
-  padding: '2rem',
+  textAlign: 'center',
+  justifyContent: 'center',
+})
+
+export const decoBtnContainer = style({
+  display: 'flex',
   flexDirection: 'column',
-  gap: '1rem',
+
+  position: 'absolute',
+  bottom: 0,
+
+  fontFamily: pretendard,
+
+  width: '100%',
   boxSizing: 'border-box',
-});
-
-export const formElement = style({
-  display: 'flex',
-  width: '100%',
-  flexDirection: 'column',
-  gap: '0.5rem',
-});
-
-export const authFormLabel = style([formLabel, {
-  fontSize: '1.5rem',
-  marginLeft: '0.5rem',
-}]);
-
-export const authFormInput = style([formInput,{
-  height: '2.75rem',
-}]);
-
-export const authFormButtonContainer = style({
-  display: 'flex',
-  height: '100%',
-  flexDirection: 'column',
-  justifyContent: 'flex-end',
-});
+  alignItems: 'center',
+  justifyContent: 'center',
+})

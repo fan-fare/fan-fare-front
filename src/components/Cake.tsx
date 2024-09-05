@@ -11,7 +11,7 @@ import {
   candleName3,
   candleName4,
   candleName5,
-} from '@/styles/cake.css';
+} from '@/styles/components/cake.css';
 import Image from 'next/image';
 import CakeCandle from './CakeCandle';
 import { CakeType } from '@/interfaces/cakes';

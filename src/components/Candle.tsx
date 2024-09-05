@@ -1,5 +1,5 @@
 import { CandleType } from '@/interfaces/candles';
-import { candleImg, candleImgContainer, glittering } from '@/styles/candle.css';
+import { candleImg, candleImgContainer, glittering } from '@/styles/components/candle.css';
 import Image from 'next/image';
 import { memo } from 'react';
 
@@ -19,12 +19,12 @@ export default memo(function Candle({
   // Constants
   const path = '/assets/candle/'; // path to candle images
   const candleMap = new Map<CandleType, string>([ // candle image map
-    ['1', '1.svg'],
-    ['2', '2.svg'],
-    ['3', '3.svg'],
-    ['4', '4.svg'],
-    ['5', '5.svg'],
-    ['6', '6.svg'],
+    ['CANDLE_COLOR_1', 'candle1.svg'],
+    ['CANDLE_COLOR_2', 'candle2.svg'],
+    ['CANDLE_COLOR_3', 'candle3.svg'],
+    ['CANDLE_COLOR_4', 'candle4.svg'],
+    ['CANDLE_COLOR_5', 'candle5.svg'],
+    ['CANDLE_COLOR_6', 'candle6.svg'],
   ]);
 
   return (
