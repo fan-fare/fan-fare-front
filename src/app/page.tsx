@@ -5,7 +5,7 @@ import {
   buttonPinkFull,
   buttonShadow,
   buttonWhiteFull,
-} from "@/styles/button.css";
+} from "@/styles/common/button.css";
 import {
   buttonContainer,
   mainPageCakeContainer,

@@ -4,7 +4,7 @@ import { createPostMutationOption } from "@/api/queryOptions";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
-import { buttonPrimaryHalf, disabledButtonHalf } from "@/styles/button.css";
+import { buttonPrimaryHalf, disabledButtonHalf } from "@/styles/common/button.css";
 import {
   decoBtnContainer,
   decoMessage,

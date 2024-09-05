@@ -1,18 +1,49 @@
 import { style } from '@vanilla-extract/css';
-import { flexCenterContainer, uiyeun } from '../../common/common.css';
+import { flexCenterContainer, pc, uiyeun } from '../../common/common.css';
 import { formInput, formLabel } from '@/styles/common/form.css';
 
-export const authPageContainer = style([
-  flexCenterContainer,
-  {
-    fontFamily: uiyeun,
-    flexDirection: 'column',
-    fontSize: '1.5rem',
-    paddingTop: '3rem',
-    paddingBottom: '1rem',
-    maxWidth: '60rem'
+export const authPageContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  boxSizing: 'border-box',
+  paddingTop: '1rem',
+  paddingBottom: '1rem',
+  fontFamily: uiyeun,
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  '@media': {
+    [pc]: {
+     paddingTop: '3rem',
+     paddingBottom: '3rem',
+    },
   },
-]);
+})
+
+export const authPageWrapper = style({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  boxSizing: 'border-box',
+  gap: '1rem',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+})
+
+export const prevPageContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: 'auto',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  padding: '1rem',
+  boxSizing: 'border-box',
+})
 
 export const authForm = style({
   display: 'flex',
@@ -32,6 +63,7 @@ export const formElement = style({
 });
 
 export const authFormLabel = style([formLabel, {
+  fontSize: '1.5rem',
   marginLeft: '0.5rem',
 }]);
 

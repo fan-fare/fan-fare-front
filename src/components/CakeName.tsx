@@ -1,4 +1,3 @@
-import { useUserStore } from "@/store/user.store";
 import { cakeMessage, cakeNameContainer, cakeTitle, textPoint } from "@/styles/components/cakeName.css";
 import {
 } from "@/styles/pages/member/memberMain.css";

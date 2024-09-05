@@ -11,7 +11,7 @@ import {
   buttonPrimaryHalf,
   buttonWhiteHalf,
   buttonWhiteLinkFull,
-} from "@/styles/button.css";
+} from "@/styles/common/button.css";
 import {
   cakePageContainer,
   pageTop,

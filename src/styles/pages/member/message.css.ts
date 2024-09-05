@@ -1,8 +1,3 @@
-import {
-  flexCenterContainer,
-  fullScreenContainer,
-  uiyeun,
-} from "@/styles/common/common.css";
 import { style } from "@vanilla-extract/css";
 
 export const messagePageContainer = style({

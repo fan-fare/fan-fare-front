@@ -3,7 +3,7 @@
 import Candle from "@/components/Candle";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
-import { disabledButtonHalf, buttonPrimaryHalf } from "@/styles/button.css";
+import { disabledButtonHalf, buttonPrimaryHalf } from "@/styles/common/button.css";
 import {
   activatedCandleContainer,
   candleContainer,

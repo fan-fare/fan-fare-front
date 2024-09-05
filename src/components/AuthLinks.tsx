@@ -2,7 +2,7 @@ import {
   activatedLink,
   authLinksContainer,
   defaultLink,
-} from '@/styles/layout.css';
+} from '@/styles/components/authLink.css';
 import Link from 'next/link';
 
 /**
