@@ -99,9 +99,13 @@ export const api = {
     });
   },
   getMemberInfo: async () => {
-    return customFetch<IGetMemberInfoResponse>(url.getMemberInfo, {
-      method: "GET",
-    });
+    return customFetch<IGetMemberInfoResponse>(
+      url.getMemberInfo,
+      {
+        method: "GET",
+      },
+      true,
+    );
   },
   getCake: async ({ memberId, page }: { memberId: string; page: number }) => {
     return customFetch<IGetCakeResponse>(
