@@ -13,15 +13,22 @@ export interface IResponse<T = undefined | any> {
   data: T | undefined;
 }
 
-export interface ISigninResponse1 {
+export interface ISigninResponse {
   status?: number;
   message: string;
+  memberId?: number;
   code?: string;
 }
 
+export interface ISignupResponse extends IResponse<BigInt> {}
+
 export interface ICheckIdResponse extends IResponse<boolean> {}
 
-export interface ISignupResponse extends IResponse<BigInt> {}
+export interface IGetMemberInfoResponse extends IResponse<{
+  memberId: number;
+  username: string;
+  birthDay: string;
+}> {}
 
 export interface ICreateMessageResponse extends IResponse<BigInt> {}
 
@@ -40,10 +47,12 @@ export interface IReadMessageResponse
 export interface IGetCakeResponse
   extends IResponse<{
     totalMessageCount: number;
-    totalCakeCount: number;
-    messageIdList: BigInt[];
     nickname: string;
     birthDay: string;
+    totalCakeCount: number;
+    messageIdList: BigInt[];
+    messageSenderNicknameList: string[];
+    candleColorsList: CandleType[];
   }> {}
 
 export interface IDeleteMessageResponse extends IResponse<string> {}
