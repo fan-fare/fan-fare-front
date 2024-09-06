@@ -52,7 +52,7 @@ export default function Page({ params }: { params: { member: string } }) {
   /* Message Content */
   // Set cake owner nickname, total message count, and message list
   useEffect(() => {
-    const data = cakeInfo.data?.data;
+    const data = cakeInfo.data?.body.data;
     if (data && data.nickname) {
       setOwnerNickname(data.nickname ?? "빵빠레");
     }
@@ -80,8 +80,7 @@ export default function Page({ params }: { params: { member: string } }) {
   // Update message content
   const updateMessage = useCallback(
     async (messageId: string, idx: number) => {
-
-      if (senderNicknames[idx] && messages[idx] && sendDates[idx]) {
+      if (idx !== 0 && senderNicknames[idx] && messages[idx] && sendDates[idx]) {
         return;
       }
 
@@ -127,17 +126,17 @@ export default function Page({ params }: { params: { member: string } }) {
 
   // Swipe left
   const swipeLeft = () => {
-    if (messageRef.current) {
-      const windowWidth = window.innerWidth;
-      messageRef.current.scrollLeft += windowWidth;
+    if (messageRef.current && pageRef.current) {
+      const pageWidth = pageRef.current.clientWidth;
+      messageRef.current.scrollLeft += pageWidth;
     }
   };
 
   // Swipe right
   const swipeRight = () => {
-    if (messageRef.current) {
-      const windowWidth = window.innerWidth;
-      messageRef.current.scrollLeft -= windowWidth;
+    if (messageRef.current && pageRef.current) {
+      const pageWidth = pageRef.current.clientWidth;
+      messageRef.current.scrollLeft -= pageWidth;
     }
   };
 
@@ -156,12 +155,10 @@ export default function Page({ params }: { params: { member: string } }) {
   };
 
   return (
-    <div className={messagePageContainer}
-      ref={pageRef}
-    >
+    <div className={messagePageContainer} ref={pageRef}>
       <Link className={pageTop} href={`/${params.member}`}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
-      </Link >
+      </Link>
       <div className={messagePageMain}>
         <div className={messageDisplayContainer}>
           <IoIosArrowBack
