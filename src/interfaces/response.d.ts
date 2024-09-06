@@ -25,7 +25,7 @@ export interface ISignupResponse extends IResponse<BigInt> {}
 export interface ICheckIdResponse extends IResponse<boolean> {}
 
 export interface IGetMemberInfoResponse extends IResponse<{
-  memberId: number;
+  memberId: bigint;
   username: string;
   birthDay: string;
 }> {}
