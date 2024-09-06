@@ -8,8 +8,9 @@ import {
   ICreateMessageResponse,
   IDeleteMessageResponse,
   IGetCakeResponse,
-  IReadMessageResponse,
-  ISigninResponse1,
+  IGetMemberInfoResponse,
+  IGetMessageResponse,
+  ISigninResponse,
   ISignupResponse,
 } from "@/interfaces/response";
 import { useUserStore } from "@/store/user.store";
@@ -22,6 +23,7 @@ const url = {
   isExisting: "/members/exist",
   signin: "/login",
   signup: "/signup",
+  getMemberInfo: "/me",
   getCake: "/cake",
   writeMessage: "/message",
   readMessage: "/message",
@@ -63,6 +65,8 @@ const customFetch = async <T = unknown>(
 
   if (status !== 200 && status !== 201) {
     console.error(body);
+  } else {
+    console.log(body);
   }
 
   return {
@@ -83,7 +87,7 @@ export const api = {
     });
   },
   login: async (data: ISigninRequest) => {
-    return customFetch<ISigninResponse1>(url.signin, {
+    return customFetch<ISigninResponse>(url.signin, {
       method: "POST",
       body: JSON.stringify(data),
     });
@@ -92,6 +96,11 @@ export const api = {
     return customFetch<ISignupResponse>(url.signup, {
       method: "POST",
       body: JSON.stringify(data),
+    });
+  },
+  getMemberInfo: async () => {
+    return customFetch<IGetMemberInfoResponse>(url.getMemberInfo, {
+      method: "GET",
     });
   },
   getCake: async ({ memberId, page }: { memberId: string; page: number }) => {
@@ -112,7 +121,7 @@ export const api = {
     });
   },
   readMessage: async (messageId: string) => {
-    return customFetch<IReadMessageResponse>(
+    return customFetch<IGetMessageResponse>(
       `${url.readMessage}/${messageId}`,
       {
         method: "GET",

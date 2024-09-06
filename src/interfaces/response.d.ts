@@ -32,7 +32,7 @@ export interface IGetMemberInfoResponse extends IResponse<{
 
 export interface ICreateMessageResponse extends IResponse<BigInt> {}
 
-export interface IReadMessageResponse
+export interface IGetMessageResponse
   extends IResponse<{
     content: string;
     nickname: string;
