@@ -5,7 +5,6 @@ import {
   ISigninRequest,
   ISignupRequest,
 } from "@/interfaces/request";
-import { useUserStore } from "@/store/user.store";
 import {
   ICreateMessageResponse,
   IDeleteMessageResponse,
@@ -35,9 +34,7 @@ export const signinMutationOption: UseMutationOptions<
   retry: normalRetryCount,
   mutationFn: async (data: ISigninRequest) => {
     return await api.login(data).then(({ headers, status, body }) => {
-      const setAccessToken = useUserStore.getState().setAccessToken;
       const accessToken = headers.get("Authorization") ?? "";
-      setAccessToken(accessToken);
       localStorage.setItem("token", accessToken);
       return { headers, status, body };
     });

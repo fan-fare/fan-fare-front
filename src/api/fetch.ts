@@ -13,7 +13,6 @@ import {
   ISigninResponse,
   ISignupResponse,
 } from "@/interfaces/response";
-import { useUserStore } from "@/store/user.store";
 
 // API base URL
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
