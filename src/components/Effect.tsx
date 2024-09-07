@@ -9,7 +9,11 @@ import {
 } from "@/styles/components/effect.css";
 import Image from "next/image";
 
-// Main page effect component
+/**
+ * Effect component
+ * @param main whether the effect is on the main page
+ * @returns effect component
+ */
 export default function Effect({ main = false }: { main?: boolean }) {
 
   const ballonImgs = [

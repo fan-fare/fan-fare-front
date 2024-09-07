@@ -20,6 +20,8 @@ import { useCallback, useEffect, useState } from "react";
 /**
  * Timer component
  * @param birthday birthday date
+ * @param member member
+ * @param loggedIn logged in
  * @returns Timer component
  */
 export default function Timer({

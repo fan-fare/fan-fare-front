@@ -7,6 +7,7 @@ import {
 import AuthLinks from "@/components/AuthLinks";
 import PrevPage from "@/components/PrevPage";
 import { ISigninRequest } from "@/interfaces/request";
+import { useErrorStore } from "@/store/error.store";
 import { buttonDarkHalf } from "@/styles/common/button.css";
 import {
   authPageContainer,
@@ -30,6 +31,9 @@ export default function Page() {
   // Router
   const router = useRouter();
 
+  // Store
+  const setError = useErrorStore((state) => state.setError);
+
   // Search Params
   const member = useSearchParams().get("member");
   const redirect = useSearchParams().get("redirect");
@@ -44,18 +48,22 @@ export default function Page() {
       password: formData.get("password") as string,
     };
     await signin.mutateAsync(data).then((res) => {
-      const data = res.body;
-      if (res && res.status === 200) {
-        if (redirect) {
-          router.push(redirect);
-        } else if (member) {
-          router.push(`/${member}`);
-        } else {
-          router.push(`/${data.memberId}`);
-        }
-      } else if (res && res.status === 401) {
-        // TODO: Show error message
-        console.error("Invalid username or password");
+      switch (res.status) {
+        case 200:
+          if (redirect) { // redirect to the previous page
+            router.push(redirect);
+          } else if (member) { // redirect to the member page
+            router.push(`/${member}`);
+          } else { // redirect to the user page
+            router.push(`/${res.body.memberId}`);
+          }
+          break;
+        case 401:
+          setError(res.status, res.body.message, res.body.code ?? "");
+          break;
+        default:
+          setError(res.status, "로그인에 실패했습니다.", res.body.code ?? "");
+          break;
       }
     });
   };

@@ -20,6 +20,7 @@ import { CandleType } from '@/interfaces/candles';
 /**
  * @param cakeType type of cake
  * @param candles array of candles
+ * @param names array of names
  * @returns cake component
  */
 export default function Cake({

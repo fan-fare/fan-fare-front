@@ -3,6 +3,7 @@
 import { getCakeQueryOption, readMessageQueryOption } from "@/api/queryOptions";
 import CakeName from "@/components/CakeName";
 import Message from "@/components/Message";
+import { useErrorStore } from "@/store/error.store";
 import {
   cakePageCountContainer,
   pageTop,
@@ -23,6 +24,8 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
   const preloadCount = 3; // number of messages to preload
+  const loginErrorMessage = "로그인이 필요합니다.";
+  const readErrorMessage = "메세지를 읽어오는 데 실패했습니다.";
 
   // Query
   const queryClient = useQueryClient();
@@ -38,6 +41,9 @@ export default function Page({ params }: { params: { member: string } }) {
   const [totalMessageCount, setTotalMessageCount] = useState(1); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
 
+  // Store
+  const setError = useErrorStore((state) => state.setError);
+
   // Refs
   const pageRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
@@ -46,7 +52,7 @@ export default function Page({ params }: { params: { member: string } }) {
   const [senderNicknames, setSenderNicknames] = useState<string[]>(["빵빠레"]); // name of message sender
   const [messages, setMessages] = useState<string[]>([
     "생일을 진심으로 축하해요!!",
-  ]); // message content
+  ]);
   const [sendDates, setSendDates] = useState<Date[]>([new Date()]); // message date
 
   /* Message Content */
@@ -85,9 +91,11 @@ export default function Page({ params }: { params: { member: string } }) {
         .then((res) => {
           if (res.status === 403) {
             router.push(`/auth/signin?redirect=${pathname}`);
+            setError(res.status, loginErrorMessage, res.body.code);
             return;
           } else if (res.status !== 200) {
-            // error handling
+            setError(res.status, readErrorMessage, res.body.code);
+            router.push(`/${params.member}`);
           } else {
             return res.body.data;
           }
@@ -111,7 +119,7 @@ export default function Page({ params }: { params: { member: string } }) {
         });
       }
     },
-    [pathname, queryClient, router],
+    [pathname, queryClient, router, setError, params.member],
   );
 
   // Update message content when the current message number changes

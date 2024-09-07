@@ -8,6 +8,8 @@ import { flexCenterContainer } from '@/styles/common/common.css';
  * @param candleType type of candle
  * @param candlePositionClass class for candle position
  * @param isGlittering whether the candle is glittering
+ * @param candleNamePositionClass class for candle name position
+ * @param name name of the candle
  * @returns cake candle component
  */
 export default memo(function CakeCandle({

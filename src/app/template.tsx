@@ -4,7 +4,6 @@ import { useErrorStore } from "@/store/error.store";
 import {
   errorContainer,
   errorText,
-  templateContainer,
 } from "@/styles/pages/template.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
