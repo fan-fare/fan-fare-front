@@ -1,26 +1,30 @@
 import { create } from "zustand";
 
+const errorTimeout = 3000;
+
 type State = {
   status: number;
   message: string;
   code: string;
-}
+};
 
 type Action = {
-  setStatus: (status: number) => void;
-  setMessage: (message: string) => void;
-  setCode: (code: string) => void;
-}
+  setError: (status: number, message: string, code: string) => void;
+};
 
 const initialState: State = {
   status: 0,
-  message: '',
-  code: '',
-}
+  message: "",
+  code: "",
+};
 
 export const useErrorStore = create<State & Action>((set) => ({
   ...initialState,
-  setStatus: (status: number) => set((state) => ({ ...state, status })),
-  setMessage: (message: string) => set((state) => ({ ...state, message })),
-  setCode: (code: string) => set((state) => ({ ...state, code })),
+  // 1s after reset
+  setError: (status: number, message: string, code: string) => {
+    set((state) => ({ ...state, status, message, code }));
+    setTimeout(() => {
+      set((state) => ({ ...state, status: 0, message: "", code: "" }));
+    }, errorTimeout);
+  },
 }));
