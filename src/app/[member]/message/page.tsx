@@ -80,10 +80,6 @@ export default function Page({ params }: { params: { member: string } }) {
   // Update message content
   const updateMessage = useCallback(
     async (messageId: string, idx: number) => {
-      if (idx !== 0 && senderNicknames[idx] && messages[idx] && sendDates[idx]) {
-        return;
-      }
-
       const message = await queryClient
         .ensureQueryData(readMessageQueryOption(messageId))
         .then((res) => {
@@ -115,9 +111,10 @@ export default function Page({ params }: { params: { member: string } }) {
         });
       }
     },
-    [queryClient, router, pathname, senderNicknames, messages, sendDates],
+    [pathname, queryClient, router],
   );
 
+  // Update message content when the current message number changes
   useEffect(() => {
     if (messageIdList.length > 0) {
       updateMessage(messageIdList[currentMessage - 1], currentMessage - 1);
