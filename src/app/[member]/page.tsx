@@ -25,18 +25,12 @@ import {
   fullButtonContainer,
   cakePageBottomContainer,
 } from "@/styles/pages/member/memberMain.css";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
-  // Query
-  const cakeInfo = useQuery(
-    getCakeQueryOption(BigInt(params.member).toString(), 0),
-  );
-  const memberInfo = useQuery(getMemberInfoQueryOption());
-
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
   const [currentCake, setCurrentCake] = useState(1); // current cake number
@@ -48,6 +42,13 @@ export default function Home({ params }: { params: { member: string } }) {
     new Date(new Date().setDate(new Date().getDate() + 1)),
   );
   const [loggedIn, setLoggedIn] = useState(false);
+
+  // Query
+  const cakeInfo = useQuery(
+    getCakeQueryOption(BigInt(params.member).toString(), currentCake - 1),
+  );
+  const memberInfo = useQuery(getMemberInfoQueryOption());
+
 
   // Constants
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? "";
