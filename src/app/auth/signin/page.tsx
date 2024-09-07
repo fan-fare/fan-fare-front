@@ -19,7 +19,7 @@ import {
   authPageWrapper,
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -43,6 +43,13 @@ export default function Page() {
 
   // Mutation Action
   const signinAction = async (formData: FormData) => {
+
+    // Check if the form is filled
+    if (!formData.get("id") || !formData.get("password")) {
+      setError(400, "모든 항목을 입력해주세요.", "400");
+      return;
+    }
+
     const data: ISigninRequest = {
       username: formData.get("id") as string,
       password: formData.get("password") as string,

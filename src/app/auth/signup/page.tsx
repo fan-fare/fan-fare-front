@@ -13,10 +13,7 @@ import {
 } from "@/styles/pages/auth/auth.css";
 import { buttonDarkHalf } from "@/styles/common/button.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  isExistingQueryOption,
-  signupMutationOption,
-} from "@/api/queryOptions";
+import { signupMutationOption } from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -41,6 +38,28 @@ export default function Page() {
 
   // Mutation Action
   const signupAction = async (formData: FormData) => {
+    // Check if the form is filled
+    if (
+      !formData.get("nickname") ||
+      !formData.get("id") ||
+      !formData.get("password")
+    ) {
+      setError(400, "모든 항목을 입력해주세요.", "400");
+      return;
+    }
+
+    // Check if the birthday is valid
+    if (new Date(formData.get("birth") as string) > new Date()) {
+      setError(400, "생일을 다시 확인해주세요.", "400");
+      return;
+    }
+
+    // Check if the username is valid
+    if (!/^[a-zA-Z0-9]*$/.test(formData.get("id") as string)) {
+      setError(400, "아이디는 영어와 숫자만 입력 가능합니다.", "400");
+      return;
+    }
+
     const data: ISignupRequest = {
       nickname: formData.get("nickname") as string,
       username: formData.get("id") as string,
@@ -51,19 +70,6 @@ export default function Page() {
         .split("T")[0],
     };
 
-    await queryClient
-      .fetchQuery(isExistingQueryOption(data.username))
-      .then((res) => {
-        switch (res.status) {
-          case 200:
-            setError(400, "이미 존재하는 아이디입니다.", res.body.code);
-            break;
-          default:
-            setError(res.status, "회원가입에 실패했습니다.", res.body.code);
-            break;
-        }
-      });
-
     await signup.mutateAsync(data).then((res) => {
       switch (res.status) {
         case 200:
@@ -72,7 +78,7 @@ export default function Page() {
           );
           break;
         case 400:
-          setError(res.status, "회원가입에 실패했습니다.", res.body.code);
+          setError(res.status, res.body.message, res.body.code);
           break;
         default:
           setError(res.status, "회원가입에 실패했습니다.", res.body.code);
