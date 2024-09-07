@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { flexCenterContainer, uiyeun } from '../common/common.css';
 
 export const timerComponentContainer = style([
@@ -67,11 +67,18 @@ export const boxesImg = style({
   top: '-1.5rem',
 });
 
+const boxesSclaeAnimation = keyframes({
+  '0%': { transform: 'scale(1)' },
+  '50%': { transform: 'scale(1.1)' },
+  '100%': { transform: 'scale(1)' },
+});
+
 export const clickableBoxesImg = style({
   display: 'block',
   width: '7rem',
   height: 'auto',
   cursor: 'pointer',
+  animation: `${boxesSclaeAnimation} 2s infinite`,
 });
 
 export const timer = style({
