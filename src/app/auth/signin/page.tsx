@@ -1,10 +1,12 @@
 "use client";
 
-import { signinMutationOption } from "@/api/queryOptions";
+import {
+  getMemberInfoQueryOption,
+  signinMutationOption,
+} from "@/api/queryOptions";
 import AuthLinks from "@/components/AuthLinks";
 import PrevPage from "@/components/PrevPage";
 import { ISigninRequest } from "@/interfaces/request";
-import { useUserStore } from "@/store/user.store";
 import { buttonDarkHalf } from "@/styles/common/button.css";
 import {
   authPageContainer,
@@ -16,13 +18,14 @@ import {
   authPageWrapper,
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
-  // Store
-  const setLoggedIn = useUserStore((state) => state.setLoggedIn);
+  // Query
+  const memberInfo = useQuery(getMemberInfoQueryOption());
 
   // Router
   const router = useRouter();
@@ -41,14 +44,14 @@ export default function Page() {
       password: formData.get("password") as string,
     };
     await signin.mutateAsync(data).then((res) => {
+      const data = res.body;
       if (res && res.status === 200) {
-        setLoggedIn(true);
         if (redirect) {
           router.push(redirect);
         } else if (member) {
           router.push(`/${member}`);
         } else {
-          router.push("/");
+          router.push(`/${data.memberId}`);
         }
       } else if (res && res.status === 401) {
         // TODO: Show error message
@@ -56,6 +59,19 @@ export default function Page() {
       }
     });
   };
+
+  useEffect(() => {
+    const data = memberInfo.data?.body.data;
+    if (data && data.memberId) {
+      if (redirect) {
+        router.push(redirect);
+      } else if (member) {
+        router.push(`/${member}`);
+      } else {
+        router.push(`/${data.memberId}`);
+      }
+    }
+  }, [memberInfo.data, router, member, redirect]);
 
   return (
     <div className={authPageContainer}>
