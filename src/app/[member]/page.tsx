@@ -1,6 +1,9 @@
 "use client";
 
-import { getCakeQueryOption, getMemberInfoQueryOption } from "@/api/queryOptions";
+import {
+  getCakeQueryOption,
+  getMemberInfoQueryOption,
+} from "@/api/queryOptions";
 import Cake from "@/components/Cake";
 import CakeName from "@/components/CakeName";
 import Effect from "@/components/Effect";
@@ -29,7 +32,9 @@ import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Query
-  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member).toString(), 0));
+  const cakeInfo = useQuery(
+    getCakeQueryOption(BigInt(params.member).toString(), 0),
+  );
   const memberInfo = useQuery(getMemberInfoQueryOption());
 
   // State
@@ -39,7 +44,9 @@ export default function Home({ params }: { params: { member: string } }) {
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
   const [names, setNames] = useState<string[]>([]); // name of message sender
   const [candles, setCandles] = useState<CandleType[]>([]);
-  const [birthday, setBirthday] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+  const [birthday, setBirthday] = useState(
+    new Date(new Date().setDate(new Date().getDate() + 1)),
+  );
   const [loggedIn, setLoggedIn] = useState(false);
 
   // Constants
@@ -49,7 +56,7 @@ export default function Home({ params }: { params: { member: string } }) {
   useEffect(() => {
     const data = cakeInfo.data?.body.data;
     if (data) {
-      setTotalCakeCount(data.totalCakeCount !== 0 ? data.totalCakeCount : 1 );
+      setTotalCakeCount(data.totalCakeCount !== 0 ? data.totalCakeCount : 1);
       setTotalMessageCount(data.totalMessageCount ?? 0);
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
@@ -76,7 +83,7 @@ export default function Home({ params }: { params: { member: string } }) {
           <FaQuestionCircle className={questionMark} />
         </Link>
       </div>
-      <Timer birthday={birthday} member={params.member}/>
+      <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
       <div className={cakeContainer}>
         <Cake cakeType="1" candles={candles} names={names} />
         <div className={cakePageCountContainer}>
