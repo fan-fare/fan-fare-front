@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   message,
@@ -9,6 +9,15 @@ import {
 } from "@/styles/components/message.css";
 import { memo, useEffect, useRef, useState } from "react";
 
+/**
+ * Message component
+ * @param senderNicknames sender's nickname
+ * @param messages message content
+ * @param sendDates message send date
+ * @param ref reference
+ * @param style style
+ * @returns Message component
+ */
 export default memo(function Message({
   senderNicknames,
   messages,
@@ -35,7 +44,7 @@ export default memo(function Message({
           .toString()
           .padStart(2, "0")}.${Math.floor(sendDates.getDate())
           .toString()
-          .padStart(2, "0")}`
+          .padStart(2, "0")}`,
       );
     }
   }, [sendDates]);
@@ -46,9 +55,7 @@ export default memo(function Message({
         <div className={messageContentContainer}>
           <div className={messageText}>{messages}</div>
           <div className={messageInfoContainer}>
-            <div>
-              {date}
-            </div>
+            <div>{date}</div>
             <div>by. {senderNicknames}</div>
           </div>
         </div>

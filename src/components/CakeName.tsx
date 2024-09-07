@@ -1,7 +1,17 @@
-import { cakeMessage, cakeNameContainer, cakeTitle, textPoint } from "@/styles/components/cakeName.css";
 import {
-} from "@/styles/pages/member/memberMain.css";
+  cakeMessage,
+  cakeNameContainer,
+  cakeTitle,
+  textPoint,
+} from "@/styles/components/cakeName.css";
+import {} from "@/styles/pages/member/memberMain.css";
 
+/**
+ * CakeName component
+ * @param userName user name
+ * @param messageCount number of messages
+ * @returns cake name component
+ */
 export default function CakeName({
   userName,
   messageCount,

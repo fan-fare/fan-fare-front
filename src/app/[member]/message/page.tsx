@@ -3,6 +3,7 @@
 import { getCakeQueryOption, readMessageQueryOption } from "@/api/queryOptions";
 import CakeName from "@/components/CakeName";
 import Message from "@/components/Message";
+import { useErrorStore } from "@/store/error.store";
 import {
   cakePageCountContainer,
   pageTop,
@@ -23,6 +24,8 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
   const preloadCount = 3; // number of messages to preload
+  const loginErrorMessage = "로그인이 필요합니다.";
+  const readErrorMessage = "메세지를 읽어오는 데 실패했습니다.";
 
   // Query
   const queryClient = useQueryClient();
@@ -38,6 +41,9 @@ export default function Page({ params }: { params: { member: string } }) {
   const [totalMessageCount, setTotalMessageCount] = useState(1); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
 
+  // Store
+  const setError = useErrorStore((state) => state.setError);
+
   // Refs
   const pageRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
@@ -46,13 +52,13 @@ export default function Page({ params }: { params: { member: string } }) {
   const [senderNicknames, setSenderNicknames] = useState<string[]>(["빵빠레"]); // name of message sender
   const [messages, setMessages] = useState<string[]>([
     "생일을 진심으로 축하해요!!",
-  ]); // message content
+  ]);
   const [sendDates, setSendDates] = useState<Date[]>([new Date()]); // message date
 
   /* Message Content */
   // Set cake owner nickname, total message count, and message list
   useEffect(() => {
-    const data = cakeInfo.data?.data;
+    const data = cakeInfo.data?.body.data;
     if (data && data.nickname) {
       setOwnerNickname(data.nickname ?? "빵빠레");
     }
@@ -80,19 +86,16 @@ export default function Page({ params }: { params: { member: string } }) {
   // Update message content
   const updateMessage = useCallback(
     async (messageId: string, idx: number) => {
-
-      if (senderNicknames[idx] && messages[idx] && sendDates[idx]) {
-        return;
-      }
-
       const message = await queryClient
         .ensureQueryData(readMessageQueryOption(messageId))
         .then((res) => {
           if (res.status === 403) {
             router.push(`/auth/signin?redirect=${pathname}`);
+            setError(res.status, loginErrorMessage, res.body.code);
             return;
           } else if (res.status !== 200) {
-            // error handling
+            setError(res.status, readErrorMessage, res.body.code);
+            router.push(`/${params.member}`);
           } else {
             return res.body.data;
           }
@@ -116,9 +119,10 @@ export default function Page({ params }: { params: { member: string } }) {
         });
       }
     },
-    [queryClient, router, pathname, senderNicknames, messages, sendDates],
+    [pathname, queryClient, router, setError, params.member],
   );
 
+  // Update message content when the current message number changes
   useEffect(() => {
     if (messageIdList.length > 0) {
       updateMessage(messageIdList[currentMessage - 1], currentMessage - 1);
@@ -127,17 +131,17 @@ export default function Page({ params }: { params: { member: string } }) {
 
   // Swipe left
   const swipeLeft = () => {
-    if (messageRef.current) {
-      const windowWidth = window.innerWidth;
-      messageRef.current.scrollLeft += windowWidth;
+    if (messageRef.current && pageRef.current) {
+      const pageWidth = pageRef.current.clientWidth;
+      messageRef.current.scrollLeft += pageWidth;
     }
   };
 
   // Swipe right
   const swipeRight = () => {
-    if (messageRef.current) {
-      const windowWidth = window.innerWidth;
-      messageRef.current.scrollLeft -= windowWidth;
+    if (messageRef.current && pageRef.current) {
+      const pageWidth = pageRef.current.clientWidth;
+      messageRef.current.scrollLeft -= pageWidth;
     }
   };
 
@@ -156,12 +160,10 @@ export default function Page({ params }: { params: { member: string } }) {
   };
 
   return (
-    <div className={messagePageContainer}
-      ref={pageRef}
-    >
+    <div className={messagePageContainer} ref={pageRef}>
       <Link className={pageTop} href={`/${params.member}`}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
-      </Link >
+      </Link>
       <div className={messagePageMain}>
         <div className={messageDisplayContainer}>
           <IoIosArrowBack

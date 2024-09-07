@@ -1,10 +1,13 @@
 "use client";
 
-import { signinMutationOption } from "@/api/queryOptions";
+import {
+  getMemberInfoQueryOption,
+  signinMutationOption,
+} from "@/api/queryOptions";
 import AuthLinks from "@/components/AuthLinks";
 import PrevPage from "@/components/PrevPage";
 import { ISigninRequest } from "@/interfaces/request";
-import { useUserStore } from "@/store/user.store";
+import { useErrorStore } from "@/store/error.store";
 import { buttonDarkHalf } from "@/styles/common/button.css";
 import {
   authPageContainer,
@@ -16,16 +19,20 @@ import {
   authPageWrapper,
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
-  // Store
-  const setLoggedIn = useUserStore((state) => state.setLoggedIn);
+  // Query
+  const memberInfo = useQuery(getMemberInfoQueryOption());
 
   // Router
   const router = useRouter();
+
+  // Store
+  const setError = useErrorStore((state) => state.setError);
 
   // Search Params
   const member = useSearchParams().get("member");
@@ -36,26 +43,50 @@ export default function Page() {
 
   // Mutation Action
   const signinAction = async (formData: FormData) => {
+
+    // Check if the form is filled
+    if (!formData.get("id") || !formData.get("password")) {
+      setError(400, "모든 항목을 입력해주세요.", "400");
+      return;
+    }
+
     const data: ISigninRequest = {
       username: formData.get("id") as string,
       password: formData.get("password") as string,
     };
     await signin.mutateAsync(data).then((res) => {
-      if (res && res.status === 200) {
-        setLoggedIn(true);
-        if (redirect) {
-          router.push(redirect);
-        } else if (member) {
-          router.push(`/${member}`);
-        } else {
-          router.push("/");
-        }
-      } else if (res && res.status === 401) {
-        // TODO: Show error message
-        console.error("Invalid username or password");
+      switch (res.status) {
+        case 200:
+          if (redirect) { // redirect to the previous page
+            router.push(redirect);
+          } else if (member) { // redirect to the member page
+            router.push(`/${member}`);
+          } else { // redirect to the user page
+            router.push(`/${res.body.memberId}`);
+          }
+          break;
+        case 401:
+          setError(res.status, res.body.message, res.body.code ?? "");
+          break;
+        default:
+          setError(res.status, "로그인에 실패했습니다.", res.body.code ?? "");
+          break;
       }
     });
   };
+
+  useEffect(() => {
+    const data = memberInfo.data?.body.data;
+    if (data && data.memberId) {
+      if (redirect) {
+        router.push(redirect);
+      } else if (member) {
+        router.push(`/${member}`);
+      } else {
+        router.push(`/${data.memberId}`);
+      }
+    }
+  }, [memberInfo.data, router, member, redirect]);
 
   return (
     <div className={authPageContainer}>

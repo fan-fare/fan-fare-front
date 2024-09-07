@@ -4,6 +4,7 @@ import { createPostMutationOption } from "@/api/queryOptions";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
+import { useErrorStore } from "@/store/error.store";
 import { buttonPrimaryHalf, disabledButtonHalf } from "@/styles/common/button.css";
 import {
   decoBtnContainer,
@@ -29,6 +30,9 @@ export default function Page({ params }: { params: { member: string } }) {
   const [nickname, setNickname] = useState("");
   const [message, setMessage] = useState("");
 
+  // Store
+  const setError = useErrorStore((state) => state.setError);
+
   // Mutation
   const createPost = useMutation(createPostMutationOption);
 
@@ -46,7 +50,7 @@ export default function Page({ params }: { params: { member: string } }) {
       if (res && res.status === 200) {
         router.push(`/${params.member}`);
       } else {
-        // error handling
+        setError(res.status, "메세지 전송에 실패했습니다.", res.body.message);
       }
     });
   };

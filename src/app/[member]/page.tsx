@@ -1,6 +1,9 @@
 "use client";
 
-import { getCakeQueryOption } from "@/api/queryOptions";
+import {
+  getCakeQueryOption,
+  getMemberInfoQueryOption,
+} from "@/api/queryOptions";
 import Cake from "@/components/Cake";
 import CakeName from "@/components/CakeName";
 import Effect from "@/components/Effect";
@@ -28,44 +31,49 @@ import { useEffect, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
-  // Query
-  const cakeInfo = useQuery(getCakeQueryOption(BigInt(params.member).toString(), 0));
-
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
   const [currentCake, setCurrentCake] = useState(1); // current cake number
   const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
-  const [names, setNames] = useState([]); // name of message sender
+  const [names, setNames] = useState<string[]>([]); // name of message sender
   const [candles, setCandles] = useState<CandleType[]>([]);
-  const [birthday, setBirthday] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+  const [birthday, setBirthday] = useState(
+    new Date(new Date().setDate(new Date().getDate() + 1)),
+  );
   const [loggedIn, setLoggedIn] = useState(false);
+
+  // Query
+  const cakeInfo = useQuery(
+    getCakeQueryOption(BigInt(params.member).toString(), currentCake - 1),
+  );
+  const memberInfo = useQuery(getMemberInfoQueryOption());
+
 
   // Constants
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? "";
 
   // Set current cake number
   useEffect(() => {
-    const data = cakeInfo.data?.data;
+    const data = cakeInfo.data?.body.data;
     if (data) {
-      setTotalCakeCount(data.totalCakeCount !== 0 ? data.totalCakeCount : 1 );
+      setTotalCakeCount(data.totalCakeCount !== 0 ? data.totalCakeCount : 1);
       setTotalMessageCount(data.totalMessageCount ?? 0);
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
       setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
+      setNames(data.messageSenderNicknameList);
+      setCandles(data.candleColorsList);
     }
   }, [cakeInfo.data]);
 
   // Set logged in status
   useEffect(() => {
-    // Below is temporary code
-    // Need to Authenticate with the server
-    // 
-    // const token = localStorage.getItem("token");
-    // if (token) {
-    //   setLoggedIn(true);
-    // }
-  }, []);
+    const data = memberInfo.data?.body.data;
+    if (data && data.memberId.toString() === params.member) {
+      setLoggedIn(true);
+    }
+  }, [memberInfo.data, params.member]);
 
   return (
     <main className={cakePageContainer}>
@@ -76,7 +84,7 @@ export default function Home({ params }: { params: { member: string } }) {
           <FaQuestionCircle className={questionMark} />
         </Link>
       </div>
-      <Timer birthday={birthday} member={params.member}/>
+      <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
       <div className={cakeContainer}>
         <Cake cakeType="1" candles={candles} names={names} />
         <div className={cakePageCountContainer}>

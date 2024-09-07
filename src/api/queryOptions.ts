@@ -5,37 +5,36 @@ import {
   ISigninRequest,
   ISignupRequest,
 } from "@/interfaces/request";
-import { useUserStore } from "@/store/user.store";
 import {
   ICreateMessageResponse,
   IDeleteMessageResponse,
   IFetchResponse,
-  ISigninResponse1,
+  ISigninResponse,
   ISignupResponse,
 } from "@/interfaces/response";
 
 const normalRetryCount = 3;
+const normalStaleTime = 1000 * 60 * 10;
 
 export const isExistingQueryOption = (username: string) =>
   queryOptions({
-    queryKey: ["isExisting", username],
+    queryKey: ["member", "isExisting", username],
     queryFn: async () => {
       return await api.isExisting(username);
     },
     retry: normalRetryCount,
+    staleTime: normalStaleTime,
   });
 
 export const signinMutationOption: UseMutationOptions<
-  IFetchResponse<ISigninResponse1>,
+  IFetchResponse<ISigninResponse>,
   Error,
   ISigninRequest
 > = {
   retry: normalRetryCount,
   mutationFn: async (data: ISigninRequest) => {
     return await api.login(data).then(({ headers, status, body }) => {
-      const setAccessToken = useUserStore.getState().setAccessToken;
       const accessToken = headers.get("Authorization") ?? "";
-      setAccessToken(accessToken);
       localStorage.setItem("token", accessToken);
       return { headers, status, body };
     });
@@ -53,13 +52,24 @@ export const signupMutationOption: UseMutationOptions<
   },
 };
 
-export const getCakeQueryOption = (memberId: string, page: number) => 
+export const getMemberInfoQueryOption = () =>
   queryOptions({
-    queryKey: ["getCake", memberId, page],
+    queryKey: ["member", "info"],
     queryFn: async () => {
-      return await api.getCake({ memberId, page }).then(({ body }) => body);
+      return await api.getMemberInfo();
     },
     retry: normalRetryCount,
+    staleTime: normalStaleTime,
+  });
+
+export const getCakeQueryOption = (memberId: string, page: number) =>
+  queryOptions({
+    queryKey: ["cake", memberId, page],
+    queryFn: async () => {
+      return await api.getCake({ memberId, page });
+    },
+    retry: normalRetryCount,
+    staleTime: normalStaleTime,
   });
 
 export const createPostMutationOption: UseMutationOptions<
@@ -69,19 +79,18 @@ export const createPostMutationOption: UseMutationOptions<
 > = {
   retry: normalRetryCount,
   mutationFn: async (data: ICreateMessageRequest) => {
-    return await api.writeMessage(data)
+    return await api.writeMessage(data);
   },
 };
 
 export const readMessageQueryOption = (messageId: string) =>
   queryOptions({
-    queryKey: ["readMessage", messageId],
+    queryKey: ["message", "read", messageId],
     queryFn: async () => {
       return await api.readMessage(messageId);
     },
     retry: normalRetryCount,
-    // 10 minutes
-    staleTime: 1000 * 60 * 10,
+    staleTime: normalStaleTime,
   });
 
 export const deleteMessageMutationOption: UseMutationOptions<

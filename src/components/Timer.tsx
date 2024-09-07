@@ -20,9 +20,19 @@ import { useCallback, useEffect, useState } from "react";
 /**
  * Timer component
  * @param birthday birthday date
+ * @param member member
+ * @param loggedIn logged in
  * @returns Timer component
  */
-export default function Timer({ birthday, member }: { birthday: Date, member: string }) {
+export default function Timer({
+  birthday,
+  member,
+  loggedIn,
+}: {
+  birthday: Date;
+  member: string;
+  loggedIn: boolean;
+}) {
   // Contstants
   const activeDays = 7;
 
@@ -45,12 +55,15 @@ export default function Timer({ birthday, member }: { birthday: Date, member: st
     setRemains(diff);
 
     // If the birthday is today or the birthday has passed, set box active for a week
-    if (diff === 0 || diff > (365 - activeDays) * 24 * 60 * 60 * 1000) {
+    if (
+      diff === 0 ||
+      (diff > (365 - activeDays) * 24 * 60 * 60 * 1000 && loggedIn)
+    ) {
       setBoxActive(true);
     } else {
       setBoxActive(false);
     }
-  }, [birthday]);
+  }, [birthday, loggedIn]);
 
   // Update remains every second
   useEffect(() => {
