@@ -30,8 +30,8 @@ export default function Cake({
   names,
 }: {
   cakeType?: CakeType;
-  candles: Array<CandleType>;
-  names: Array<string>;
+  candles?: Array<CandleType>;
+  names?: Array<string>;
 }) {
   // Constants
   const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
@@ -61,7 +61,7 @@ export default function Cake({
   return (
     <div className={cakeComponentContainer}>
       <div className={cake}>
-        {candles.map(
+        {candles && names && candles.map(
           (candle, i) =>
             candlePositions.length > i && (
               <CakeCandle

@@ -1,10 +1,11 @@
 import { style } from "@vanilla-extract/css";
-import { pc, smallMobile, tablet } from "../common/common.css";
 
 export const cakeComponentContainer = style({
   display: "flex",
-  width: "100%",
+  width: "80%",
   height: "auto",
+  maxWidth: "250px",
+  minHeight: "200px",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",

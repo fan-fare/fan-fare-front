@@ -23,13 +23,10 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
+  const messagePerCake = 5; // number of messages per cake
   const preloadCount = 3; // number of messages to preload
   const loginErrorMessage = "로그인이 필요합니다.";
   const readErrorMessage = "메세지를 읽어오는 데 실패했습니다.";
-
-  // Query
-  const queryClient = useQueryClient();
-  const cakeInfo = useQuery(getCakeQueryOption(params.member, 0));
 
   // Router
   const router = useRouter();
@@ -40,6 +37,13 @@ export default function Page({ params }: { params: { member: string } }) {
   const [messageIdList, setMessageIdList] = useState<string[]>([]); // message list
   const [totalMessageCount, setTotalMessageCount] = useState(1); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
+  const [currentCakeCount, setCurrentCakeCount] = useState(1); // current cake number
+
+  // Query
+  const queryClient = useQueryClient();
+  const cakeInfo = useQuery(
+    getCakeQueryOption(params.member, currentCakeCount - 1),
+  );
 
   // Store
   const setError = useErrorStore((state) => state.setError);
@@ -66,9 +70,14 @@ export default function Page({ params }: { params: { member: string } }) {
       setTotalMessageCount(data.totalMessageCount);
     }
     if (data && data.messageIdList) {
-      setMessageIdList(data.messageIdList.map((id) => id.toString()));
+      // Set message list
+      setMessageIdList((prev) => [
+        ...prev.slice(0, (currentCakeCount - 1) * messagePerCake),
+        ...data.messageIdList.map((id) => id.toString()),
+        ...prev.slice(currentCakeCount * messagePerCake),
+      ]);
     }
-  }, [cakeInfo.data]);
+  }, [cakeInfo.data, currentCakeCount]);
 
   // Preload messages
   useEffect(() => {
@@ -147,7 +156,6 @@ export default function Page({ params }: { params: { member: string } }) {
 
   // On scroll, change the number of the current message based on the scroll position
   // This function is called when the user scrolls the page.
-  //
   const handleScroll = () => {
     if (messageRef.current && pageRef.current) {
       // left is 1
@@ -158,6 +166,13 @@ export default function Page({ params }: { params: { member: string } }) {
       setCurrentMessage(messageCount);
     }
   };
+
+  // Change the current cake number based on the current message number
+  useEffect(() => {
+    if (currentMessage % messagePerCake === 0) {
+      setCurrentCakeCount(currentMessage / messagePerCake + 1);
+    }
+  }, [currentMessage]);
 
   return (
     <div className={messagePageContainer} ref={pageRef}>

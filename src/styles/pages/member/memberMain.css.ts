@@ -6,6 +6,7 @@ export const cakePageContainer = style({
   position: 'relative',
   width: '100%',
   height: '100%',
+  minHeight: '800px',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '2rem 0',
@@ -68,14 +69,57 @@ export const  timerContainer = style({
 export const cakeContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  width: '60%',
-  maxWidth: '300px',
-  height: 'auto%',
+  width: '100%',
+  maxHeight: '360px',
+  aspectRatio: '1 / 1',
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2rem',
-  paddingTop: '3rem',
   boxSizing: 'border-box',
+  position: 'relative',
+
+  '@media': {
+    [tablet]: {
+      minHeight: '360px',
+    },
+  },
+});
+
+export const cakeDisplay = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'none',
+  position: 'relative',
+
+  overflowX: 'auto',
+  overflowY: 'hidden',
+
+  flexFlow: 'row nowrap',
+
+  scrollSnapType: 'x mandatory',
+
+  scrollbarWidth: 'none',
+  msOverflowStyle: 'none',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+  scrollBehavior: 'smooth',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const cakeDisplayItem = style({
+  display: 'flex',
+  width: '100%',
+  height: 'auto',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute',
+  padding: '2rem',
+  boxSizing: 'border-box',
+  scrollSnapAlign: 'center',
 });
 
 export const cakePageCountContainer = style({

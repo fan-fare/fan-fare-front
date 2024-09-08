@@ -26,16 +26,21 @@ import {
   fullButtonContainer,
   cakePageBottomContainer,
   timerContainer,
+  cakeDisplay,
+  cakeDisplayItem,
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
+  // Constants
+  const candlePerCake = 5; // number of candles per cake
+
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
-  const [cakeType, setCakeType] = useState<CakeType>("default"); // cake type
+  const [cakeType, setCakeType] = useState<CakeType[]>([]); // cake type
   const [currentCake, setCurrentCake] = useState(1); // current cake number
   const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
@@ -46,6 +51,10 @@ export default function Home({ params }: { params: { member: string } }) {
   );
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // Refs
+  const pageRef = useRef<HTMLDivElement>(null);
+  const cakeRef = useRef<HTMLDivElement>(null);
 
   // Query
   const cakeInfo = useQuery(
@@ -76,9 +85,14 @@ export default function Home({ params }: { params: { member: string } }) {
 
   // Set cake type
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * cakeList.length);
-    setCakeType(cakeList[randomIndex]);
-  }, [cakeList, currentCake]);
+    for (let i = 0; i < totalCakeCount; i++) {
+      setCakeType((prev) => [
+        ...prev.slice(0, i),
+        cakeList[Math.floor(Math.random() * cakeList.length)],
+        ...prev.slice(i + 1),
+      ]);
+    }
+  }, [cakeList, totalCakeCount]);
 
   // Set current cake number
   useEffect(() => {
@@ -89,10 +103,20 @@ export default function Home({ params }: { params: { member: string } }) {
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
       setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
-      setNames(data.messageSenderNicknameList);
-      setCandles(data.candleColorsList);
+      //setNames(data.messageSenderNicknameList);
+      //setCandles(data.candleColorsList);
+      setNames((prev) => [
+        ...prev.slice(0, (currentCake - 1) * candlePerCake),
+        ...data.messageSenderNicknameList,
+        ...prev.slice(currentCake * candlePerCake),
+      ]);
+      setCandles((prev) => [
+        ...prev.slice(0, (currentCake - 1) * candlePerCake),
+        ...data.candleColorsList,
+        ...prev.slice(currentCake * candlePerCake),
+      ]);
     }
-  }, [cakeInfo.data]);
+  }, [cakeInfo.data, currentCake]);
 
   // Set logged in status
   useEffect(() => {
@@ -104,17 +128,29 @@ export default function Home({ params }: { params: { member: string } }) {
 
   // Set isLoaded status
   useEffect(() => {
-    if (cakeInfo.data && memberInfo.data) {
+    if (cakeInfo.data && memberInfo.data && cakeType.length > 0) {
       setIsLoaded(true);
     }
-  }, [cakeInfo.data, memberInfo.data]);
+  }, [cakeInfo.data, cakeType.length, memberInfo.data]);
+
+  // Handle scroll event
+  const handleScroll = () => {
+    if (pageRef.current && cakeRef.current) {
+      const pageWidth = pageRef.current.offsetWidth;
+      const scrollLeft = cakeRef.current.scrollLeft;
+      const newCurrentCake = Math.floor(
+        (scrollLeft + pageWidth / 2) / pageWidth + 1,
+      );
+      setCurrentCake(newCurrentCake);
+    }
+  };
 
   if (!isLoaded) {
     return null;
   }
 
   return (
-    <main className={cakePageContainer}>
+    <main className={cakePageContainer} ref={pageRef}>
       <Effect />
       <div className={pageTop}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
@@ -126,7 +162,29 @@ export default function Home({ params }: { params: { member: string } }) {
         <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
       </div>
       <div className={cakeContainer}>
-        <Cake cakeType={cakeType} candles={candles} names={names} />
+        <div className={cakeDisplay} ref={cakeRef} onScroll={handleScroll}>
+          {Array.from({ length: totalCakeCount }).map((_, idx) => (
+            <div
+              key={idx}
+              className={cakeDisplayItem}
+              style={{
+                left: `${idx * 100}%`,
+              }}
+            >
+              <Cake
+                cakeType={cakeType[idx]}
+                candles={candles.slice(
+                  idx * candlePerCake,
+                  idx * candlePerCake + candlePerCake,
+                )}
+                names={names.slice(
+                  idx * candlePerCake,
+                  idx * candlePerCake + candlePerCake,
+                )}
+              />
+            </div>
+          ))}
+        </div>
         <div className={cakePageCountContainer}>
           {`${currentCake} / ${totalCakeCount}`}
         </div>
