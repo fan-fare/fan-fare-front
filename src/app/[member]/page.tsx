@@ -8,6 +8,7 @@ import Cake from "@/components/Cake";
 import CakeName from "@/components/CakeName";
 import Effect from "@/components/Effect";
 import Timer from "@/components/Timer";
+import { CakeType } from "@/interfaces/cakes";
 import { CandleType } from "@/interfaces/candles";
 import {
   buttonPrimaryFull,
@@ -27,12 +28,13 @@ import {
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home({ params }: { params: { member: string } }) {
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
+  const [cakeType, setCakeType] = useState<CakeType>("default"); // cake type
   const [currentCake, setCurrentCake] = useState(1); // current cake number
   const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
@@ -49,9 +51,32 @@ export default function Home({ params }: { params: { member: string } }) {
   );
   const memberInfo = useQuery(getMemberInfoQueryOption());
 
-
   // Constants
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? "";
+  const cakeList: CakeType[] = useMemo(
+    () => [
+      "default",
+      "brown_white",
+      "choco",
+      "lightgreen_white",
+      "matcha",
+      "mint_choco",
+      "orange",
+      "orange_white",
+      "pink_white",
+      "purple_white",
+      "vanilla_choco",
+      "red_choco",
+      "white_pink",
+    ],
+    [],
+  );
+
+  // Set cake type
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * cakeList.length);
+    setCakeType(cakeList[randomIndex]);
+  }, [cakeList, currentCake]);
 
   // Set current cake number
   useEffect(() => {
@@ -86,7 +111,7 @@ export default function Home({ params }: { params: { member: string } }) {
       </div>
       <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
       <div className={cakeContainer}>
-        <Cake cakeType="1" candles={candles} names={names} />
+        <Cake cakeType={cakeType} candles={candles} names={names} />
         <div className={cakePageCountContainer}>
           {`${currentCake} / ${totalCakeCount}`}
         </div>

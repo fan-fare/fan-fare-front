@@ -44,7 +44,7 @@ export default function Home() {
         생일을 더 특별하게, 생일 축하 롤링페이퍼
       </div>
       <div className={mainPageCakeContainer}>
-        <Cake cakeType="1" candles={candles} names={[]} />
+        <Cake cakeType="pink_white" candles={candles} names={[]} />
       </div>
       <div className={buttonContainer}>
         <Link
