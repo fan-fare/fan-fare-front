@@ -76,7 +76,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
   ];
 
   const defaultFlagsProps = {
-    top: "27%",
+    top: "18%",
   };
 
   const mainPageFlagsProps = {

@@ -1,5 +1,6 @@
 import {
   cake,
+  cakeComponentContainer,
   cakeImg,
   candle1,
   candle2,
@@ -58,26 +59,28 @@ export default function Cake({
   ]); // cake image map
 
   return (
-    <div className={cake}>
-      {candles.map(
-        (candle, i) =>
-          candlePositions.length > i && (
-            <CakeCandle
-              key={i}
-              candleType={candle}
-              candlePositionClass={candlePositions[i]}
-              candleNamePositionClass={candleNamePositions[i]}
-              name={names[i]}
-            />
-          ),
-      )}
-      <Image
-        src={`/assets/cake/${cakeImage.get(cakeType)}`}
-        alt="cake"
-        width={0}
-        height={0}
-        className={cakeImg}
-      />
+    <div className={cakeComponentContainer}>
+      <div className={cake}>
+        {candles.map(
+          (candle, i) =>
+            candlePositions.length > i && (
+              <CakeCandle
+                key={i}
+                candleType={candle}
+                candlePositionClass={candlePositions[i]}
+                candleNamePositionClass={candleNamePositions[i]}
+                name={names[i]}
+              />
+            ),
+        )}
+        <Image
+          src={`/assets/cake/${cakeImage.get(cakeType)}`}
+          alt="cake"
+          width={0}
+          height={0}
+          className={cakeImg}
+        />
+      </div>
     </div>
   );
 }

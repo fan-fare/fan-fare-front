@@ -25,6 +25,7 @@ import {
   cakePageCountContainer,
   fullButtonContainer,
   cakePageBottomContainer,
+  timerContainer,
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -44,6 +45,7 @@ export default function Home({ params }: { params: { member: string } }) {
     new Date(new Date().setDate(new Date().getDate() + 1)),
   );
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Query
   const cakeInfo = useQuery(
@@ -100,6 +102,17 @@ export default function Home({ params }: { params: { member: string } }) {
     }
   }, [memberInfo.data, params.member]);
 
+  // Set isLoaded status
+  useEffect(() => {
+    if (cakeInfo.data && memberInfo.data) {
+      setIsLoaded(true);
+    }
+  }, [cakeInfo.data, memberInfo.data]);
+
+  if (!isLoaded) {
+    return null;
+  }
+
   return (
     <main className={cakePageContainer}>
       <Effect />
@@ -109,25 +122,27 @@ export default function Home({ params }: { params: { member: string } }) {
           <FaQuestionCircle className={questionMark} />
         </Link>
       </div>
-      <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
+      <div className={timerContainer}>
+        <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
+      </div>
       <div className={cakeContainer}>
         <Cake cakeType={cakeType} candles={candles} names={names} />
         <div className={cakePageCountContainer}>
           {`${currentCake} / ${totalCakeCount}`}
         </div>
       </div>
-      {loggedIn && (
-        <div className={fullButtonContainer}>
-          <Link href={"/dummy"} className={buttonWhiteLinkFull}>
-            🔗 링크 공유하고 축하받기
-          </Link>
-          <Link href={"/decoration/candle"} className={buttonPrimaryFull}>
-            🥳 사진 저장하고 자랑하기
-          </Link>
-        </div>
-      )}
-      {!loggedIn && (
-        <div className={cakePageBottomContainer}>
+      <div className={cakePageBottomContainer}>
+        {loggedIn && (
+          <div className={fullButtonContainer}>
+            <Link href={"/dummy"} className={buttonWhiteLinkFull}>
+              🔗 링크 공유하고 축하받기
+            </Link>
+            <Link href={"/decoration/candle"} className={buttonPrimaryFull}>
+              🥳 사진 저장하고 자랑하기
+            </Link>
+          </div>
+        )}
+        {!loggedIn && (
           <div className={halfButtonContainer}>
             <Link
               href={`/auth/signin?member=${params.member}`}
@@ -142,8 +157,8 @@ export default function Home({ params }: { params: { member: string } }) {
               이 케이크 꾸미기
             </Link>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 }
