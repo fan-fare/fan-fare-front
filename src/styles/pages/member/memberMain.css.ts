@@ -6,7 +6,7 @@ export const cakePageContainer = style({
   position: 'relative',
   width: '100%',
   height: '100%',
-  minHeight: '800px',
+  minHeight: '700px',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '2rem 0',
@@ -63,7 +63,7 @@ export const  timerContainer = style({
   boxSizing: 'border-box',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '1rem 0',
+  padding: '1rem',
 });
 
 export const cakeContainer = style({
@@ -162,6 +162,7 @@ export const cakePageBottomContainer = style({
 
   '@media': {
     [pc]: {
+      paddingTop: '2rem',
       position: 'relative',
     },
   },

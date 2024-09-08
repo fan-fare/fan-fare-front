@@ -85,7 +85,7 @@ export const endedTimerComponentContainer = style([
   {
     flexDirection: "column",
     position: "relative",
-    padding: "1rem 0 2rem 0",
+    padding: "1rem 0",
     boxSizing: "border-box",
   },
 ]);
