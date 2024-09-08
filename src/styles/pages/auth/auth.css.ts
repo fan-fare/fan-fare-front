@@ -13,6 +13,7 @@ export const authPageContainer = style({
   fontFamily: uiyeun,
   alignItems: 'center',
   justifyContent: 'center',
+  minHeight: '650px',
 
   '@media': {
     [pc]: {
