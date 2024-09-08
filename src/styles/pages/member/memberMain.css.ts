@@ -2,19 +2,20 @@ import { style } from '@vanilla-extract/css';
 import { pc, pretendard, smallMobile, tablet } from '../../common/common.css';
 
 export const cakePageContainer = style({
-  display: 'grid',
+  display: 'flex',
+  position: 'relative',
   width: '100%',
   height: '100%',
-  placeItems: 'center',
-  gridTemplateColumns: '1fr',
-  gridTemplateRows: '1fr 2fr 4fr 1fr',
+  minHeight: '700px',
+  flexDirection: 'column',
+  alignItems: 'center',
   padding: '2rem 0',
   boxSizing: 'border-box',
 
   '@media': {
     [pc]: {
-      width: '680px',
-      height: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   },
 });
@@ -54,25 +55,71 @@ export const questionMark = style({
   },
 });
 
+export const  timerContainer = style({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  height: 'auto',
+  boxSizing: 'border-box',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '1rem',
+});
+
 export const cakeContainer = style({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
-  height: 'auto',
+  maxHeight: '360px',
+  aspectRatio: '1 / 1',
   alignItems: 'center',
   justifyContent: 'center',
   gap: '2rem',
-  padding: '1rem 3rem',
   boxSizing: 'border-box',
+  position: 'relative',
 
   '@media': {
-    [smallMobile]: {
-      gap: '1rem',
-    },
     [tablet]: {
-      padding: '2rem 3rem',
+      minHeight: '360px',
     },
   },
+});
+
+export const cakeDisplay = style({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'none',
+  position: 'relative',
+
+  overflowX: 'auto',
+  overflowY: 'hidden',
+
+  flexFlow: 'row nowrap',
+
+  scrollSnapType: 'x mandatory',
+
+  scrollbarWidth: 'none',
+  msOverflowStyle: 'none',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+  scrollBehavior: 'smooth',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+export const cakeDisplayItem = style({
+  display: 'flex',
+  width: '100%',
+  height: 'auto',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'absolute',
+  padding: '2rem',
+  boxSizing: 'border-box',
+  scrollSnapAlign: 'center',
 });
 
 export const cakePageCountContainer = style({
@@ -105,17 +152,26 @@ export const cakePageCountContainer = style({
 
 export const cakePageBottomContainer = style({
   display: 'flex',
+  position: 'absolute',
+  bottom: '0',
   flexDirection: 'column',
-  justifyContent: 'flex-end',
   alignItems: 'center',
   width: '100%',
-  height: '100%',
+  height: 'auto',
+  padding: '1rem 0',
+
+  '@media': {
+    [pc]: {
+      paddingTop: '2rem',
+      position: 'relative',
+    },
+  },
 });
 
 export const fullButtonContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   width: '100%',
   height: '100%',
   alignItems: 'center',
@@ -127,7 +183,7 @@ export const fullButtonContainer = style({
 export const halfButtonContainer = style({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   alignItems: 'center',
   gap: '1rem',
 });

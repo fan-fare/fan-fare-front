@@ -1,5 +1,6 @@
 import {
   cake,
+  cakeComponentContainer,
   cakeImg,
   candle1,
   candle2,
@@ -29,8 +30,8 @@ export default function Cake({
   names,
 }: {
   cakeType?: CakeType;
-  candles: Array<CandleType>;
-  names: Array<string>;
+  candles?: Array<CandleType>;
+  names?: Array<string>;
 }) {
   // Constants
   const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
@@ -58,26 +59,28 @@ export default function Cake({
   ]); // cake image map
 
   return (
-    <div className={cake}>
-      {candles.map(
-        (candle, i) =>
-          candlePositions.length > i && (
-            <CakeCandle
-              key={i}
-              candleType={candle}
-              candlePositionClass={candlePositions[i]}
-              candleNamePositionClass={candleNamePositions[i]}
-              name={names[i]}
-            />
-          ),
-      )}
-      <Image
-        src={`/assets/cake/${cakeImage.get(cakeType)}`}
-        alt="cake"
-        width={0}
-        height={0}
-        className={cakeImg}
-      />
+    <div className={cakeComponentContainer}>
+      <div className={cake}>
+        {candles && names && candles.map(
+          (candle, i) =>
+            candlePositions.length > i && (
+              <CakeCandle
+                key={i}
+                candleType={candle}
+                candlePositionClass={candlePositions[i]}
+                candleNamePositionClass={candleNamePositions[i]}
+                name={names[i]}
+              />
+            ),
+        )}
+        <Image
+          src={`/assets/cake/${cakeImage.get(cakeType)}`}
+          alt="cake"
+          width={0}
+          height={0}
+          className={cakeImg}
+        />
+      </div>
     </div>
   );
 }

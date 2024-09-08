@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { flexCenterContainer, pc } from '../common/common.css';
+import { flexCenterContainer, pc, tablet } from '../common/common.css';
 
 export const effectContainer = style([
   {
@@ -12,12 +12,6 @@ export const effectContainer = style([
     overflow: 'hidden',
     zIndex: -10,
 
-    '@media': {
-      [pc]: {
-        width: '680px',
-        height: '100%',
-      },
-    },
   },
 ]);
 
@@ -29,7 +23,7 @@ export const effect = style([flexCenterContainer, {
 
 export const glitterImg = style({
   position: 'absolute',
-  top: '20%',
+  top: '30%',
   width: '150%',
   height: 'auto',
   overflow: 'hidden',
@@ -38,15 +32,13 @@ export const glitterImg = style({
 export const flagsImg = style({
   display: 'block',
   position: 'absolute',
-  top: '27%',
   width: '230%',
   height: 'auto',
-  overflow: 'hidden',
   zIndex: 1,
 
   '@media': {
-    [pc]: {
-      width: '100%',
+    [tablet]: {
+      width: '150%',
     },
   },
 });
@@ -67,7 +59,7 @@ export const balloonContainer = style({
   height: '100%',
 
   '@media': {
-    [pc]: {
+    [tablet]: {
       width: '90%',
     },
   },
