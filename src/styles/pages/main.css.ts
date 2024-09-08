@@ -35,7 +35,6 @@ export const mainPageCakeContainer = style({
   alignItems: "center",
   justifyContent: "center",
   padding: "1rem",
-  paddingTop: "4rem",
   boxSizing: "border-box",
 });
 
