@@ -11,11 +11,11 @@ import {
   candleName3,
   candleName4,
   candleName5,
-} from '@/styles/components/cake.css';
-import Image from 'next/image';
-import CakeCandle from './CakeCandle';
-import { CakeType } from '@/interfaces/cakes';
-import { CandleType } from '@/interfaces/candles';
+} from "@/styles/components/cake.css";
+import Image from "next/image";
+import CakeCandle from "./CakeCandle";
+import { CakeType } from "@/interfaces/cakes";
+import { CandleType } from "@/interfaces/candles";
 
 /**
  * @param cakeType type of cake
@@ -24,7 +24,7 @@ import { CandleType } from '@/interfaces/candles';
  * @returns cake component
  */
 export default function Cake({
-  cakeType = '1',
+  cakeType = "default",
   candles,
   names,
 }: {
@@ -34,8 +34,28 @@ export default function Cake({
 }) {
   // Constants
   const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
-  const candleNamePositions = [candleName1, candleName2, candleName3, candleName4, candleName5]; // candle name positions
-  const cakeImage = new Map<CakeType, string>([['1', '1.svg']]); // cake image map
+  const candleNamePositions = [
+    candleName1,
+    candleName2,
+    candleName3,
+    candleName4,
+    candleName5,
+  ]; // candle name positions
+  const cakeImage = new Map<CakeType, string>([
+    ["default", "default.svg"],
+    ["brown_white", "brown_white.svg"],
+    ["choco", "choco.svg"],
+    ["lightgreen_white", "lightgreen_white.svg"],
+    ["matcha", "matcha.svg"],
+    ["mint_choco", "mint_choco.svg"],
+    ["orange", "orange.svg"],
+    ["orange_white", "orange_white.svg"],
+    ["pink_white", "pink_white.svg"],
+    ["purple_white", "purple_white.svg"],
+    ["vanilla_choco", "vanilla_choco.svg"],
+    ["red_choco", "red_choco.svg"],
+    ["white_pink", "white_pink.svg"],
+  ]); // cake image map
 
   return (
     <div className={cake}>
@@ -49,7 +69,7 @@ export default function Cake({
               candleNamePositionClass={candleNamePositions[i]}
               name={names[i]}
             />
-          )
+          ),
       )}
       <Image
         src={`/assets/cake/${cakeImage.get(cakeType)}`}
