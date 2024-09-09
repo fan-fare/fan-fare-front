@@ -10,6 +10,7 @@ export const mainPageContainer = style([
     width: "100%",
     position: "relative",
     boxSizing: "border-box",
+    minHeight: "700px",
   },
 ]);
 

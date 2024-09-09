@@ -3,10 +3,9 @@ import { pc, pretendard, smallMobile, tablet } from '../../common/common.css';
 
 export const cakePageContainer = style({
   display: 'flex',
-  position: 'relative',
   width: '100%',
   height: '100%',
-  minHeight: '700px',
+  minHeight: '600px',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '2rem 0',
@@ -70,6 +69,7 @@ export const cakeContainer = style({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+  minHeight: '350px',
   maxHeight: '360px',
   aspectRatio: '1 / 1',
   alignItems: 'center',
@@ -152,12 +152,12 @@ export const cakePageCountContainer = style({
 
 export const cakePageBottomContainer = style({
   display: 'flex',
-  position: 'absolute',
   bottom: '0',
   flexDirection: 'column',
   alignItems: 'center',
   width: '100%',
-  height: 'auto',
+  height: '100%',
+  justifyContent: 'flex-end',
   padding: '1rem 0',
 
   '@media': {
