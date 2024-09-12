@@ -58,7 +58,7 @@ export default function Home({ params }: { params: { member: string } }) {
 
   // Query
   const cakeInfo = useQuery(
-    getCakeQueryOption(BigInt(params.member).toString(), currentCake - 1),
+    getCakeQueryOption(BigInt(params.member).toString(), totalCakeCount - currentCake), // reverse order of cake
   );
   const memberInfo = useQuery(getMemberInfoQueryOption());
 
@@ -103,16 +103,16 @@ export default function Home({ params }: { params: { member: string } }) {
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
       setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
-      //setNames(data.messageSenderNicknameList);
-      //setCandles(data.candleColorsList);
       setNames((prev) => [
         ...prev.slice(0, (currentCake - 1) * candlePerCake),
         ...data.messageSenderNicknameList,
+        ...Array.from({ length: candlePerCake - data.messageSenderNicknameList.length}).map(() => ""), // to correct the length of names array to 5
         ...prev.slice(currentCake * candlePerCake),
       ]);
       setCandles((prev) => [
         ...prev.slice(0, (currentCake - 1) * candlePerCake),
         ...data.candleColorsList,
+        ...Array.from({ length: candlePerCake - data.candleColorsList.length }).map(() => "CANDLE_COLOR_1" as CandleType), // to correct the length of candles array to 5
         ...prev.slice(currentCake * candlePerCake),
       ]);
     }

@@ -63,7 +63,7 @@ export default function Cake({
       <div className={cake}>
         {candles && names && candles.map(
           (candle, i) =>
-            candlePositions.length > i && (
+            names[i] && candlePositions.length > i && (
               <CakeCandle
                 key={i}
                 candleType={candle}
