@@ -52,15 +52,13 @@ export const signupMutationOption: UseMutationOptions<
   },
 };
 
-export const getMemberInfoQueryOption = () =>
-  queryOptions({
-    queryKey: ["member", "info"],
-    queryFn: async () => {
-      return await api.getMemberInfo();
-    },
-    retry: normalRetryCount,
-    staleTime: normalStaleTime,
-  });
+export const getMemberInfoQueryOption = queryOptions({
+  queryKey: ["member", "info"],
+  queryFn: async () => {
+    return await api.getMemberInfo();
+  },
+  retry: normalRetryCount,
+});
 
 export const getCakeQueryOption = (memberId: string, page: number) =>
   queryOptions({

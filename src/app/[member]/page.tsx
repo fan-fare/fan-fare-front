@@ -31,8 +31,9 @@ import {
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
+import html2canvas from "html2canvas";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -53,14 +54,18 @@ export default function Home({ params }: { params: { member: string } }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Refs
+  const pageButtomRef = useRef<HTMLDivElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const cakeRef = useRef<HTMLDivElement>(null);
 
   // Query
   const cakeInfo = useQuery(
-    getCakeQueryOption(BigInt(params.member).toString(), currentCake - 1),
+    getCakeQueryOption(
+      BigInt(params.member).toString(),
+      totalCakeCount - currentCake,
+    ), // reverse order of cake
   );
-  const memberInfo = useQuery(getMemberInfoQueryOption());
+  const memberInfo = useQuery(getMemberInfoQueryOption);
 
   // Constants
   const questionMarkLink = process.env.NEXT_PUBLIC_NOTION_URL ?? "";
@@ -103,16 +108,20 @@ export default function Home({ params }: { params: { member: string } }) {
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
       setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
-      //setNames(data.messageSenderNicknameList);
-      //setCandles(data.candleColorsList);
       setNames((prev) => [
         ...prev.slice(0, (currentCake - 1) * candlePerCake),
         ...data.messageSenderNicknameList,
+        ...Array.from({
+          length: candlePerCake - data.messageSenderNicknameList.length,
+        }).map(() => ""), // to correct the length of names array to 5
         ...prev.slice(currentCake * candlePerCake),
       ]);
       setCandles((prev) => [
         ...prev.slice(0, (currentCake - 1) * candlePerCake),
         ...data.candleColorsList,
+        ...Array.from({
+          length: candlePerCake - data.candleColorsList.length,
+        }).map(() => "CANDLE_COLOR_1" as CandleType), // to correct the length of candles array to 5
         ...prev.slice(currentCake * candlePerCake),
       ]);
     }
@@ -121,6 +130,7 @@ export default function Home({ params }: { params: { member: string } }) {
   // Set logged in status
   useEffect(() => {
     const data = memberInfo.data?.body.data;
+    console.log(data);
     if (data && data.memberId.toString() === params.member) {
       setLoggedIn(true);
     }
@@ -144,6 +154,24 @@ export default function Home({ params }: { params: { member: string } }) {
       setCurrentCake(newCurrentCake);
     }
   };
+
+  const handleCopyLink = useCallback(async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    window.alert("링크가 복사되었습니다.");
+  }, []);
+
+  const handleCapture = useCallback(() => {
+    if (pageButtomRef.current) {
+      pageButtomRef.current.style.display = "none";
+      html2canvas(document.body).then((canvas) => {
+        const link = document.createElement("a");
+        link.download = "cake.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+      pageButtomRef.current.style.display = "flex";
+    }
+  }, []);
 
   if (!isLoaded) {
     return null;
@@ -189,15 +217,15 @@ export default function Home({ params }: { params: { member: string } }) {
           {`${currentCake} / ${totalCakeCount}`}
         </div>
       </div>
-      <div className={cakePageBottomContainer}>
+      <div className={cakePageBottomContainer} ref={pageButtomRef}>
         {loggedIn && (
           <div className={fullButtonContainer}>
-            <Link href={"/dummy"} className={buttonWhiteLinkFull}>
+            <div className={buttonWhiteLinkFull} onClick={handleCopyLink}>
               🔗 링크 공유하고 축하받기
-            </Link>
-            <Link href={"/decoration/candle"} className={buttonPrimaryFull}>
+            </div>
+            <div className={buttonPrimaryFull} onClick={handleCapture}>
               🥳 사진 저장하고 자랑하기
-            </Link>
+            </div>
           </div>
         )}
         {!loggedIn && (

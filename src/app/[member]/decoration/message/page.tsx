@@ -1,11 +1,17 @@
 "use client";
 
-import { createPostMutationOption } from "@/api/queryOptions";
+import {
+  createPostMutationOption,
+  getCakeQueryOption,
+} from "@/api/queryOptions";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";
-import { buttonPrimaryHalf, disabledButtonHalf } from "@/styles/common/button.css";
+import {
+  buttonPrimaryHalf,
+  disabledButtonHalf,
+} from "@/styles/common/button.css";
 import {
   decoBtnContainer,
   decoMessage,
@@ -13,8 +19,14 @@ import {
   decoPageWrapper,
   prevPageContainer,
 } from "@/styles/pages/decoration/index.css";
-import { decoForm, decoFormContainer, decoFormInputContainer, decoFormNickname, decoFormTextArea } from "@/styles/pages/decoration/message.css";
-import { useMutation } from "@tanstack/react-query";
+import {
+  decoForm,
+  decoFormContainer,
+  decoFormInputContainer,
+  decoFormNickname,
+  decoFormTextArea,
+} from "@/styles/pages/decoration/message.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -33,6 +45,9 @@ export default function Page({ params }: { params: { member: string } }) {
   // Store
   const setError = useErrorStore((state) => state.setError);
 
+  // Query Client
+  const queryClient = useQueryClient();
+
   // Mutation
   const createPost = useMutation(createPostMutationOption);
 
@@ -48,6 +63,9 @@ export default function Page({ params }: { params: { member: string } }) {
     };
     await createPost.mutateAsync(data).then((res) => {
       if (res && res.status === 200) {
+        queryClient.invalidateQueries({
+          queryKey: ["cake"],
+        });
         router.push(`/${params.member}`);
       } else {
         setError(res.status, "메세지 전송에 실패했습니다.", res.body.message);

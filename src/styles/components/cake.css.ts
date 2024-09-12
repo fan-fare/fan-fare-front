@@ -69,12 +69,13 @@ export const candleNameProp = [
   },
   {
     top: "calc(-19% + 10%)",
-    right: "calc(31% - 1% - 3rem)",
+    left: "calc(31% - 1% - 3rem)",
   },
   {
     top: "calc(-19% + 10%)",
-    left: "calc(31% - 1% - 3rem)",
+    right: "calc(31% - 1% - 3rem)",
   },
+
   {
     top: "calc(21% + 10%)",
     left: "calc(9% - 1% - 3rem)",
