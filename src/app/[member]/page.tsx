@@ -155,6 +155,11 @@ export default function Home({ params }: { params: { member: string } }) {
     }
   };
 
+  const handleCopyLink = useCallback(async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    window.alert("링크가 복사되었습니다.");
+  }, []);
+
   const handleCapture = useCallback(() => {
     if (pageButtomRef.current) {
       pageButtomRef.current.style.display = "none";
@@ -215,9 +220,9 @@ export default function Home({ params }: { params: { member: string } }) {
       <div className={cakePageBottomContainer} ref={pageButtomRef}>
         {loggedIn && (
           <div className={fullButtonContainer}>
-            <Link href={"/dummy"} className={buttonWhiteLinkFull}>
+            <div className={buttonWhiteLinkFull} onClick={handleCopyLink}>
               🔗 링크 공유하고 축하받기
-            </Link>
+            </div>
             <div className={buttonPrimaryFull} onClick={handleCapture}>
               🥳 사진 저장하고 자랑하기
             </div>
