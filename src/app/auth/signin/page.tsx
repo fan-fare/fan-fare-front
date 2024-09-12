@@ -19,14 +19,15 @@ import {
   authPageWrapper,
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Page() {
   // Query
-  const memberInfo = useQuery(getMemberInfoQueryOption());
+  const queryClient = useQueryClient();
+  const memberInfo = useQuery(getMemberInfoQueryOption);
 
   // Router
   const router = useRouter();
@@ -43,7 +44,6 @@ export default function Page() {
 
   // Mutation Action
   const signinAction = async (formData: FormData) => {
-
     // Check if the form is filled
     if (!formData.get("id") || !formData.get("password")) {
       setError(400, "모든 항목을 입력해주세요.", "400");
@@ -54,14 +54,20 @@ export default function Page() {
       username: formData.get("id") as string,
       password: formData.get("password") as string,
     };
-    await signin.mutateAsync(data).then((res) => {
+    await signin.mutateAsync(data).then(async (res) => {
       switch (res.status) {
         case 200:
-          if (redirect) { // redirect to the previous page
+          queryClient.invalidateQueries({
+            queryKey: ["member", "info"],
+          });
+          if (redirect) {
+            // redirect to the previous page
             router.push(redirect);
-          } else if (member) { // redirect to the member page
+          } else if (member) {
+            // redirect to the member page
             router.push(`/${member}`);
-          } else { // redirect to the user page
+          } else {
+            // redirect to the user page
             router.push(`/${res.body.memberId}`);
           }
           break;
