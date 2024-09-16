@@ -57,6 +57,7 @@ const customFetch = async <T = unknown>(
       // otherwise, set it to an empty string
       Authorization: token ? `${token}` : "",
     },
+    credentials: "include",
   });
   const headers = response.headers;
   const status = response.status;
