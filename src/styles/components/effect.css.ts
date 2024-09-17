@@ -11,7 +11,7 @@ export const effectContainer = style([
     position: 'absolute',
     overflow: 'hidden',
     zIndex: -10,
-
+    top: 0,
   },
 ]);
 
