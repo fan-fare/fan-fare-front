@@ -12,9 +12,8 @@ export const candleSelector = style({
   justifyItems: 'center',
 });
 
-export const candleContainer = style({
+export const candleElementContainer = style({
   display: 'block',
-  position: 'relative',
   flexDirection: 'column',
   gap: '1rem',
   alignItems: 'center',
@@ -24,12 +23,22 @@ export const candleContainer = style({
   aspectRatio: '1 / 1',
   borderRadius: '10px',
   boxShadow: '0px 4px 4px 0px #0000001A',
-  padding: '1rem',
-  boxSizing: 'border-box',
+  border: '2px solid transparent',
 });
 
-export const activatedCandleContainer = style([
-  candleContainer,
+export const candleElement = style({
+  display: 'block',
+  position: 'relative',
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxSizing: 'border-box',
+  padding: '1rem',
+})
+
+export const activatedCandleElementContainer = style([
+  candleElementContainer,
   {
     border: '2px solid #F58989',
   },
