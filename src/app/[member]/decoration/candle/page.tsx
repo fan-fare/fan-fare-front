@@ -3,10 +3,14 @@
 import Candle from "@/components/Candle";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
-import { disabledButtonHalf, buttonPrimaryHalf } from "@/styles/common/button.css";
 import {
-  activatedCandleContainer,
-  candleContainer,
+  disabledButtonHalf,
+  buttonPrimaryHalf,
+} from "@/styles/common/button.css";
+import {
+  activatedCandleElementContainer,
+  candleElement,
+  candleElementContainer,
   candleSelector,
 } from "@/styles/pages/decoration/candle.css";
 import {
@@ -44,13 +48,17 @@ export default function Page({ params }: { params: { member: string } }) {
           {candleList.map((candle, i) => (
             <div
               className={
-                selected === candle ? activatedCandleContainer : candleContainer
+                selected === candle
+                  ? activatedCandleElementContainer
+                  : candleElementContainer
               }
               key={i}
               onClick={() => setSelected(candle)}
               onTouchEnd={() => setSelected(candle)}
             >
-              <Candle candleType={candle} />
+              <div className={candleElement}>
+                <Candle candleType={candle} />
+              </div>
             </div>
           ))}
         </div>
