@@ -28,6 +28,7 @@ import {
   timerContainer,
   cakeDisplay,
   cakeDisplayItem,
+  cakePageWrapper,
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -175,43 +176,49 @@ export default function Home({ params }: { params: { member: string } }) {
   }
 
   return (
-    <div className={cakePageContainer} ref={pageRef}>
-      <Effect />
-      <div className={pageTop}>
-        <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
-        <Link href={questionMarkLink}>
-          <FaQuestionCircle className={questionMark} />
-        </Link>
-      </div>
-      <div className={timerContainer}>
-        <Timer birthday={birthday} member={params.member} loggedIn={loggedIn} />
-      </div>
-      <div className={cakeContainer}>
-        <div className={cakeDisplay} ref={cakeRef} onScroll={handleScroll}>
-          {Array.from({ length: totalCakeCount }).map((_, idx) => (
-            <div
-              key={idx}
-              className={cakeDisplayItem}
-              style={{
-                left: `${idx * 100}%`,
-              }}
-            >
-              <Cake
-                cakeType={cakeType[idx]}
-                candles={candles.slice(
-                  idx * candlePerCake,
-                  idx * candlePerCake + candlePerCake,
-                )}
-                names={names.slice(
-                  idx * candlePerCake,
-                  idx * candlePerCake + candlePerCake,
-                )}
-              />
-            </div>
-          ))}
+    <div className={cakePageWrapper}>
+      <div className={cakePageContainer} ref={pageRef}>
+        <Effect />
+        <div className={pageTop}>
+          <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
+          <Link href={questionMarkLink}>
+            <FaQuestionCircle className={questionMark} />
+          </Link>
         </div>
-        <div className={cakePageCountContainer}>
-          {`${currentCake} / ${totalCakeCount}`}
+        <div className={timerContainer}>
+          <Timer
+            birthday={birthday}
+            member={params.member}
+            loggedIn={loggedIn}
+          />
+        </div>
+        <div className={cakeContainer}>
+          <div className={cakeDisplay} ref={cakeRef} onScroll={handleScroll}>
+            {Array.from({ length: totalCakeCount }).map((_, idx) => (
+              <div
+                key={idx}
+                className={cakeDisplayItem}
+                style={{
+                  left: `${idx * 100}%`,
+                }}
+              >
+                <Cake
+                  cakeType={cakeType[idx]}
+                  candles={candles.slice(
+                    idx * candlePerCake,
+                    idx * candlePerCake + candlePerCake,
+                  )}
+                  names={names.slice(
+                    idx * candlePerCake,
+                    idx * candlePerCake + candlePerCake,
+                  )}
+                />
+              </div>
+            ))}
+          </div>
+          <div className={cakePageCountContainer}>
+            {`${currentCake} / ${totalCakeCount}`}
+          </div>
         </div>
       </div>
       <div className={cakePageBottomContainer} ref={pageButtomRef}>

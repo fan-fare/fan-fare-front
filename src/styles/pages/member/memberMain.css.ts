@@ -1,6 +1,23 @@
 import { style } from "@vanilla-extract/css";
 import { pc, pretendard, smallMobile, tablet } from "../../common/common.css";
 
+export const cakePageWrapper = style({
+  padding: "1rem 0",
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  height: "100%",
+  boxSizing: "border-box",
+  alignItems: "center",
+  justifyContent: "flex-start",
+
+  "@media": {
+    [pc]: {
+      justifyContent: "center",
+    },
+  },
+});
+
 export const cakePageContainer = style({
   display: "flex",
   width: "100%",
@@ -9,7 +26,6 @@ export const cakePageContainer = style({
   minHeight: "600px",
   flexDirection: "column",
   alignItems: "center",
-  paddingTop: "2rem",
   boxSizing: "border-box",
 
   "@media": {
@@ -165,6 +181,7 @@ export const cakePageBottomContainer = style({
     [pc]: {
       paddingTop: "2rem",
       position: "relative",
+      height: "auto",
     },
   },
 });
