@@ -178,7 +178,7 @@ export default function Home({ params }: { params: { member: string } }) {
   }
 
   return (
-    <main className={cakePageContainer} ref={pageRef}>
+    <div className={cakePageContainer} ref={pageRef}>
       <Effect />
       <div className={pageTop}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
@@ -245,6 +245,6 @@ export default function Home({ params }: { params: { member: string } }) {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

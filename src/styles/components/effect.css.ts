@@ -70,5 +70,5 @@ export const balloonBase = style({
   width: 'auto',
   height: 'auto',
   overflow: 'hidden',
-  scale: 1.3,
+  scale: 1,
 });

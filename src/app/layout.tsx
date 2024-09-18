@@ -1,4 +1,4 @@
-import { mainContainer } from "@/styles/pages/layout.css";
+import { background, mainContainer } from "@/styles/pages/layout.css";
 import { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+        <div className={background}></div>
         <div className={mainContainer}>{children}</div>
       </body>
     </html>
