@@ -28,7 +28,7 @@ import {
 } from "@/styles/pages/decoration/message.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
@@ -75,18 +75,6 @@ export default function Page({ params }: { params: { member: string } }) {
     });
   };
 
-  const nicknameInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= maxNicknameLength) {
-      setNickname(e.target.value);
-    }
-  }, []);
-
-  const messageInput = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= maxMessageLength) {
-      setMessage(e.target.value);
-    }
-  }, []);
-
   return (
     <div className={decoPageContainer}>
       <div className={decoPageWrapper}>
@@ -100,15 +88,15 @@ export default function Page({ params }: { params: { member: string } }) {
               <textarea
                 placeholder={messageInputText}
                 className={decoFormTextArea}
-                onChange={messageInput}
-                value={message}
+                maxLength={maxMessageLength}
+                onChange={(e) => setMessage(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="닉네임을 입력하세요."
                 className={decoFormNickname}
-                onChange={nicknameInput}
-                value={nickname}
+                maxLength={maxNicknameLength}
+                onChange={(e) => setNickname(e.target.value)}
               />
             </div>
             <div className={decoBtnContainer}>
