@@ -26,27 +26,27 @@ export default function Effect({ main = false }: { main?: boolean }) {
 
   const defaultBallonProps = [
     {
-      bottom: "5%",
+      bottom: "9%",
       left: "0%",
       zIndex: 1,
     },
     {
-      bottom: "20%",
+      bottom: "23%",
       left: "9%",
     },
     {
-      bottom: "8%",
+      bottom: "6%",
       right: "14%",
       zIndex: 1,
     },
     {
-      bottom: "3%",
+      bottom: "4%",
       right: "6%",
       zIndex: 0,
     },
     {
-      bottom: "2%",
-      right: "15%",
+      bottom: "3%",
+      right: "12%",
       zIndex: 2,
     },
   ];

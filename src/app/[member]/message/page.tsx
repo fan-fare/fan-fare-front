@@ -57,7 +57,7 @@ export default function Page({ params }: { params: { member: string } }) {
   const [messages, setMessages] = useState<string[]>([
     "생일을 진심으로 축하해요!!",
   ]);
-  const [sendDates, setSendDates] = useState<Date[]>([new Date()]); // message date
+  const [sendDates, setSendDates] = useState<Date[]>([]); // message date
 
   /* Message Content */
   // Set cake owner nickname, total message count, and message list

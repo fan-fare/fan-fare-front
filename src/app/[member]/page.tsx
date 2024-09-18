@@ -47,9 +47,7 @@ export default function Home({ params }: { params: { member: string } }) {
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
   const [names, setNames] = useState<string[]>([]); // name of message sender
   const [candles, setCandles] = useState<CandleType[]>([]);
-  const [birthday, setBirthday] = useState(
-    new Date(new Date().setDate(new Date().getDate() + 1)),
-  );
+  const [birthday, setBirthday] = useState<Date | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -130,7 +128,6 @@ export default function Home({ params }: { params: { member: string } }) {
   // Set logged in status
   useEffect(() => {
     const data = memberInfo.data?.body.data;
-    console.log(data);
     if (data && data.memberId.toString() === params.member) {
       setLoggedIn(true);
     }
@@ -178,7 +175,7 @@ export default function Home({ params }: { params: { member: string } }) {
   }
 
   return (
-    <main className={cakePageContainer} ref={pageRef}>
+    <div className={cakePageContainer} ref={pageRef}>
       <Effect />
       <div className={pageTop}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
@@ -245,6 +242,6 @@ export default function Home({ params }: { params: { member: string } }) {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

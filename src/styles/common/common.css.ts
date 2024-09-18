@@ -9,7 +9,6 @@ export const tablet = '(min-width: 500px) and (min-height: 500px)';
 
 globalStyle('html, body', {
   display: 'flex',
-  position: 'absolute',
   boxSizing: 'border-box',
   alignItems: 'center',
   justifyContent: 'center',
@@ -17,12 +16,7 @@ globalStyle('html, body', {
   height: '100%',
   margin: 0,
   padding: 0,
-  backgroundImage: 'url("/assets/background.png")',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
   fontFamily: pretendard,
-  zIndex: -100,
   minHeight: "650px",
 });
 

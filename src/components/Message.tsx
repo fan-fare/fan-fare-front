@@ -46,6 +46,17 @@ export default memo(function Message({
           .toString()
           .padStart(2, "0")}`,
       );
+    } else {
+      const now = new Date();
+      setDate(
+        `${Math.floor(now.getFullYear())
+          .toString()
+          .padStart(4, "0")}.${Math.floor(now.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}.${Math.floor(now.getDate())
+          .toString()
+          .padStart(2, "0")}`,
+      );
     }
   }, [sendDates]);
 

@@ -7,10 +7,9 @@ export const mainPageContainer = style([
   {
     padding: "1rem",
     flexDirection: "column",
-    width: "100%",
     position: "relative",
     boxSizing: "border-box",
-    minHeight: "700px",
+    minHeight: "750px",
   },
 ]);
 

@@ -63,12 +63,6 @@ const customFetch = async <T = unknown>(
   const status = response.status;
   const body = (await response.json()) as T;
 
-  if (status !== 200 && status !== 201) {
-    console.error(body);
-  } else {
-    console.log(body);
-  }
-
   return {
     headers, // pass the headers along
     status, // pass the status along

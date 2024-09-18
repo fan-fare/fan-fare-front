@@ -1,10 +1,8 @@
 "use client";
 
 import { useErrorStore } from "@/store/error.store";
-import {
-  errorContainer,
-  errorText,
-} from "@/styles/pages/template.css";
+import { background, mainContainer } from "@/styles/pages/layout.css";
+import { errorContainer, errorText } from "@/styles/pages/template.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -13,7 +11,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <div className={background}></div>
+      <div className={mainContainer}>{children}</div>
       {error.message && (
         <div className={errorContainer}>
           <div className={errorText}>{error.message}</div>
