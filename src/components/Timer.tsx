@@ -28,7 +28,7 @@ export default function Timer({
   member,
   loggedIn,
 }: {
-  birthday: Date;
+  birthday: Date | null;
   member: string;
   loggedIn: boolean;
 }) {
@@ -41,6 +41,9 @@ export default function Timer({
 
   // Calculate remains
   const calculateRemains = useCallback(() => {
+    if (!birthday) {
+      return;
+    }
     const now = new Date();
     const nextBirthday = new Date(
       now.getFullYear(),
@@ -128,83 +131,11 @@ export default function Timer({
         </div>
       </div>
       <div className={birthdayText}>
-        {`생일: ${birthday.getFullYear()}.${
-          birthday.getMonth() + 1
-        }.${birthday.getDate()}.`}
+        {birthday &&
+          `생일: ${birthday.getFullYear()}.${
+            birthday.getMonth() + 1
+          }.${birthday.getDate()}.`}
       </div>
     </div>
   );
-
-  //return (
-  //  <div
-  //    className={
-  //      boxActive ? endedTimerComponentContainer : timerComponentContainer
-  //    }
-  //  >
-  //    {boxActive && (
-  //      <div className={textBalloon}>
-  //        이제 친구들의 축하글을 열어볼 수 있어요!
-  //        <br />
-  //        편지는 “일주일”간 보관돼요.
-  //      </div>
-  //    )}
-  //    <div className={boxesAndTimerContainer}>
-  //      {boxActive ? (
-  //        <Link href={`/${member}/message`}>
-  //          <Image
-  //            src={"/assets/boxes.svg"}
-  //            alt="boxes"
-  //            width={0}
-  //            height={0}
-  //            className={clickableBoxesImg}
-  //          />
-  //        </Link>
-  //      ) : (
-  //        <div className={timerContainer}>
-  //          <Image
-  //            src={"/assets/boxes.svg"}
-  //            alt="boxes"
-  //            width={0}
-  //            height={0}
-  //            className={boxesImg}
-  //          />
-  //
-  //          <div className={timer}>
-  //            <div className={timerContent}>
-  //              <div className={timerText}>
-  //                D-
-  //                {Math.floor(remains / (1000 * 60 * 60 * 24)) + 1}
-  //              </div>
-  //              <div>
-  //                {
-  //                  <div className={timerText}>
-  //                    {/* HH:MM:SS */}
-  //                    {`${Math.floor(
-  //                      (remains % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-  //                    )
-  //                      .toString()
-  //                      .padStart(2, "0")}:${Math.floor(
-  //                      (remains % (1000 * 60 * 60)) / (1000 * 60),
-  //                    )
-  //                      .toString()
-  //                      .padStart(2, "0")}:${Math.floor(
-  //                      (remains % (1000 * 60)) / 1000,
-  //                    )
-  //                      .toString()
-  //                      .padStart(2, "0")}`}
-  //                  </div>
-  //                }
-  //              </div>
-  //            </div>
-  //          </div>
-  //          <div className={birthdayText}>
-  //            {`생일: ${birthday.getFullYear()}.${
-  //              birthday.getMonth() + 1
-  //            }.${birthday.getDate()}.`}
-  //          </div>
-  //        </div>
-  //      )}
-  //    </div>
-  //  </div>
-  //);
 }
