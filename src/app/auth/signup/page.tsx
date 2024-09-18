@@ -12,7 +12,7 @@ import {
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
 import { buttonDarkHalf } from "@/styles/common/button.css";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { signupMutationOption } from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
@@ -21,6 +21,11 @@ import PrevPage from "@/components/PrevPage";
 import { useErrorStore } from "@/store/error.store";
 
 export default function Page() {
+  // Constants
+  const maxNicknameLength = 20;
+  const maxIdLength = 20;
+  const maxPasswordLength = 255;
+
   // Router
   const router = useRouter();
 
@@ -29,9 +34,6 @@ export default function Page() {
 
   // Mutation
   const signup = useMutation(signupMutationOption);
-
-  // Query
-  const queryClient = useQueryClient();
 
   // Store
   const setError = useErrorStore((state) => state.setError);
@@ -104,6 +106,7 @@ export default function Page() {
               name="nickname"
               type="text"
               placeholder="닉네임을 입력해주세요."
+              maxLength={maxNicknameLength}
               className={authFormInput}
             />
           </div>
@@ -132,6 +135,7 @@ export default function Page() {
               name="id"
               type="text"
               placeholder="아이디를 입력해주세요. (영어/숫자 혼합)"
+              maxLength={maxIdLength}
               className={authFormInput}
             />
           </div>
@@ -144,6 +148,7 @@ export default function Page() {
               name="password"
               type="password"
               placeholder="비밀번호를 입력해주세요. (영어/숫자/특수문자 혼합)"
+              maxLength={maxPasswordLength}
               className={authFormInput}
             />
           </div>

@@ -25,6 +25,10 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Page() {
+  // Constants
+  const maxIdLength = 20;
+  const maxPasswordLength = 255;
+
   // Query
   const queryClient = useQueryClient();
   const memberInfo = useQuery(getMemberInfoQueryOption);
@@ -125,6 +129,7 @@ export default function Page() {
               name="id"
               type="text"
               placeholder="아이디를 입력해주세요. (영어/숫자 혼합)"
+              maxLength={maxIdLength}
               className={authFormInput}
             />
           </div>
@@ -137,6 +142,7 @@ export default function Page() {
               name="password"
               type="password"
               placeholder="비밀번호를 입력해주세요. (영어/숫자/특수문자 혼합)"
+              maxLength={maxPasswordLength}
               className={authFormInput}
             />
           </div>
