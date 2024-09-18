@@ -28,11 +28,13 @@ import {
 } from "@/styles/pages/decoration/message.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
   const messageInputText = `친구 생일을 진심으로 축하해주는 당신은 멋쟁이!!\n여기에 메세지를 입력해주세요`;
+  const maxNicknameLength = 5;
+  const maxMessageLength = 200;
   const searchParams = useSearchParams();
 
   // Router
@@ -73,6 +75,18 @@ export default function Page({ params }: { params: { member: string } }) {
     });
   };
 
+  const nicknameInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length <= maxNicknameLength) {
+      setNickname(e.target.value);
+    }
+  }, []);
+
+  const messageInput = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= maxMessageLength) {
+      setMessage(e.target.value);
+    }
+  }, []);
+
   return (
     <div className={decoPageContainer}>
       <div className={decoPageWrapper}>
@@ -86,13 +100,15 @@ export default function Page({ params }: { params: { member: string } }) {
               <textarea
                 placeholder={messageInputText}
                 className={decoFormTextArea}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={messageInput}
+                value={message}
               />
               <input
                 type="text"
                 placeholder="닉네임을 입력하세요."
                 className={decoFormNickname}
-                onChange={(e) => setNickname(e.target.value)}
+                onChange={nicknameInput}
+                value={nickname}
               />
             </div>
             <div className={decoBtnContainer}>
