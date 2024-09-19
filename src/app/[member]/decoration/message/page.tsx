@@ -22,10 +22,11 @@ import {
 import {
   decoForm,
   decoFormContainer,
+  decoFormContentContainer,
   decoFormInputContainer,
   decoFormNickname,
+  decoFormNicknameCount,
   decoFormTextArea,
-  decoFormTextAreaContainer,
   decoFormTextAreaCount,
 } from "@/styles/pages/decoration/message.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -86,25 +87,30 @@ export default function Page({ params }: { params: { member: string } }) {
         <div className={decoMessage}>생일을 축하해주세요!</div>
         <div className={decoFormContainer}>
           <form className={decoForm} onSubmit={createPostEvent}>
-            <div className={decoFormInputContainer}>
-              <div className={decoFormTextAreaContainer}>
-                <div className={decoFormTextAreaCount}>
-                  {message.length}/{maxMessageLength}자
-                </div>
+            <div className={decoFormContentContainer}>
+              <div className={decoFormInputContainer}>
                 <textarea
                   placeholder={messageInputText}
                   className={decoFormTextArea}
                   maxLength={maxMessageLength}
                   onChange={(e) => setMessage(e.target.value)}
                 />
+                <div className={decoFormTextAreaCount}>
+                  {message.length}/{maxMessageLength}자
+                </div>
               </div>
-              <input
-                type="text"
-                placeholder="닉네임을 입력하세요."
-                className={decoFormNickname}
-                maxLength={maxNicknameLength}
-                onChange={(e) => setNickname(e.target.value)}
-              />
+              <div className={decoFormInputContainer}>
+                <input
+                  type="text"
+                  placeholder="닉네임을 입력하세요."
+                  className={decoFormNickname}
+                  maxLength={maxNicknameLength}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
+                <div className={decoFormNicknameCount}>
+                  {nickname.length}/{maxNicknameLength}자
+                </div>
+              </div>
             </div>
             <div className={decoBtnContainer}>
               <button

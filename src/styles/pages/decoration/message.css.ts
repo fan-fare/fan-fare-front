@@ -21,7 +21,7 @@ export const decoForm = style({
   gap: "1rem",
 });
 
-export const decoFormInputContainer = style({
+export const decoFormContentContainer = style({
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
@@ -30,7 +30,7 @@ export const decoFormInputContainer = style({
   boxSizing: "border-box",
 });
 
-export const decoFormTextAreaContainer = style({
+export const decoFormInputContainer = style({
   display: "flex",
   position: "relative",
   width: "100%",
@@ -76,3 +76,12 @@ export const decoFormNickname = style([
     height: "3rem",
   },
 ]);
+
+export const decoFormNicknameCount = style({
+  display: "block",
+  position: "absolute",
+  top: "calc(50% - 0.75rem)",
+  right: "0.75rem",
+  fontSize: "1.5rem",
+  color: "#D9D9D9",
+});

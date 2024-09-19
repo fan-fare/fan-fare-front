@@ -61,8 +61,9 @@ export default function Home({ params }: { params: { member: string } }) {
   const cakeInfo = useQuery(
     getCakeQueryOption(
       BigInt(params.member).toString(),
-      totalCakeCount - currentCake,
-    ), // reverse order of cake
+      // totalCakeCount - currentCake, // reverse order of cake
+      currentCake - 1,
+    ),
   );
   const memberInfo = useQuery(getMemberInfoQueryOption);
 
