@@ -23,8 +23,7 @@ export const candleImg = style({
 // glitter animation
 const glitteringCandle = keyframes({
   '0%': { opacity: 0.3},
-  '30%': { opacity: 1 },
-  '60%': { opacity: 0.7 },
+  '30%': { opacity: 2 },
   '100%': { opacity: 0.3 },
 });
 
@@ -36,6 +35,6 @@ export const glittering = style({
   aspectRatio: '1 / 1',
   top: '-10%',
   left: '-100%',
-  background: `radial-gradient(40% 50% at 50% 50%, #F0CB35 0%, rgba(255, 255, 255, 0) 100%)`,
-  animation: `${glitteringCandle} 3s infinite`,
+  background: `radial-gradient(45% 55% at 50% 50%, #F0CB35 0%, rgba(255, 255, 255, 0) 100%)`,
+  animation: `${glitteringCandle} 1.5s infinite`,
 });
