@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { uiyeun } from "../common/common.css";
 
 export const cakeComponentContainer = style({
   display: "flex",
@@ -69,31 +70,32 @@ export const candleNameProp = [
   },
   {
     top: "calc(-19% + 10%)",
-    left: "calc(31% - 1% - 3rem)",
+    left: "calc(31% - 1% - 3.25rem)",
   },
   {
     top: "calc(-19% + 10%)",
-    right: "calc(31% - 1% - 3rem)",
+    right: "calc(31% - 1% - 3.25rem)",
   },
 
   {
     top: "calc(21% + 10%)",
-    left: "calc(9% - 1% - 3rem)",
+    left: "calc(9% - 1% - 3.25rem)",
   },
   {
     top: "calc(21% + 10%)",
-    right: "calc(9% - 1% - 3rem)",
+    right: "calc(9% - 1% - 3.25rem)",
   },
 ];
 
 export const candleNameBase = style({
   display: "block",
+  fontFamily: uiyeun,
   position: "absolute",
   alignItems: "center",
   justifyContent: "center",
-  width: "3rem",
+  width: "3.25rem",
   height: "auto",
-  fontSize: "1rem",
+  fontSize: "1.25rem",
   textAlign: "center",
   whiteSpace: "nowrap",
   overflow: "hidden",
