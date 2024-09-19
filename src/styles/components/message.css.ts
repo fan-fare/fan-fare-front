@@ -42,8 +42,10 @@ export const messageContentContainer = style([
 export const messageText = style([
   flexCenterContainer,
   {
+    textAlign: "center",
     color: "#474747",
     fontWeight: 400,
+    whiteSpace: "pre-wrap",
   },
 ]);
 
@@ -64,4 +66,3 @@ export const messageInfo = style({
   color: "#474747",
   fontWeight: 400,
 });
-
