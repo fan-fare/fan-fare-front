@@ -25,10 +25,12 @@ import {
   decoFormInputContainer,
   decoFormNickname,
   decoFormTextArea,
+  decoFormTextAreaContainer,
+  decoFormTextAreaCount,
 } from "@/styles/pages/decoration/message.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
@@ -85,12 +87,17 @@ export default function Page({ params }: { params: { member: string } }) {
         <div className={decoFormContainer}>
           <form className={decoForm} onSubmit={createPostEvent}>
             <div className={decoFormInputContainer}>
-              <textarea
-                placeholder={messageInputText}
-                className={decoFormTextArea}
-                maxLength={maxMessageLength}
-                onChange={(e) => setMessage(e.target.value)}
-              />
+              <div className={decoFormTextAreaContainer}>
+                <div className={decoFormTextAreaCount}>
+                  {message.length}/{maxMessageLength}자
+                </div>
+                <textarea
+                  placeholder={messageInputText}
+                  className={decoFormTextArea}
+                  maxLength={maxMessageLength}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </div>
               <input
                 type="text"
                 placeholder="닉네임을 입력하세요."
