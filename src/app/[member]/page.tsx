@@ -33,8 +33,9 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { FaQuestionCircle } from "react-icons/fa";
 import html2canvas from "html2canvas";
+import Image from "next/image";
+import cofetti from "canvas-confetti";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -61,8 +62,9 @@ export default function Home({ params }: { params: { member: string } }) {
   const cakeInfo = useQuery(
     getCakeQueryOption(
       BigInt(params.member).toString(),
-      totalCakeCount - currentCake,
-    ), // reverse order of cake
+      // totalCakeCount - currentCake, // reverse order of cake
+      currentCake - 1,
+    ),
   );
   const memberInfo = useQuery(getMemberInfoQueryOption);
 
@@ -171,6 +173,28 @@ export default function Home({ params }: { params: { member: string } }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (isLoaded) {
+      const canvas = document.createElement("canvas");
+      canvas.style.position = "absolute";
+      canvas.style.top = "0";
+      canvas.style.left = "0";
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      document.body.appendChild(canvas);
+      
+      const confetti = cofetti.create(canvas, {
+        resize: true,
+        useWorker: true,
+      });
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+      });
+    }
+  }, [isLoaded]);
+
   if (!isLoaded) {
     return null;
   }
@@ -182,7 +206,7 @@ export default function Home({ params }: { params: { member: string } }) {
         <div className={pageTop}>
           <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
           <Link href={questionMarkLink}>
-            <FaQuestionCircle className={questionMark} />
+            <Image src={"/assets/question-mark.svg"} alt="question-mark" width={40} height={40} className={questionMark} />
           </Link>
         </div>
         <div className={timerContainer}>

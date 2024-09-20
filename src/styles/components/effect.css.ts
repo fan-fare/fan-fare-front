@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css';
+import { keyframes, style } from '@vanilla-extract/css';
 import { flexCenterContainer, pc, tablet } from '../common/common.css';
 
 export const effectContainer = style([
@@ -63,6 +63,12 @@ export const balloonContainer = style({
       width: '90%',
     },
   },
+});
+
+export const balloonAnimation = keyframes({
+  '0%': { transform: 'translateY(0)' },
+  '50%': { transform: 'translateY(-10%)' },
+  '100%': { transform: 'translateY(0)' },
 });
 
 export const balloonBase = style({

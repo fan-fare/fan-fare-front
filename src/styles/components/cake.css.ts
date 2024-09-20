@@ -1,4 +1,5 @@
-import { style } from "@vanilla-extract/css";
+import { ComplexStyleRule, style, StyleRule } from "@vanilla-extract/css";
+import { uiyeun } from "../common/common.css";
 
 export const cakeComponentContainer = style({
   display: "flex",
@@ -32,82 +33,88 @@ export const cakeImg = style({
   zIndex: 1,
 });
 
-export const candleProp = [
+// candle position of cake
+export const candleProp: StyleRule[] = [
   {
-    top: "-13%",
-    left: "48%",
+    top: "-15%",
+    left: "46.75%", // middle
   },
   {
-    top: "-19%",
-    left: "31%",
+    top: "-10%",
+    left: "27%", // left top
   },
   {
-    top: "-19%",
-    right: "31%",
+    top: "-10%",
+    right: "27%", // right top
   },
   {
-    top: "21%",
-    left: "9%",
+    top: "26%",
+    left: "7%", // left bottom
   },
   {
-    top: "21%",
-    right: "9%",
+    top: "26%",
+    right: "7%", // right bottom
   },
 ];
 
 export const candleBase = style({
   display: "block",
-  width: "4%",
+  width: "6.5%", // candle size
   height: "auto",
   position: "absolute",
 });
 
-export const candleNameProp = [
+export const candleNameProp: StyleRule[] = [
   {
-    top: "calc(-13% - 10%)",
-    left: "calc(50% - 1.5rem)",
+    top: "calc(-13% - 12%)",
+    left: "calc(50% - 1.625rem)",
+    textAlign: "center",
   },
   {
     top: "calc(-19% + 10%)",
-    left: "calc(31% - 1% - 3rem)",
+    left: "calc(31% - 6.5% - 3.25rem)",
+    textAlign: "right",
   },
   {
     top: "calc(-19% + 10%)",
-    right: "calc(31% - 1% - 3rem)",
+    right: "calc(31% - 6.5% - 3.25rem)",
+    textAlign: "left",
   },
 
   {
     top: "calc(21% + 10%)",
-    left: "calc(9% - 1% - 3rem)",
+    left: "calc(12% - 6.5% - 3.25rem)",
+    textAlign: "right",
   },
   {
     top: "calc(21% + 10%)",
-    right: "calc(9% - 1% - 3rem)",
+    right: "calc(12% - 6.5% - 3.25rem)",
+    textAlign: "left",
   },
 ];
 
 export const candleNameBase = style({
   display: "block",
+  fontFamily: uiyeun,
   position: "absolute",
   alignItems: "center",
   justifyContent: "center",
-  width: "3rem",
+  width: "3.25rem",
   height: "auto",
-  fontSize: "1rem",
-  textAlign: "center",
+  fontSize: "1.25rem",
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
 });
 
-export const candle1 = style([candleBase, { ...candleProp[0] }]);
-export const candle2 = style([candleBase, { ...candleProp[1] }]);
-export const candle3 = style([candleBase, { ...candleProp[2] }]);
-export const candle4 = style([candleBase, { ...candleProp[3] }]);
-export const candle5 = style([candleBase, { ...candleProp[4] }]);
+export const candle1 = style([candleBase, candleProp[0]]);
+export const candle2 = style([candleBase, candleProp[1]]);
+export const candle3 = style([candleBase, candleProp[2]]);
+export const candle4 = style([candleBase, candleProp[3]]);
+export const candle5 = style([candleBase, candleProp[4]]);
 
-export const candleName1 = style([candleNameBase, { ...candleNameProp[0] }]);
-export const candleName2 = style([candleNameBase, { ...candleNameProp[1] }]);
-export const candleName3 = style([candleNameBase, { ...candleNameProp[2] }]);
-export const candleName4 = style([candleNameBase, { ...candleNameProp[3] }]);
-export const candleName5 = style([candleNameBase, { ...candleNameProp[4] }]);
+export const candleName1 = style([candleNameBase, candleNameProp[0]]);
+export const candleName2 = style([candleNameBase, candleNameProp[1]]);
+export const candleName3 = style([candleNameBase, candleNameProp[2]]);
+export const candleName4 = style([candleNameBase, candleNameProp[3]]);
+export const candleName5 = style([candleNameBase, candleNameProp[4]]);

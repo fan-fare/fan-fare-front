@@ -56,12 +56,12 @@ export const pageTop = style({
 
 export const questionMark = style({
   display: "block",
-  fontSize: "1.5rem",
-  color: "#160042",
+  fontSize: "3rem",
+  color: "#000000",
   opacity: "70%",
 
   ":active": {
-    color: "#160042",
+    color: "#000000",
   },
 
   "@media": {
