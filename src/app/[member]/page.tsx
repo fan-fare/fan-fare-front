@@ -33,8 +33,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { FaQuestionCircle } from "react-icons/fa";
 import html2canvas from "html2canvas";
+import Image from "next/image";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -183,7 +183,7 @@ export default function Home({ params }: { params: { member: string } }) {
         <div className={pageTop}>
           <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
           <Link href={questionMarkLink}>
-            <FaQuestionCircle className={questionMark} />
+            <Image src={"/assets/question-mark.svg"} alt="question-mark" width={40} height={40} className={questionMark} />
           </Link>
         </div>
         <div className={timerContainer}>
