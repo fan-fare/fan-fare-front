@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { ComplexStyleRule, style, StyleRule } from "@vanilla-extract/css";
 import { uiyeun } from "../common/common.css";
 
 export const cakeComponentContainer = style({
@@ -34,7 +34,7 @@ export const cakeImg = style({
 });
 
 // candle position of cake
-export const candleProp = [
+export const candleProp: StyleRule[] = [
   {
     top: "-15%",
     left: "46.75%", // middle
@@ -64,27 +64,32 @@ export const candleBase = style({
   position: "absolute",
 });
 
-export const candleNameProp = [
+export const candleNameProp: StyleRule[] = [
   {
-    top: "calc(-13% - 10%)",
-    left: "calc(50% - 1.5rem)",
+    top: "calc(-13% - 12%)",
+    left: "calc(50% - 1.625rem)",
+    textAlign: "center",
   },
   {
     top: "calc(-19% + 10%)",
-    left: "calc(31% - 1% - 3.25rem)",
+    left: "calc(31% - 6.5% - 3.25rem)",
+    textAlign: "right",
   },
   {
     top: "calc(-19% + 10%)",
-    right: "calc(31% - 1% - 3.25rem)",
+    right: "calc(31% - 6.5% - 3.25rem)",
+    textAlign: "left",
   },
 
   {
     top: "calc(21% + 10%)",
-    left: "calc(9% - 1% - 3.25rem)",
+    left: "calc(12% - 6.5% - 3.25rem)",
+    textAlign: "right",
   },
   {
     top: "calc(21% + 10%)",
-    right: "calc(9% - 1% - 3.25rem)",
+    right: "calc(12% - 6.5% - 3.25rem)",
+    textAlign: "left",
   },
 ];
 
@@ -97,20 +102,19 @@ export const candleNameBase = style({
   width: "3.25rem",
   height: "auto",
   fontSize: "1.25rem",
-  textAlign: "center",
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
 });
 
-export const candle1 = style([candleBase, { ...candleProp[0] }]);
-export const candle2 = style([candleBase, { ...candleProp[1] }]);
-export const candle3 = style([candleBase, { ...candleProp[2] }]);
-export const candle4 = style([candleBase, { ...candleProp[3] }]);
-export const candle5 = style([candleBase, { ...candleProp[4] }]);
+export const candle1 = style([candleBase, candleProp[0]]);
+export const candle2 = style([candleBase, candleProp[1]]);
+export const candle3 = style([candleBase, candleProp[2]]);
+export const candle4 = style([candleBase, candleProp[3]]);
+export const candle5 = style([candleBase, candleProp[4]]);
 
-export const candleName1 = style([candleNameBase, { ...candleNameProp[0] }]);
-export const candleName2 = style([candleNameBase, { ...candleNameProp[1] }]);
-export const candleName3 = style([candleNameBase, { ...candleNameProp[2] }]);
-export const candleName4 = style([candleNameBase, { ...candleNameProp[3] }]);
-export const candleName5 = style([candleNameBase, { ...candleNameProp[4] }]);
+export const candleName1 = style([candleNameBase, candleNameProp[0]]);
+export const candleName2 = style([candleNameBase, candleNameProp[1]]);
+export const candleName3 = style([candleNameBase, candleNameProp[2]]);
+export const candleName4 = style([candleNameBase, candleNameProp[3]]);
+export const candleName5 = style([candleNameBase, candleNameProp[4]]);
