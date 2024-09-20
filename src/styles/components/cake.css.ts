@@ -33,32 +33,33 @@ export const cakeImg = style({
   zIndex: 1,
 });
 
+// candle position of cake
 export const candleProp = [
   {
-    top: "-13%",
-    left: "48%",
+    top: "-15%",
+    left: "46.75%", // middle
   },
   {
-    top: "-19%",
-    left: "31%",
+    top: "-10%",
+    left: "27%", // left top
   },
   {
-    top: "-19%",
-    right: "31%",
+    top: "-10%",
+    right: "27%", // right top
   },
   {
-    top: "21%",
-    left: "9%",
+    top: "26%",
+    left: "7%", // left bottom
   },
   {
-    top: "21%",
-    right: "9%",
+    top: "26%",
+    right: "7%", // right bottom
   },
 ];
 
 export const candleBase = style({
   display: "block",
-  width: "4%",
+  width: "6.5%", // candle size
   height: "auto",
   position: "absolute",
 });
