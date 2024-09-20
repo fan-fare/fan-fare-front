@@ -1,5 +1,5 @@
 import { keyframes, style } from '@vanilla-extract/css';
-import { flexCenterContainer, pc, tablet } from '../common/common.css';
+import { flexCenterContainer, tablet } from '../common/common.css';
 
 export const effectContainer = style([
   {
@@ -21,12 +21,19 @@ export const effect = style([flexCenterContainer, {
   boxSizing: 'border-box',
 }]);
 
+const glitterImgAnimation = keyframes({
+  '0%': { opacity: 0.3 },
+  '30%': { opacity: 1 },
+  '100%': { opacity: 0.3 },
+});
+
 export const glitterImg = style({
   position: 'absolute',
   top: '30%',
   width: '150%',
   height: 'auto',
   overflow: 'hidden',
+  animation: `${glitterImgAnimation} 1.5s infinite`,
 });
 
 export const flagsImg = style({
