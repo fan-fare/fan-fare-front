@@ -17,7 +17,7 @@ import {
 } from "@/styles/pages/member/message.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
@@ -27,6 +27,10 @@ export default function Page({ params }: { params: { member: string } }) {
   const preloadCount = 3; // number of messages to preload
   const loginErrorMessage = "로그인이 필요합니다.";
   const readErrorMessage = "메세지를 읽어오는 데 실패했습니다.";
+
+  // Search parameters
+  const searchParams = useSearchParams();
+  const defaultNumber = searchParams.get("default");
 
   // Router
   const router = useRouter();
@@ -171,6 +175,16 @@ export default function Page({ params }: { params: { member: string } }) {
       setCurrentCakeCount(currentMessage / messagePerCake + 1);
     }
   }, [currentMessage]);
+
+  // Change the current message number based on messageNumber
+  useEffect(() => {
+    if (defaultNumber && messageRef.current && messageIdList.length > 0) {
+      const messageNumber = parseInt(defaultNumber);
+      setCurrentMessage(messageNumber);
+      messageRef.current.scrollLeft =
+        (messageNumber - 1) * messageRef.current.clientWidth;
+    }
+  }, [defaultNumber, messageIdList]);
 
   return (
     <div className={messagePageContainer} ref={pageRef}>
