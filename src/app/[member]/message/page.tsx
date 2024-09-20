@@ -53,10 +53,8 @@ export default function Page({ params }: { params: { member: string } }) {
   const messageRef = useRef<HTMLDivElement>(null);
 
   // Message Content State
-  const [senderNicknames, setSenderNicknames] = useState<string[]>(["빵빠레"]); // name of message sender
-  const [messages, setMessages] = useState<string[]>([
-    "생일을 진심으로 축하해요!!",
-  ]);
+  const [senderNicknames, setSenderNicknames] = useState<string[]>([]); // name of message sender
+  const [messages, setMessages] = useState<string[]>([]);
   const [sendDates, setSendDates] = useState<Date[]>([]); // message date
 
   /* Message Content */
