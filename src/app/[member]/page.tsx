@@ -181,8 +181,9 @@ export default function Home({ params }: { params: { member: string } }) {
       canvas.style.left = "0";
       canvas.style.width = "100%";
       canvas.style.height = "100%";
+      canvas.style.zIndex = "-100";
       document.body.appendChild(canvas);
-      
+
       const confetti = cofetti.create(canvas, {
         resize: true,
         useWorker: true,
@@ -206,7 +207,13 @@ export default function Home({ params }: { params: { member: string } }) {
         <div className={pageTop}>
           <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
           <Link href={questionMarkLink}>
-            <Image src={"/assets/question-mark.svg"} alt="question-mark" width={40} height={40} className={questionMark} />
+            <Image
+              src={"/assets/question-mark.svg"}
+              alt="question-mark"
+              width={40}
+              height={40}
+              className={questionMark}
+            />
           </Link>
         </div>
         <div className={timerContainer}>
