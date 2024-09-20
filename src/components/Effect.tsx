@@ -8,6 +8,7 @@ import {
   papersImg,
 } from "@/styles/components/effect.css";
 import Image from "next/image";
+import { CSSProperties } from "react";
 
 /**
  * Effect component
@@ -15,7 +16,6 @@ import Image from "next/image";
  * @returns effect component
  */
 export default function Effect({ main = false }: { main?: boolean }) {
-
   const ballonImgs = [
     "/assets/balloon/1.svg",
     "/assets/balloon/2.svg",
@@ -24,7 +24,11 @@ export default function Effect({ main = false }: { main?: boolean }) {
     "/assets/balloon/5.svg",
   ];
 
-  const defaultBallonProps = [
+  const generateAnimation = () => {
+    `@keyframes  {`
+  }
+
+  const defaultBallonProps: CSSProperties[] = [
     {
       bottom: "9%",
       left: "0%",
@@ -51,7 +55,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
     },
   ];
 
-  const mainPageBallonProps = [
+  const mainPageBallonProps: CSSProperties[] = [
     {
       top: "35%",
       left: "0%",
@@ -118,7 +122,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
               alt="balloon"
               width={0}
               height={0}
-              className={`${balloonBase}`}
+              className={balloonBase}
               key={i}
               style={main ? mainPageBallonProps[i] : defaultBallonProps[i]}
             />

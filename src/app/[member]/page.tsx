@@ -35,6 +35,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
+import cofetti from "canvas-confetti";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -171,6 +172,28 @@ export default function Home({ params }: { params: { member: string } }) {
       pageButtomRef.current.style.display = "flex";
     }
   }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      const canvas = document.createElement("canvas");
+      canvas.style.position = "absolute";
+      canvas.style.top = "0";
+      canvas.style.left = "0";
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      document.body.appendChild(canvas);
+      
+      const confetti = cofetti.create(canvas, {
+        resize: true,
+        useWorker: true,
+      });
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+      });
+    }
+  }, [isLoaded]);
 
   if (!isLoaded) {
     return null;
