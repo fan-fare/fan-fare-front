@@ -62,6 +62,7 @@ export const decoBtnContainer = style({
   bottom: 0,
 
   fontFamily: pretendard,
+  fontSize: '0.875rem',
 
   width: '100%',
   boxSizing: 'border-box',

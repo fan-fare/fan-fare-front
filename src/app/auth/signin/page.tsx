@@ -41,7 +41,7 @@ export default function Page() {
 
   // Search Params
   const member = useSearchParams().get("member");
-  const redirect = useSearchParams().get("redirect");
+  //const redirect = useSearchParams().get("redirect");
 
   // Mutation
   const signin = useMutation(signinMutationOption);
@@ -64,10 +64,11 @@ export default function Page() {
           queryClient.invalidateQueries({
             queryKey: ["member", "info"],
           });
-          if (redirect) {
-            // redirect to the previous page
-            router.push(redirect);
-          } else if (member) {
+          //if (redirect) {
+          //  // redirect to the previous page
+          //  router.push(redirect);
+          //} else
+          if (member) {
             // redirect to the member page
             router.push(`/${member}`);
           } else {
@@ -88,15 +89,16 @@ export default function Page() {
   useEffect(() => {
     const data = memberInfo.data?.body.data;
     if (data && data.memberId) {
-      if (redirect) {
-        router.push(redirect);
-      } else if (member) {
+      //if (redirect) {
+      //  router.push(redirect);
+      //} else
+      if (member) {
         router.push(`/${member}`);
       } else {
         router.push(`/${data.memberId}`);
       }
     }
-  }, [memberInfo.data, router, member, redirect]);
+  }, [memberInfo.data, router, member]);
 
   return (
     <div className={authPageContainer}>

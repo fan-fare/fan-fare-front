@@ -45,6 +45,9 @@ export const buttonContainer = style({
   gap: "1rem",
   padding: "1rem",
   boxSizing: "border-box",
+  fontSize: "20px",
+  fontWeight: 400,
+  fontFamily: uiyeun,
 });
 
 export const mainPageBottomContainer = style({

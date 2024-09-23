@@ -1,5 +1,11 @@
 import { style } from "@vanilla-extract/css";
-import { pc, pretendard, smallMobile, tablet } from "../../common/common.css";
+import {
+  pc,
+  pretendard,
+  smallMobile,
+  tablet,
+  uiyeun,
+} from "../../common/common.css";
 
 export const cakePageWrapper = style({
   padding: "1rem 0",
@@ -80,7 +86,6 @@ export const timerContainer = style({
   alignItems: "center",
   justifyContent: "center",
   padding: "1rem",
-  paddingBottom: "0",
 });
 
 export const cakeContainer = style({
@@ -143,19 +148,20 @@ export const cakePageCountContainer = style({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  background: "#FFFFFFB2",
-  width: "6rem",
-  height: "auto",
-  padding: "0.5rem",
-  boxSizing: "border-box",
-  borderRadius: "98px",
+  width: "78px",
+  height: "32px",
   color: "#F58989",
   fontWeight: 700,
   fontFamily: pretendard,
-  boxShadow: "0px 4px 4px 0px #0000001A",
+  fontSize: "0.875rem",
   letterSpacing: "0.05em",
   whiteSpace: "nowrap",
-  minWidth: "6rem",
+  borderRadius: "98px",
+  backgroundImage:
+    "linear-gradient(#fff, #fff), linear-gradient(99deg, #FEE9E6 7.8%, #B9E1E7 100%)",
+  border: "1px solid transparent",
+  backgroundOrigin: "border-box",
+  backgroundClip: "content-box, border-box",
 
   "@media": {
     [smallMobile]: {
@@ -196,6 +202,8 @@ export const fullButtonContainer = style({
   padding: "0 2rem",
   boxSizing: "border-box",
   gap: "1rem",
+  fontSize: "0.75rem",
+  fontWeight: 700,
 });
 
 export const halfButtonContainer = style({
@@ -204,4 +212,26 @@ export const halfButtonContainer = style({
   justifyContent: "center",
   alignItems: "center",
   gap: "1rem",
+  fontSize: "0.75rem",
+  fontWeight: 700,
+});
+
+export const logoutButtonContainer = style({
+  display: "flex",
+  width: "100%",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "flex-end",
+  padding: "1rem 2rem",
+  boxSizing: "border-box",
+});
+
+export const logoutButton = style({
+  display: "block",
+  textAlign: "center",
+  gap: "1rem",
+  color: "#872B2B",
+  fontSize: "1rem",
+  fontWeight: 400,
+  fontFamily: uiyeun,
 });

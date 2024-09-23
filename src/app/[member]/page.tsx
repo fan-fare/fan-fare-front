@@ -29,6 +29,8 @@ import {
   cakeDisplay,
   cakeDisplayItem,
   cakePageWrapper,
+  logoutButton,
+  logoutButtonContainer,
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -112,17 +114,11 @@ export default function Home({ params }: { params: { member: string } }) {
       setNames((prev) => [
         ...prev.slice(0, (currentCake - 1) * candlePerCake),
         ...data.messageSenderNicknameList,
-        ...Array.from({
-          length: candlePerCake - data.messageSenderNicknameList.length,
-        }).map(() => ""), // to correct the length of names array to 5
         ...prev.slice(currentCake * candlePerCake),
       ]);
       setCandles((prev) => [
         ...prev.slice(0, (currentCake - 1) * candlePerCake),
         ...data.candleColorsList,
-        ...Array.from({
-          length: candlePerCake - data.candleColorsList.length,
-        }).map(() => "CANDLE_COLOR_1" as CandleType), // to correct the length of candles array to 5
         ...prev.slice(currentCake * candlePerCake),
       ]);
     }
@@ -196,14 +192,20 @@ export default function Home({ params }: { params: { member: string } }) {
     }
   }, [isLoaded]);
 
+  // log out event
+  const logout = useCallback(() => {
+    window.localStorage.removeItem("token");
+    setLoggedIn(false);
+  }, []);
+
   if (!isLoaded) {
     return null;
   }
 
   return (
     <div className={cakePageWrapper}>
+      <Effect />
       <div className={cakePageContainer} ref={pageRef}>
-        <Effect />
         <div className={pageTop}>
           <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
           <Link href={questionMarkLink}>
@@ -265,20 +267,30 @@ export default function Home({ params }: { params: { member: string } }) {
         )}
         {!loggedIn && (
           <div className={halfButtonContainer}>
-            <Link
-              href={`/auth/signin?member=${params.member}`}
-              className={buttonWhiteHalf}
-            >
-              로그인
+            <Link href={`/auth/signin`} className={buttonWhiteHalf}>
+              👀 내 케이크 보러가기
             </Link>
             <Link
               href={`/${params.member}/decoration/candle`}
               className={buttonPrimaryHalf}
             >
-              이 케이크 꾸미기
+              🪄 이 케이크 꾸미기
             </Link>
           </div>
         )}
+        <div className={logoutButtonContainer}>
+          {loggedIn && (
+            <div className={logoutButton} onClick={logout} onTouchEnd={logout}>
+              logout&nbsp;
+              <Image
+                src={"/assets/logout.svg"}
+                alt="logout"
+                width={9}
+                height={9}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

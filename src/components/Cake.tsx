@@ -61,18 +61,20 @@ export default function Cake({
   return (
     <div className={cakeComponentContainer}>
       <div className={cake}>
-        {candles && names && candles.map(
-          (candle, i) =>
-            names[i] && candlePositions.length > i && (
-              <CakeCandle
-                key={i}
-                candleType={candle}
-                candlePositionClass={candlePositions[i]}
-                candleNamePositionClass={candleNamePositions[i]}
-                name={names[i]}
-              />
-            ),
-        )}
+        {candles &&
+          names &&
+          candles.map(
+            (candle, i) =>
+              candlePositions.length > i && (
+                <CakeCandle
+                  key={i}
+                  candleType={candle}
+                  candlePositionClass={candlePositions[i]}
+                  candleNamePositionClass={candleNamePositions[i]}
+                  name={names[i]}
+                />
+              ),
+          )}
         <Image
           src={`/assets/cake/${cakeImage.get(cakeType)}`}
           alt="cake"

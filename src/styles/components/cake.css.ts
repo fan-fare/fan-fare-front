@@ -36,23 +36,23 @@ export const cakeImg = style({
 // candle position of cake
 export const candleProp: StyleRule[] = [
   {
-    top: "-15%",
+    top: "-20%",
     left: "46.75%", // middle
   },
   {
-    top: "-10%",
+    top: "-16%",
     left: "27%", // left top
   },
   {
-    top: "-10%",
+    top: "-16%",
     right: "27%", // right top
   },
   {
-    top: "26%",
+    top: "22%",
     left: "7%", // left bottom
   },
   {
-    top: "26%",
+    top: "22%",
     right: "7%", // right bottom
   },
 ];
@@ -66,28 +66,28 @@ export const candleBase = style({
 
 export const candleNameProp: StyleRule[] = [
   {
-    top: "calc(-13% - 12%)",
+    top: "calc(-20% - 10%)",
     left: "calc(50% - 1.625rem)",
     textAlign: "center",
   },
   {
-    top: "calc(-19% + 10%)",
+    top: "calc(-16% + 10%)",
     left: "calc(31% - 6.5% - 3.25rem)",
     textAlign: "right",
   },
   {
-    top: "calc(-19% + 10%)",
+    top: "calc(-16% + 10%)",
     right: "calc(31% - 6.5% - 3.25rem)",
     textAlign: "left",
   },
 
   {
-    top: "calc(21% + 10%)",
+    top: "calc(22% + 10%)",
     left: "calc(12% - 6.5% - 3.25rem)",
     textAlign: "right",
   },
   {
-    top: "calc(21% + 10%)",
+    top: "calc(22% + 10%)",
     right: "calc(12% - 6.5% - 3.25rem)",
     textAlign: "left",
   },
@@ -101,7 +101,8 @@ export const candleNameBase = style({
   justifyContent: "center",
   width: "3.25rem",
   height: "auto",
-  fontSize: "1.25rem",
+  fontSize: "1rem",
+  fontWeight: 400,
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
