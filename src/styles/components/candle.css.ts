@@ -14,8 +14,8 @@ export const candleImg = style({
   display: 'block',
   position: 'relative',
   width: '100%',
-  height: '100%',
-  boxSizing: 'border-box',
+  height: 'auto',
+  //boxSizing: 'border-box',
   zIndex: 2,
 });
 
