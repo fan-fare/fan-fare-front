@@ -259,10 +259,7 @@ export default function Home({ params }: { params: { member: string } }) {
         )}
         {!loggedIn && (
           <div className={halfButtonContainer}>
-            <Link
-              href={`/auth/signin?member=${params.member}`}
-              className={buttonWhiteHalf}
-            >
+            <Link href={`/auth/signin`} className={buttonWhiteHalf}>
               👀 내 케이크 보러가기
             </Link>
             <Link
