@@ -18,6 +18,7 @@ export const effectContainer = style([
 export const effect = style([
   flexCenterContainer,
   {
+    maxWidth: "500px",
     position: "relative",
     padding: "2rem 0",
     boxSizing: "border-box",
