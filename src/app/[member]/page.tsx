@@ -171,7 +171,10 @@ export default function Home({ params }: { params: { member: string } }) {
       //  link.click();
       //});
 
-      await toPng(document.body).then((dataUrl) => {
+      await toPng(document.body, {
+        cacheBust: true,
+        includeQueryParams: true,
+      }).then((dataUrl) => {
         const link = document.createElement("a");
         link.download = "cake.png";
         link.href = dataUrl;
