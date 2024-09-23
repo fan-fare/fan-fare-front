@@ -60,9 +60,11 @@ export const candleProp: StyleRule[] = [
 
 export const candleBase = style({
   display: "block",
-  width: "6.5%", // candle size
+  width: "0.875rem",
   height: "auto",
   position: "absolute",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 export const candleNameProp: StyleRule[] = [

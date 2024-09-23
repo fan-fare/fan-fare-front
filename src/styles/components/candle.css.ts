@@ -1,10 +1,10 @@
 import { keyframes, style } from "@vanilla-extract/css";
 
 export const candleImgContainer = style({
-  display: 'block',
+  display: 'flex',
   position: 'relative',
   width: '100%',
-  height: 'auto',
+  height: '100%',
   boxSizing: 'border-box',
   alignItems: 'center',
   justifyContent: 'center',
@@ -13,8 +13,10 @@ export const candleImgContainer = style({
 export const candleImg = style({
   display: 'block',
   position: 'relative',
+  alignItems: 'center',
+  justifyContent: 'center',
   width: '100%',
-  height: 'auto',
+  height: '100%',
   boxSizing: 'border-box',
   zIndex: 2,
 });
