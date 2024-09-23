@@ -10,6 +10,7 @@ import {
 export const cakePageWrapper = style({
   padding: "1rem 0",
   display: "flex",
+  position: "relative",
   flexDirection: "column",
   width: "100%",
   height: "100%",
@@ -139,7 +140,6 @@ export const cakeDisplayItem = style({
   alignItems: "center",
   justifyContent: "center",
   position: "absolute",
-  padding: "2rem",
   boxSizing: "border-box",
   scrollSnapAlign: "center",
 });

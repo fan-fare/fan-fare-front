@@ -159,6 +159,7 @@ export default function Home({ params }: { params: { member: string } }) {
   const handleCapture = useCallback(() => {
     if (pageButtomRef.current) {
       pageButtomRef.current.style.display = "none";
+
       html2canvas(document.body, {
         allowTaint: true,
         useCORS: true,
