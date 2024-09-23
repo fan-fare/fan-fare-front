@@ -1,5 +1,3 @@
-'use client';
-
 import { CandleType } from "@/interfaces/candles";
 import {
   candleImg,
