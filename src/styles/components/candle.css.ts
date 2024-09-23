@@ -16,7 +16,6 @@ export const candleImg = style({
   width: '100%',
   height: '100%',
   boxSizing: 'border-box',
-  filter: 'drop-shadow(0px 1px 1px #000000B2)',
   zIndex: 2,
 });
 
@@ -33,7 +32,7 @@ export const glittering = style({
   width: '300%',
   height: 'auto',
   aspectRatio: '1 / 1',
-  top: '-15%',
+  top: '-20%',
   left: '-100%',
   background: `radial-gradient(45% 55% at 50% 50%, #F0CB35 0%, rgba(255, 255, 255, 0) 100%)`,
   animation: `${glitteringCandle} 1.5s infinite`,
