@@ -6,6 +6,7 @@ import {
   effect,
   balloonBase,
   papersImg,
+  balloonBaseAnimation,
 } from "@/styles/components/effect.css";
 import Image from "next/image";
 import { CSSProperties } from "react";
@@ -25,8 +26,8 @@ export default function Effect({ main = false }: { main?: boolean }) {
   ];
 
   const generateAnimation = () => {
-    `@keyframes  {`
-  }
+    `@keyframes  {`;
+  };
 
   const defaultBallonProps: CSSProperties[] = [
     {
@@ -124,7 +125,21 @@ export default function Effect({ main = false }: { main?: boolean }) {
               height={0}
               className={balloonBase}
               key={i}
-              style={main ? mainPageBallonProps[i] : defaultBallonProps[i]}
+              style={
+                main
+                  ? {
+                      ...mainPageBallonProps[i],
+                      animation: `${balloonBaseAnimation} ${
+                        Math.random() * 0.5 + 1
+                      }s`,
+                    }
+                  : {
+                      ...defaultBallonProps[i],
+                      animation: `${balloonBaseAnimation} ${
+                        Math.random() * 0.5 + 1
+                      }s`,
+                    }
+              }
             />
           ))}
         </div>
