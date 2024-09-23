@@ -19,6 +19,7 @@ export const candleImg = style({
   height: '100%',
   boxSizing: 'border-box',
   zIndex: 2,
+  backgroundSize: 'cover',
 });
 
 // glitter animation

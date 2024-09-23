@@ -156,7 +156,7 @@ export default function Home({ params }: { params: { member: string } }) {
     window.alert("링크가 복사되었습니다.");
   }, []);
 
-  const handleCapture = useCallback(() => {
+  const handleCapture = useCallback(async () => {
     if (pageButtomRef.current) {
       pageButtomRef.current.style.display = "none";
 

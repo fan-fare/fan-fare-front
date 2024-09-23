@@ -23,6 +23,8 @@ import Link from "next/link";
 import { FaQuestionCircle } from "react-icons/fa";
 
 export default function Home() {
+  const questionMarkLink =
+    "https://ablaze-thrush-a2f.notion.site/6701549679dc47f796ee67043363f47a";
   const candles: CandleType[] = [
     "CANDLE_COLOR_1",
     "CANDLE_COLOR_2",
@@ -71,10 +73,12 @@ export default function Home() {
             height={0}
             loading="eager"
           />
-          <FaQuestionCircle className={mainPageQuestionMark} />
+          <Link href={questionMarkLink}>
+            <FaQuestionCircle className={mainPageQuestionMark} />
+          </Link>
         </div>
         <div className={mainPageBottomText}>
-          광고문의: doun2008@naver.com
+          광고문의: nihi16447@gmail.com
           <br />
           Copyright ©Fanfare. All rights reserved.
         </div>
