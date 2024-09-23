@@ -1,5 +1,9 @@
 import { keyframes, style } from "@vanilla-extract/css";
-import { flexCenterContainer, smallMobile, tablet, uiyeun } from "../common/common.css";
+import {
+  flexCenterContainer,
+  tablet,
+  uiyeun,
+} from "../common/common.css";
 
 export const timerComponentContainer = style({
   display: "flex",
@@ -33,7 +37,7 @@ export const boxesImg = style({
   position: "absolute",
   width: "4rem",
   height: "4rem",
-  top : "-2.5rem",
+  top: "-2.5rem",
   left: "calc(50% - 2rem)",
 });
 
@@ -54,7 +58,7 @@ export const timerContent = style([
     alignItems: "center",
     gap: "1rem", // gap between timer texts
 
-    '@media': {
+    "@media": {
       [tablet]: {
         gap: "3rem",
       },
@@ -69,14 +73,15 @@ export const timerText = style({
   justifyContent: "center",
   fontSize: "1.5rem",
   fontWeight: 700,
-  color: "#FE0303",
+  color: "#FF0000",
 });
 
 export const birthdayText = style({
   display: "block",
-  fontSize: "0.875rem",
-  fontWeight: 700,
-  color: "#7E6262",
+  fontFamily: uiyeun,
+  fontWeight: 400,
+  fontSize: "16px",
+  color: "#F58989",
 });
 
 // Ended Timer Component
@@ -131,5 +136,3 @@ export const clickableBoxesImg = style({
   cursor: "pointer",
   animation: `${boxesSclaeAnimation} 2s infinite`,
 });
-
-

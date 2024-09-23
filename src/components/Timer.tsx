@@ -132,7 +132,7 @@ export default function Timer({
       </div>
       <div className={birthdayText}>
         {birthday &&
-          `생일: ${birthday.getFullYear()}.${
+          `Birthday: ${birthday.getFullYear()}.${
             birthday.getMonth() + 1
           }.${birthday.getDate()}.`}
       </div>
