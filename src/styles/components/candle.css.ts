@@ -3,8 +3,8 @@ import { keyframes, style } from "@vanilla-extract/css";
 export const candleImgContainer = style({
   display: 'block',
   position: 'relative',
-  width: 'auto',
-  height: '100%',
+  width: '100%',
+  height: 'auto',
   boxSizing: 'border-box',
   alignItems: 'center',
   justifyContent: 'center',
@@ -15,7 +15,7 @@ export const candleImg = style({
   position: 'relative',
   width: '100%',
   height: 'auto',
-  //boxSizing: 'border-box',
+  boxSizing: 'border-box',
   zIndex: 2,
 });
 
