@@ -38,7 +38,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
-import { toPng } from "html-to-image";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -161,23 +160,13 @@ export default function Home({ params }: { params: { member: string } }) {
     if (pageButtomRef.current) {
       pageButtomRef.current.style.display = "none";
 
-      //html2canvas(document.body, {
-      //  allowTaint: true,
-      //  useCORS: true,
-      //}).then((canvas) => {
-      //  const link = document.createElement("a");
-      //  link.download = "cake.png";
-      //  link.href = canvas.toDataURL("image/png");
-      //  link.click();
-      //});
-
-      await toPng(document.body, {
-        cacheBust: true,
-        includeQueryParams: true,
-      }).then((dataUrl) => {
+      html2canvas(document.body, {
+        allowTaint: true,
+        useCORS: true,
+      }).then((canvas) => {
         const link = document.createElement("a");
         link.download = "cake.png";
-        link.href = dataUrl;
+        link.href = canvas.toDataURL("image/png");
         link.click();
       });
       pageButtomRef.current.style.display = "flex";
