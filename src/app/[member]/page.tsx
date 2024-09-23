@@ -38,6 +38,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
+import { toPng } from "html-to-image";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -156,17 +157,24 @@ export default function Home({ params }: { params: { member: string } }) {
     window.alert("링크가 복사되었습니다.");
   }, []);
 
-  const handleCapture = useCallback(() => {
+  const handleCapture = useCallback(async () => {
     if (pageButtomRef.current) {
       pageButtomRef.current.style.display = "none";
 
-      html2canvas(document.body, {
-        allowTaint: true,
-        useCORS: true,
-      }).then((canvas) => {
+      //html2canvas(document.body, {
+      //  allowTaint: true,
+      //  useCORS: true,
+      //}).then((canvas) => {
+      //  const link = document.createElement("a");
+      //  link.download = "cake.png";
+      //  link.href = canvas.toDataURL("image/png");
+      //  link.click();
+      //});
+
+      await toPng(document.body).then((dataUrl) => {
         const link = document.createElement("a");
         link.download = "cake.png";
-        link.href = canvas.toDataURL("image/png");
+        link.href = dataUrl;
         link.click();
       });
       pageButtomRef.current.style.display = "flex";
