@@ -91,6 +91,7 @@ export default function Timer({
             width={0}
             height={0}
             className={clickableBoxesImg}
+            loading="eager"
           />
         </Link>
       </div>
@@ -106,6 +107,7 @@ export default function Timer({
           width={0}
           height={0}
           className={boxesImg}
+          loading="eager"
         />
         <div className={timer}>
           <div className={timerContent}>

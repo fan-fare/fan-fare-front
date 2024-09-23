@@ -218,6 +218,7 @@ export default function Home({ params }: { params: { member: string } }) {
               width={40}
               height={40}
               className={questionMark}
+              loading="eager"
             />
           </Link>
         </div>
@@ -288,6 +289,7 @@ export default function Home({ params }: { params: { member: string } }) {
               <Image
                 src={"/assets/logout.svg"}
                 alt="logout"
+                loading="eager"
                 width={9}
                 height={9}
               />

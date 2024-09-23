@@ -49,6 +49,7 @@ export default memo(function Candle({
         width={0}
         height={0}
         className={candleImg}
+        loading="eager"
       />
     </div>
   );

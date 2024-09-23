@@ -39,6 +39,7 @@ export default function Home() {
         width={0}
         height={0}
         className={mainLogoImage}
+        loading="eager"
       />
       <div className={mainPageInfo}>
         생일을 더 특별하게, 생일 축하 롤링페이퍼
@@ -68,6 +69,7 @@ export default function Home() {
             alt="team name"
             width={0}
             height={0}
+            loading="eager"
           />
           <FaQuestionCircle className={mainPageQuestionMark} />
         </div>

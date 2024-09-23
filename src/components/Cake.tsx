@@ -81,6 +81,7 @@ export default function Cake({
           width={0}
           height={0}
           className={cakeImg}
+          loading="eager"
         />
       </div>
     </div>
