@@ -159,7 +159,10 @@ export default function Home({ params }: { params: { member: string } }) {
   const handleCapture = useCallback(() => {
     if (pageButtomRef.current) {
       pageButtomRef.current.style.display = "none";
-      html2canvas(document.body).then((canvas) => {
+      html2canvas(document.body, {
+        allowTaint: true,
+        useCORS: true,
+      }).then((canvas) => {
         const link = document.createElement("a");
         link.download = "cake.png";
         link.href = canvas.toDataURL("image/png");
