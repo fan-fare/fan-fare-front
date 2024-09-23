@@ -1,5 +1,11 @@
 import { style } from "@vanilla-extract/css";
-import { pc, pretendard, smallMobile, tablet } from "../../common/common.css";
+import {
+  pc,
+  pretendard,
+  smallMobile,
+  tablet,
+  uiyeun,
+} from "../../common/common.css";
 
 export const cakePageWrapper = style({
   padding: "1rem 0",
@@ -147,15 +153,15 @@ export const cakePageCountContainer = style({
   color: "#F58989",
   fontWeight: 700,
   fontFamily: pretendard,
-  fontSize: "0.875rem", 
+  fontSize: "0.875rem",
   letterSpacing: "0.05em",
   whiteSpace: "nowrap",
   borderRadius: "98px",
-  backgroundImage: "linear-gradient(#fff, #fff), linear-gradient(99deg, #FEE9E6 7.8%, #B9E1E7 100%)",
+  backgroundImage:
+    "linear-gradient(#fff, #fff), linear-gradient(99deg, #FEE9E6 7.8%, #B9E1E7 100%)",
   border: "1px solid transparent",
   backgroundOrigin: "border-box",
   backgroundClip: "content-box, border-box",
-
 
   "@media": {
     [smallMobile]: {
@@ -208,4 +214,24 @@ export const halfButtonContainer = style({
   gap: "1rem",
   fontSize: "0.75rem",
   fontWeight: 700,
+});
+
+export const logoutButtonContainer = style({
+  display: "flex",
+  width: "100%",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "flex-end",
+  padding: "1rem 2rem",
+  boxSizing: "border-box",
+});
+
+export const logoutButton = style({
+  display: "block",
+  textAlign: "center",
+  gap: "1rem",
+  color: "#872B2B",
+  fontSize: "1rem",
+  fontWeight: 400,
+  fontFamily: uiyeun,
 });

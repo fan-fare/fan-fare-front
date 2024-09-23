@@ -29,6 +29,8 @@ import {
   cakeDisplay,
   cakeDisplayItem,
   cakePageWrapper,
+  logoutButton,
+  logoutButtonContainer,
 } from "@/styles/pages/member/memberMain.css";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -190,6 +192,12 @@ export default function Home({ params }: { params: { member: string } }) {
     }
   }, [isLoaded]);
 
+  // log out event
+  const logout = useCallback(() => {
+    window.localStorage.removeItem("token");
+    setLoggedIn(false);
+  }, []);
+
   if (!isLoaded) {
     return null;
   }
@@ -270,6 +278,19 @@ export default function Home({ params }: { params: { member: string } }) {
             </Link>
           </div>
         )}
+        <div className={logoutButtonContainer}>
+          {loggedIn && (
+            <div className={logoutButton} onClick={logout} onTouchEnd={logout}>
+              logout&nbsp;
+              <Image
+                src={"/assets/logout.svg"}
+                alt="logout"
+                width={9}
+                height={9}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
