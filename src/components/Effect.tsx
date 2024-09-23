@@ -1,3 +1,5 @@
+'use client';
+
 import {
   effectContainer,
   glitterImg,
@@ -24,10 +26,6 @@ export default function Effect({ main = false }: { main?: boolean }) {
     "/assets/balloon/4.svg",
     "/assets/balloon/5.svg",
   ];
-
-  const generateAnimation = () => {
-    `@keyframes  {`;
-  };
 
   const defaultBallonProps: CSSProperties[] = [
     {
