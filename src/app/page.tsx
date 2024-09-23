@@ -48,16 +48,16 @@ export default function Home() {
       </div>
       <div className={buttonContainer}>
         <Link
-          href={"/auth/signin"}
+          href={"/auth/signup"}
           className={`${buttonWhiteFull} ${buttonShadow}`}
         >
-          로그인하고 케이크 만들러 가기 🥳
+          🥳 회원가입하고 케이크 만들러 가기
         </Link>
         <Link
-          href={"/auth/signup"}
+          href={"/auth/signin"}
           className={`${buttonPinkFull} ${buttonShadow}`}
         >
-          회원가입하고 케이크 만들러 가기 🎉
+          🎁 로그인하고 메시지 확인하기
         </Link>
       </div>
       <div className={mainPageBottomContainer}>
