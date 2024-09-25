@@ -10,7 +10,6 @@ export const cakeComponentContainer = style({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  padding: "1rem",
   paddingTop: "3rem",
   boxSizing: "border-box",
 });
