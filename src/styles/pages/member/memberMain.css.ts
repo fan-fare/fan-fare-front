@@ -181,7 +181,7 @@ export const cakePageBottomContainer = style({
   width: "100%",
   height: "100%",
   justifyContent: "flex-end",
-  padding: "1rem 0",
+  paddingTop: "2rem",
 
   "@media": {
     [pc]: {
