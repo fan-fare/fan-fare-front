@@ -77,7 +77,8 @@ export default function Page() {
           }
           break;
         case 401:
-          setError(res.status, res.body.message, res.body.code ?? "");
+          //setError(res.status, res.body.message, res.body.code ?? "");
+          setError(res.status, "아이디 또는 비밀번호가 일치하지 않습니다.", res.body.code ?? "");
           break;
         default:
           setError(res.status, "로그인에 실패했습니다.", res.body.code ?? "");
