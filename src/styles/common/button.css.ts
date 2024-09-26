@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { smallMobile } from "./common.css";
+import { pretendard, smallMobile } from "./common.css";
 
 export const buttonDefault = style({
   display: "flex",
@@ -17,7 +17,7 @@ export const halfSize = style({
 
   "@media": {
     [smallMobile]: {
-      width: "122px",
+      width: "134px",
       height: "48px",
     },
   },
