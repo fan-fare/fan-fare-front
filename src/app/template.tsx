@@ -13,7 +13,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <div className={background}></div>
-      <Suspense fallback={<>loading</>}>
+      <Suspense fallback={<></>}>
         <div className={mainContainer}>{children}</div>
         {error.message && (
           <div className={errorContainer}>

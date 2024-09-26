@@ -203,6 +203,7 @@ export const fullButtonContainer = style({
   boxSizing: "border-box",
   gap: "1rem",
   fontSize: "0.75rem",
+  fontFamily: pretendard,
   fontWeight: 700,
 });
 
@@ -214,6 +215,7 @@ export const halfButtonContainer = style({
   gap: "1rem",
   fontSize: "0.75rem",
   fontWeight: 700,
+  fontFamily: pretendard,
 });
 
 export const logoutButtonContainer = style({
