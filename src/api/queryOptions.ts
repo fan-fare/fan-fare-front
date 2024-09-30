@@ -93,8 +93,8 @@ export const readMessageQueryOption = (messageId: string) =>
 
 export const readMessageByRangeQueryOption = (
   memberUuid: string,
-  start: number,
-  end: number,
+  start?: number,
+  end?: number,
 ) =>
   queryOptions({
     queryKey: ["message", "read", memberUuid, start, end],

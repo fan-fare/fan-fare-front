@@ -62,9 +62,9 @@ export interface IDeleteMessageResponse extends IResponse<string> {}
 export interface IGetMessageResponseByRangeMessageData {
   messageId: BigInt;
   content: string;
-  senderNickname: "은정";
-  candleColor: "CANDLE_COLOR_1";
-  createdAt: "2024-09-29";
+  senderNickname: string;
+  candleColor: CandleType;
+  createdAt: string;
 }
 
 export interface IGetMessageResponseByRange

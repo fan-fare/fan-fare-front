@@ -1,8 +1,13 @@
 "use client";
 
-import { getCakeQueryOption, readMessageQueryOption } from "@/api/queryOptions";
+import {
+  getCakeQueryOption,
+  readMessageByRangeQueryOption,
+  readMessageQueryOption,
+} from "@/api/queryOptions";
 import CakeName from "@/components/CakeName";
 import Message from "@/components/Message";
+import { IGetMessageResponseByRangeMessageData } from "@/interfaces/response";
 import { useErrorStore } from "@/store/error.store";
 import {
   cakePageCountContainer,
@@ -23,14 +28,13 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
-  const messagePerCake = 5; // number of messages per cake
   const preloadCount = 3; // number of messages to preload
   const loginErrorMessage = "로그인이 필요합니다.";
   const readErrorMessage = "메세지를 읽어오는 데 실패했습니다.";
 
   // Search parameters
   const searchParams = useSearchParams();
-  const defaultNumber = searchParams.get("default");
+  const defaultMessageNumber = parseInt(searchParams.get("default") ?? "1");
 
   // Router
   const router = useRouter();
@@ -38,16 +42,16 @@ export default function Page({ params }: { params: { member: string } }) {
 
   // State
   const [currentMessage, setCurrentMessage] = useState(1); // current message number
-  const [messageIdList, setMessageIdList] = useState<string[]>([]); // message list
-  const [totalMessageCount, setTotalMessageCount] = useState(1); // total message count
+  const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
-  const [currentCakeCount, setCurrentCakeCount] = useState(1); // current cake number
+  const [messagesByRange, setMessagesByRange] = useState<
+    IGetMessageResponseByRangeMessageData[]
+  >([]);
+  const [messagesPreloaded, setmessagesPreloaded] = useState(false);
 
   // Query
   const queryClient = useQueryClient();
-  const cakeInfo = useQuery(
-    getCakeQueryOption(params.member, currentCakeCount - 1),
-  );
+  const cakeInfo = useQuery(getCakeQueryOption(params.member, 0));
 
   // Store
   const setError = useErrorStore((state) => state.setError);
@@ -56,89 +60,118 @@ export default function Page({ params }: { params: { member: string } }) {
   const pageRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 
-  // Message Content State
-  const [senderNicknames, setSenderNicknames] = useState<string[]>([]); // name of message sender
-  const [messages, setMessages] = useState<string[]>([]);
-  const [sendDates, setSendDates] = useState<Date[]>([]); // message date
-
   /* Message Content */
-  // Set cake owner nickname, total message count, and message list
+  // Set total message count and owner nickname
   useEffect(() => {
-    const data = cakeInfo.data?.body.data;
-    if (data && data.nickname) {
-      setOwnerNickname(data.nickname ?? "빵빠레");
+    if (cakeInfo.data?.body.data) {
+      setTotalMessageCount(cakeInfo.data.body.data.totalMessageCount);
+      setOwnerNickname(cakeInfo.data.body.data.nickname);
     }
-    if (data && data.totalMessageCount) {
-      setTotalMessageCount(data.totalMessageCount);
-    }
-    if (data && data.messageIdList) {
-      // Set message list
-      setMessageIdList((prev) => [
-        ...prev.slice(0, (currentCakeCount - 1) * messagePerCake),
-        ...data.messageIdList.map((id) => id.toString()),
-        ...prev.slice(currentCakeCount * messagePerCake),
-      ]);
-    }
-  }, [cakeInfo.data, currentCakeCount]);
+  }, [cakeInfo.data?.body.data]);
 
-  // Preload messages
+  // Set initial messages when cake info is loaded
   useEffect(() => {
-    if (messageIdList.length > 0) {
-      const messageIds = messageIdList.slice(
-        currentMessage - preloadCount - 1,
-        currentMessage + preloadCount - 1,
+    const cakeInfoData = cakeInfo.data?.body.data;
+    if (cakeInfoData) {
+      const totalMessageCount = cakeInfoData.totalMessageCount;
+      const messageStartNumber = Math.max(
+        0,
+        defaultMessageNumber - (preloadCount - 1) / 2,
       );
-      messageIds.forEach((messageId) => {
-        queryClient.prefetchQuery(readMessageQueryOption(messageId));
-      });
-    }
-  }, [messageIdList, currentMessage, queryClient]);
+      const messageEndNumber = Math.min(
+        totalMessageCount - 1,
+        defaultMessageNumber + (preloadCount - 1) / 2,
+      );
+      const defaultMessage: IGetMessageResponseByRangeMessageData = {
+        messageId: BigInt(1),
+        content: "",
+        senderNickname: "",
+        candleColor: "CANDLE_COLOR_1",
+        createdAt: "2024-09-30",
+      };
 
-  // Update message content
-  const updateMessage = useCallback(
-    async (messageId: string, idx: number) => {
-      const message = await queryClient
-        .ensureQueryData(readMessageQueryOption(messageId))
+      // set dummy message list
+      let defaultMessageList: IGetMessageResponseByRangeMessageData[] = [];
+      defaultMessageList.length = totalMessageCount;
+      defaultMessageList.fill(defaultMessage);
+
+      // query to load some data
+      queryClient
+        .ensureQueryData(
+          readMessageByRangeQueryOption(
+            params.member,
+            messageStartNumber,
+            messageEndNumber,
+          ),
+        )
         .then((res) => {
+          // throw error if status is not 200
           if (res.status === 403) {
-            router.push(`/auth/signin?redirect=${pathname}`);
             setError(res.status, loginErrorMessage, res.body.code);
-            return;
+            router.push(`/auth/signin?redirect=${pathname}`);
           } else if (res.status !== 200) {
             setError(res.status, readErrorMessage, res.body.code);
             router.push(`/${params.member}`);
           } else {
-            return res.body.data;
+            // if status is 200 load data to state
+            const loadedMessageData = res.body.data?.messages;
+            if (loadedMessageData) {
+              let newMessageList = [
+                ...defaultMessageList.slice(0, messageStartNumber),
+                ...loadedMessageData,
+                ...defaultMessageList.slice(messageEndNumber - 1),
+              ];
+              setMessagesByRange(newMessageList);
+            }
+          }
+        })
+        .finally(() => {
+          setmessagesPreloaded(true);
+        });
+    }
+  }, [
+    cakeInfo.data,
+    defaultMessageNumber,
+    params.member,
+    pathname,
+    queryClient,
+    router,
+    setError,
+  ]);
+
+  // Load all messages
+  useEffect(() => {
+    const cakeInfoData = cakeInfo.data?.body.data;
+    // if message is preloaded and cake info is loaded run query
+    if (cakeInfoData && messagesPreloaded) {
+      queryClient
+        .ensureQueryData(readMessageByRangeQueryOption(params.member))
+        .then((res) => {
+          if (res.status === 403) {
+            setError(res.status, loginErrorMessage, res.body.code);
+            router.push(`/auth/signin?redirect=${pathname}`);
+            return;
+          } else if (res.status !== 200) {
+            setError(res.status, readErrorMessage, res.body.code);
+            router.push(`/${params.member}`);
+            return;
+          } else {
+            const messageData = res.body.data?.messages;
+            if (messageData) {
+              setMessagesByRange(messageData);
+            }
           }
         });
-      if (message) {
-        setSenderNicknames((prev) => {
-          prev[idx] = message.nickname;
-          const newSenderNicknames = [...prev];
-          return newSenderNicknames;
-        });
-        setMessages((prev) => {
-          prev[idx] = message.content;
-          const newMessages = [...prev];
-          return newMessages;
-        });
-        setSendDates((prev) => {
-          // createAt is a string in the format of "YYYY-MM-DD"
-          prev[idx] = new Date(`${message.createdAt}`);
-          const newSendDates = [...prev];
-          return newSendDates;
-        });
-      }
-    },
-    [pathname, queryClient, router, setError, params.member],
-  );
-
-  // Update message content when the current message number changes
-  useEffect(() => {
-    if (messageIdList.length > 0) {
-      updateMessage(messageIdList[currentMessage - 1], currentMessage - 1);
     }
-  }, [messageIdList, currentMessage, updateMessage]);
+  }, [
+    cakeInfo.data?.body.data,
+    messagesPreloaded,
+    params.member,
+    pathname,
+    queryClient,
+    router,
+    setError,
+  ]);
 
   // Swipe left
   const swipeLeft = () => {
@@ -169,22 +202,19 @@ export default function Page({ params }: { params: { member: string } }) {
     }
   };
 
-  // Change the current cake number based on the current message number
-  useEffect(() => {
-    if (currentMessage % messagePerCake === 0) {
-      setCurrentCakeCount(currentMessage / messagePerCake + 1);
-    }
-  }, [currentMessage]);
-
   // Change the current message number based on messageNumber
   useEffect(() => {
-    if (defaultNumber && messageRef.current && messageIdList.length > 0) {
-      const messageNumber = parseInt(defaultNumber);
+    if (
+      defaultMessageNumber &&
+      messageRef.current &&
+      messagesByRange.length > 0
+    ) {
+      const messageNumber = defaultMessageNumber;
       setCurrentMessage(messageNumber);
       messageRef.current.scrollLeft =
         (messageNumber - 1) * messageRef.current.clientWidth;
     }
-  }, [defaultNumber, messageIdList]);
+  }, [defaultMessageNumber, messagesByRange.length]);
 
   return (
     <div className={messagePageContainer} ref={pageRef}>
@@ -203,12 +233,12 @@ export default function Page({ params }: { params: { member: string } }) {
             ref={messageRef}
             onScroll={handleScroll}
           >
-            {messageIdList.map((messageId, idx) => (
+            {messagesByRange.map((message, idx) => (
               <Message
-                key={messageId}
-                senderNicknames={senderNicknames[idx]}
-                messages={messages[idx]}
-                sendDates={sendDates[idx]}
+                key={idx}
+                senderNicknames={message.senderNickname}
+                messages={message.content}
+                sendDates={new Date(message.createdAt)}
                 style={{ left: `${100 * idx}%` }}
               />
             ))}
