@@ -91,6 +91,20 @@ export const readMessageQueryOption = (messageId: string) =>
     staleTime: normalStaleTime,
   });
 
+export const readMessageByRangeQueryOption = (
+  memberUuid: string,
+  start: number,
+  end: number,
+) =>
+  queryOptions({
+    queryKey: ["message", "read", memberUuid, start, end],
+    queryFn: async () => {
+      return await api.readMessageByRange(memberUuid, start, end);
+    },
+    retry: normalRetryCount,
+    staleTime: normalStaleTime,
+  });
+
 export const deleteMessageMutationOption: UseMutationOptions<
   IFetchResponse<IDeleteMessageResponse>,
   Error,
