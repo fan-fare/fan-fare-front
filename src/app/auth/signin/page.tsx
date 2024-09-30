@@ -69,7 +69,7 @@ export default function Page() {
             router.push(`/${member}`);
           } else {
             // redirect to the user page
-            router.push(`/${res.body.memberId}`);
+            router.push(`/${res.body.memberUuid}`);
           }
           break;
         case 401:
@@ -89,14 +89,14 @@ export default function Page() {
 
   useEffect(() => {
     const data = memberInfo.data?.body.data;
-    if (data && data.memberId) {
+    if (data && data.memberUuid) {
       //if (redirect) {
       //  router.push(redirect);
       //} else
       if (member) {
         router.push(`/${member}`);
       } else {
-        router.push(`/${data.memberId}`);
+        router.push(`/${data.memberUuid}`);
       }
     }
   }, [memberInfo.data, router, member]);

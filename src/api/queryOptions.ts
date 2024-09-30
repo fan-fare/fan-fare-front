@@ -64,7 +64,7 @@ export const getCakeQueryOption = (memberId: string, page: number) =>
   queryOptions({
     queryKey: ["cake", memberId, page],
     queryFn: async () => {
-      return await api.getCake({ memberId, page });
+      return await api.getCake({ memberUuid: memberId, page });
     },
     retry: normalRetryCount,
     staleTime: normalStaleTime,
@@ -86,6 +86,20 @@ export const readMessageQueryOption = (messageId: string) =>
     queryKey: ["message", "read", messageId],
     queryFn: async () => {
       return await api.readMessage(messageId);
+    },
+    retry: normalRetryCount,
+    staleTime: normalStaleTime,
+  });
+
+export const readMessageByRangeQueryOption = (
+  memberUuid: string,
+  start: number,
+  end: number,
+) =>
+  queryOptions({
+    queryKey: ["message", "read", memberUuid, start, end],
+    queryFn: async () => {
+      return await api.readMessageByRange(memberUuid, start, end);
     },
     retry: normalRetryCount,
     staleTime: normalStaleTime,

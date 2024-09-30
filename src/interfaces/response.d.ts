@@ -16,7 +16,7 @@ export interface IResponse<T = undefined | any> {
 export interface ISigninResponse {
   status?: number;
   message: string;
-  memberId?: number;
+  memberUuid?: string;
   code?: string;
 }
 
@@ -24,11 +24,12 @@ export interface ISignupResponse extends IResponse<BigInt> {}
 
 export interface ICheckIdResponse extends IResponse<boolean> {}
 
-export interface IGetMemberInfoResponse extends IResponse<{
-  memberId: bigint;
-  username: string;
-  birthDay: string;
-}> {}
+export interface IGetMemberInfoResponse
+  extends IResponse<{
+    memberUuid: string;
+    username: string;
+    birthDay: string;
+  }> {}
 
 export interface ICreateMessageResponse extends IResponse<BigInt> {}
 
@@ -56,3 +57,17 @@ export interface IGetCakeResponse
   }> {}
 
 export interface IDeleteMessageResponse extends IResponse<string> {}
+
+// Get Message Response by range
+export interface IGetMessageResponseByRangeMessageData {
+  messageId: BigInt;
+  content: string;
+  senderNickname: "은정";
+  candleColor: "CANDLE_COLOR_1";
+  createdAt: "2024-09-29";
+}
+
+export interface IGetMessageResponseByRange
+  extends IResponse<{
+    messages: IGetMessageResponseByRangeMessageData[];
+  }> {}

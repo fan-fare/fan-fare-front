@@ -17,12 +17,6 @@ export const cakePageWrapper = style({
   boxSizing: "border-box",
   alignItems: "center",
   justifyContent: "flex-start",
-
-  "@media": {
-    [pc]: {
-      justifyContent: "center",
-    },
-  },
 });
 
 export const cakePageContainer = style({
