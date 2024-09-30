@@ -27,7 +27,7 @@ const url = {
   getCake: "/cake",
   writeMessage: "/message",
   readMessage: "/message",
-  readMessageByRange: "/message",
+  readMessageByRange: "/messages",
   deleteMessage: "/message",
 };
 
@@ -35,6 +35,7 @@ const url = {
  * Custom fetch function
  * @param input url string
  * @param init fetch options
+ * @param useToken token use option
  * @returns promise of json response
  */
 const customFetch = async <T = unknown>(
@@ -137,11 +138,19 @@ export const api = {
   },
   readMessageByRange: async (
     memberUuid: string,
-    start: number,
-    end: number,
+    start?: number,
+    end?: number,
   ) => {
+    let readUrl = url.readMessageByRange;
+    readUrl += `?member_uuid=${memberUuid}`;
+    if (start) {
+      readUrl += `&start=${start}`;
+    }
+    if (end) {
+      readUrl += `&end=${end}`;
+    }
     return customFetch<IGetMessageResponseByRange>(
-      `${url.readMessageByRange}/${memberUuid}?start=${start}&end=${end}`,
+      readUrl,
       {
         method: "GET",
       },
