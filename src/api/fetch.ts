@@ -10,6 +10,7 @@ import {
   IGetCakeResponse,
   IGetMemberInfoResponse,
   IGetMessageResponse,
+  IGetMessageResponseByRange,
   ISigninResponse,
   ISignupResponse,
 } from "@/interfaces/response";
@@ -26,6 +27,7 @@ const url = {
   getCake: "/cake",
   writeMessage: "/message",
   readMessage: "/message",
+  readMessageByRange: "/message",
   deleteMessage: "/message",
 };
 
@@ -101,9 +103,15 @@ export const api = {
       true,
     );
   },
-  getCake: async ({ memberId, page }: { memberId: string; page: number }) => {
+  getCake: async ({
+    memberUuid,
+    page,
+  }: {
+    memberUuid: string;
+    page: number;
+  }) => {
     return customFetch<IGetCakeResponse>(
-      `${url.getCake}/${memberId}?page=${page}`,
+      `${url.getCake}/${memberUuid}?page=${page}`,
       {
         method: "GET",
       },
@@ -121,6 +129,19 @@ export const api = {
   readMessage: async (messageId: string) => {
     return customFetch<IGetMessageResponse>(
       `${url.readMessage}/${messageId}`,
+      {
+        method: "GET",
+      },
+      true,
+    );
+  },
+  readMessageByRange: async (
+    memberUuid: string,
+    start: number,
+    end: number,
+  ) => {
+    return customFetch<IGetMessageResponseByRange>(
+      `${url.readMessageByRange}/${memberUuid}?start=${start}&end=${end}`,
       {
         method: "GET",
       },

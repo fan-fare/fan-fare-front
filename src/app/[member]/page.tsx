@@ -63,7 +63,7 @@ export default function Home({ params }: { params: { member: string } }) {
   // Query
   const cakeInfo = useQuery(
     getCakeQueryOption(
-      BigInt(params.member).toString(),
+      params.member,
       // totalCakeCount - currentCake, // reverse order of cake
       currentCake - 1,
     ),
@@ -127,7 +127,7 @@ export default function Home({ params }: { params: { member: string } }) {
   // Set logged in status
   useEffect(() => {
     const data = memberInfo.data?.body.data;
-    if (data && data.memberId.toString() === params.member) {
+    if (data && data.memberUuid.toString() === params.member) {
       setLoggedIn(true);
     }
   }, [memberInfo.data, params.member]);

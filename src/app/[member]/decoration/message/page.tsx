@@ -61,7 +61,7 @@ export default function Page({ params }: { params: { member: string } }) {
     e.preventDefault();
     const candleColor = searchParams.get("candle_type") as CandleType;
     const data: ICreateMessageRequest = {
-      memberId: params.member,
+      memberUuid: params.member,
       color: candleColor,
       content: message,
       nickname: nickname,

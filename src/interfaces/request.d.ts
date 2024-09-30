@@ -13,7 +13,7 @@ export interface ISignupRequest {
 }
 
 export interface ICreateMessageRequest {
-  memberId: string;
+  memberUuid: string;
   color: CandleType;
   content: string;
   nickname: string;
