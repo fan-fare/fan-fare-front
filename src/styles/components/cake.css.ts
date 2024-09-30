@@ -36,23 +36,23 @@ export const cakeImg = style({
 // candle position of cake
 export const candleProp: StyleRule[] = [
   {
-    top: "-20%",
+    top: "-16%",
     left: "46.75%", // middle
   },
   {
-    top: "-16%",
+    top: "-13%",
     left: "27%", // left top
   },
   {
-    top: "-16%",
+    top: "-13%",
     right: "27%", // right top
   },
   {
-    top: "22%",
+    top: "26%",
     left: "7%", // left bottom
   },
   {
-    top: "22%",
+    top: "26%",
     right: "7%", // right bottom
   },
 ];
@@ -68,28 +68,28 @@ export const candleBase = style({
 
 export const candleNameProp: StyleRule[] = [
   {
-    top: "calc(-20% - 10%)",
+    top: "calc(-16% - 8%)",
     left: "calc(50% - 1.625rem)",
     textAlign: "center",
   },
   {
-    top: "calc(-16% + 10%)",
+    top: "calc(-13% + 6%)",
     left: "calc(31% - 6.5% - 3.25rem)",
     textAlign: "right",
   },
   {
-    top: "calc(-16% + 10%)",
+    top: "calc(-13% + 6%)",
     right: "calc(31% - 6.5% - 3.25rem)",
     textAlign: "left",
   },
 
   {
-    top: "calc(22% + 10%)",
+    top: "calc(26% + 10%)",
     left: "calc(12% - 6.5% - 3.25rem)",
     textAlign: "right",
   },
   {
-    top: "calc(22% + 10%)",
+    top: "calc(26% + 10%)",
     right: "calc(12% - 6.5% - 3.25rem)",
     textAlign: "left",
   },
