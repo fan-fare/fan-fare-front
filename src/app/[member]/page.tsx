@@ -205,7 +205,7 @@ export default function Home({ params }: { params: { member: string } }) {
 
   if (!isLoaded) {
     return null;
-  } else if (isLoaded && cakeInfo.data && cakeInfo.data.status === 404) {
+  } else if (isLoaded && cakeInfo.data && cakeInfo.data.status !== 200) {
     return <Error message="케이크가 존재하지 않습니다." navigation="main" />;
   }
 
