@@ -223,11 +223,13 @@ export default function Page({ params }: { params: { member: string } }) {
       </Link>
       <div className={messagePageMain}>
         <div className={messageDisplayContainer}>
-          <IoIosArrowBack
-            className={navigationIcon}
-            onClick={swipeRight}
-            style={{ left: "0" }}
-          />
+          {currentMessage === 1 ? null : (
+            <IoIosArrowBack
+              className={navigationIcon}
+              onClick={swipeRight}
+              style={{ left: "0" }}
+            />
+          )}
           <div
             className={messageDisplay}
             ref={messageRef}
@@ -243,14 +245,16 @@ export default function Page({ params }: { params: { member: string } }) {
               />
             ))}
           </div>
-          <IoIosArrowForward
-            className={navigationIcon}
-            onClick={swipeLeft}
-            style={{ right: "0" }}
-          />
+          {currentMessage >= totalMessageCount ? null : (
+            <IoIosArrowForward
+              className={navigationIcon}
+              onClick={swipeLeft}
+              style={{ right: "0" }}
+            />
+          )}
         </div>
         <div className={cakePageCountContainer}>
-          {`${currentMessage} / ${totalMessageCount}`}
+          {totalMessageCount > 0 && `${currentMessage} / ${totalMessageCount}`}
         </div>
       </div>
     </div>
