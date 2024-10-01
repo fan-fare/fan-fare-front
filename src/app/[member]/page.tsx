@@ -39,6 +39,7 @@ import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
 import { flexCenterContainer } from "@/styles/common/common.css";
+import Error from "@/components/Error";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -205,16 +206,7 @@ export default function Home({ params }: { params: { member: string } }) {
   if (!isLoaded) {
     return null;
   } else if (isLoaded && cakeInfo.data && cakeInfo.data.status === 404) {
-    return (
-      <div className={flexCenterContainer}>
-        <div>
-          <div>케이크가 존재하지 않습니다</div>
-          <Link href={`/`}>
-            <div>메인으로</div>
-          </Link>
-        </div>
-      </div>
-    );
+    return <Error message="케이크가 존재하지 않습니다." navigation="main" />;
   }
 
   return (
