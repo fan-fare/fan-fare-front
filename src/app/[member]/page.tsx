@@ -38,6 +38,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
+import { flexCenterContainer } from "@/styles/common/common.css";
+import Error from "@/components/Error";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -173,7 +175,7 @@ export default function Home({ params }: { params: { member: string } }) {
   }, []);
 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && cakeInfo.data && cakeInfo.data.status === 200) {
       const canvas = document.createElement("canvas");
       canvas.style.position = "absolute";
       canvas.style.top = "0";
@@ -193,7 +195,7 @@ export default function Home({ params }: { params: { member: string } }) {
         spread: 70,
       });
     }
-  }, [isLoaded]);
+  }, [cakeInfo.data, isLoaded]);
 
   // log out event
   const logout = useCallback(() => {
@@ -203,6 +205,8 @@ export default function Home({ params }: { params: { member: string } }) {
 
   if (!isLoaded) {
     return null;
+  } else if (isLoaded && cakeInfo.data && cakeInfo.data.status === 404) {
+    return <Error message="케이크가 존재하지 않습니다." navigation="main" />;
   }
 
   return (
