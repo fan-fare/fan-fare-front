@@ -1,6 +1,7 @@
 import { keyframes, style } from "@vanilla-extract/css";
 import {
   flexCenterContainer,
+  lotteria,
   tablet,
   uiyeun,
 } from "../common/common.css";
@@ -135,4 +136,42 @@ export const clickableBoxesImg = style({
   height: "auto",
   cursor: "pointer",
   animation: `${boxesSclaeAnimation} 2s infinite`,
+});
+
+export const birthdayLogoContainer = style({
+  display: "flex",
+  flexDirection: "column",
+  padding: "1rem",
+  paddingTop: "2rem",
+  zIndex: -100,
+  position: "relative",
+  width: "100%",
+  height: "auto",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+export const birthdayLogoBoxImg = style({
+  display: "block",
+  position: "absolute",
+  top: 0,
+  width: "4rem",
+  height: "4rem",
+});
+
+export const birthdayLogoBackground = style({
+  display: "flex",
+});
+
+export const birthdayLogoText = style({
+  display: "block",
+  position: "absolute",
+  top: "calc(50% - 0.625rem)",
+  fontFamily: lotteria,
+  fontSize: "1.875rem",
+  fontWeight: 400,
+  lineHeight: "1.25rem",
+  color: "#FFFFFF",
+  textShadow:
+    "2px 2px 0 #F58989, -2px -2px 0 #F58989, 2px -2px 0 #F58989, -2px 2px 0 #F58989",
 });

@@ -1,5 +1,5 @@
 import { keyframes, style } from "@vanilla-extract/css";
-import { flexCenterContainer, tablet } from "../common/common.css";
+import { flexCenterContainer, pc, tablet } from "../common/common.css";
 
 export const effectContainer = style([
   {
@@ -22,6 +22,15 @@ export const effect = style([
     position: "relative",
     padding: "2rem 0",
     boxSizing: "border-box",
+
+    "@media": {
+      [tablet]: {
+        height: "80%",
+      },
+      [pc]: {
+        height: "70%",
+      },
+    },
   },
 ]);
 

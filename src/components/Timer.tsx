@@ -11,6 +11,10 @@ import {
   timerContainer,
   textBalloon,
   endedTimerComponentContainer,
+  birthdayLogoContainer,
+  birthdayLogoText,
+  birthdayLogoBackground,
+  birthdayLogoBoxImg,
 } from "@/styles/components/timer.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,6 +41,7 @@ export default function Timer({
 
   // State for remains
   const [remains, setRemains] = useState(1);
+  const [isBirthday, setIsBirthday] = useState(false);
   const [boxActive, setBoxActive] = useState(false);
 
   // Calculate remains
@@ -57,13 +62,20 @@ export default function Timer({
     setRemains(diff);
 
     // If the birthday is today or the birthday has passed, set box active for a week
-    if (
-      diff === 0 ||
-      (diff > (365 - activeDays) * 24 * 60 * 60 * 1000 && loggedIn)
-    ) {
-      setBoxActive(true);
+    if (diff === 0 || diff > (365 - activeDays) * 24 * 60 * 60 * 1000) {
+      // Set birthday flag if the birthday is today or the birthday has passed within a week
+      setIsBirthday(true);
+      if (loggedIn) {
+        // Set box active if the user is logged in
+        setBoxActive(true);
+      } else {
+        // Set box inactive if the user is not logged in
+        setBoxActive(false);
+      }
     } else {
+      // Set box inactive if the birthday is not today or the birthday has passed
       setBoxActive(false);
+      setIsBirthday(false);
     }
   }, [birthday, loggedIn]);
 
@@ -76,7 +88,7 @@ export default function Timer({
     return () => clearInterval(interval);
   }, [calculateRemains]);
 
-  if (boxActive) {
+  if (boxActive && isBirthday) {
     return (
       <div className={endedTimerComponentContainer} style={{ height: "100%" }}>
         <div className={textBalloon}>
@@ -94,6 +106,34 @@ export default function Timer({
             loading="eager"
           />
         </Link>
+      </div>
+    );
+  } else if (isBirthday) {
+    return (
+      <div className={birthdayLogoContainer}>
+        <Image
+          src={"/assets/boxes.svg"}
+          alt="boxes"
+          width={0}
+          height={0}
+          className={birthdayLogoBoxImg}
+          loading="eager"
+        />
+        <Image
+          src={"/assets/member_main_congrat_logo.svg"}
+          alt="boxes"
+          width={334}
+          height={85}
+          loading="eager"
+          className={birthdayLogoBackground}
+        />
+        <div className={birthdayLogoText}>생일을 축하해주세요!</div>
+        <div className={birthdayText}>
+          {birthday &&
+            `Birthday: ${birthday.getFullYear()}.${
+              birthday.getMonth() + 1
+            }.${birthday.getDate()}.`}
+        </div>
       </div>
     );
   }
