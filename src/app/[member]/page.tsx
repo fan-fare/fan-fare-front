@@ -38,7 +38,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
-import { flexCenterContainer } from "@/styles/common/common.css";
 import Error from "@/components/Error";
 
 export default function Home({ params }: { params: { member: string } }) {

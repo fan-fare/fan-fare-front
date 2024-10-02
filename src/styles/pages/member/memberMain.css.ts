@@ -17,6 +17,13 @@ export const cakePageWrapper = style({
   boxSizing: "border-box",
   alignItems: "center",
   justifyContent: "flex-start",
+
+  "@media": {
+    [pc]: {
+      justifyContent: "center",
+      minHeight: "900px",
+    },
+  },
 });
 
 export const cakePageContainer = style({
