@@ -13,7 +13,7 @@ import {
   ISignupResponse,
 } from "@/interfaces/response";
 
-const normalRetryCount = 3;
+const normalRetryCount = 1;
 const normalStaleTime = 1000 * 60 * 10;
 
 export const isExistingQueryOption = (username: string) =>
