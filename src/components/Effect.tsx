@@ -88,15 +88,6 @@ export default function Effect({ main = false }: { main?: boolean }) {
     <div className={effectContainer}>
       <div className={effect}>
         <Image
-          src={"/assets/glitter.svg"}
-          alt="glitter"
-          width={0}
-          height={0}
-          className={glitterImg}
-          loading="eager"
-          priority
-        />
-        <Image
           src={"/assets/flags.svg"}
           alt="flags"
           width={0}
@@ -104,6 +95,15 @@ export default function Effect({ main = false }: { main?: boolean }) {
           className={flagsImg}
           style={main ? mainPageFlagsProps : defaultFlagsProps}
           loading="eager"
+        />
+        <Image
+          src={"/assets/glitter.svg"}
+          alt="glitter"
+          width={0}
+          height={0}
+          className={glitterImg}
+          loading="eager"
+          priority
         />
         {main && (
           <Image
