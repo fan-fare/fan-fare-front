@@ -1,12 +1,14 @@
 "use client";
 
 import {
+  deleteIconContainer,
   message,
   messageContainer,
   messageContentContainer,
   messageInfoContainer,
   messageText,
 } from "@/styles/components/message.css";
+import Image from "next/image";
 import { memo, useEffect, useRef, useState } from "react";
 
 /**
@@ -24,12 +26,14 @@ export default memo(function Message({
   sendDates,
   ref,
   style,
+  toggleDeleteModal,
 }: {
   senderNicknames?: string;
   messages?: string;
   sendDates?: Date;
   ref?: React.Ref<HTMLDivElement>;
   style?: React.CSSProperties;
+  toggleDeleteModal: () => void;
 }) {
   const messageRef = useRef<HTMLDivElement>(null);
 
@@ -69,6 +73,15 @@ export default memo(function Message({
             <div>{date}</div>
             <div>by. {senderNicknames}</div>
           </div>
+        </div>
+        <div className={deleteIconContainer}>
+          <Image
+            src={"/assets/delete_button.png"}
+            width={24}
+            height={24}
+            alt="delete"
+            onClick={toggleDeleteModal}
+          />
         </div>
       </div>
     </div>

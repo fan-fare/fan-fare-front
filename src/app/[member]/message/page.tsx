@@ -48,6 +48,7 @@ export default function Page({ params }: { params: { member: string } }) {
     IGetMessageResponseByRangeMessageData[]
   >([]);
   const [messagesPreloaded, setmessagesPreloaded] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   // Query
   const queryClient = useQueryClient();
@@ -59,6 +60,11 @@ export default function Page({ params }: { params: { member: string } }) {
   // Refs
   const pageRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
+
+  /* Custom functions */
+  const toggleDeleteModal = useCallback(() => {
+    setDeleteModal(!deleteModal);
+  }, [deleteModal]);
 
   /* Message Content */
   // Set total message count and owner nickname
@@ -242,6 +248,7 @@ export default function Page({ params }: { params: { member: string } }) {
                 messages={message.content}
                 sendDates={new Date(message.createdAt)}
                 style={{ left: `${100 * idx}%` }}
+                toggleDeleteModal={toggleDeleteModal}
               />
             ))}
           </div>
@@ -253,9 +260,16 @@ export default function Page({ params }: { params: { member: string } }) {
             />
           )}
         </div>
-        <div className={cakePageCountContainer}>
-          {totalMessageCount > 0 && `${currentMessage} / ${totalMessageCount}`}
-        </div>
+        {deleteModal && (
+          <div>
+            <div>삭제하시겠습니까?</div>
+          </div>
+        )}
+        {!deleteModal && totalMessageCount > 0 && (
+          <div className={cakePageCountContainer}>
+            {`${currentMessage} / ${totalMessageCount}`}
+          </div>
+        )}
       </div>
     </div>
   );

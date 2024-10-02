@@ -17,13 +17,21 @@ export const messageContainer = style({
 export const message = style([
   flexCenterContainer,
   {
-    padding: "1.125rem",
+    padding: "1.125rem 1.125rem 0 1.125rem",
     boxShadow: "0px 4px 4px 0px #00000040",
     boxSizing: "border-box",
     backgroundColor: "white",
     borderRadius: "10px",
+    flexDirection: "column",
   },
 ]);
+
+export const deleteIconContainer = style({
+  display: "flex",
+  width: "100%",
+  justifyContent: "flex-end",
+  padding: "0.75rem",
+});
 
 export const messageContentContainer = style([
   flexCenterContainer,
