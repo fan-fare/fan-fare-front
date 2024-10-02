@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  deleteMessageMutationOption,
   getCakeQueryOption,
   readMessageByRangeQueryOption,
   readMessageQueryOption,
@@ -14,13 +15,17 @@ import {
   pageTop,
 } from "@/styles/pages/member/memberMain.css";
 import {
+  messageDeleteModal,
+  messageDeleteModalButton,
+  messageDeleteModalContainer,
+  messageDeleteModalText,
   messageDisplay,
   messageDisplayContainer,
   messagePageContainer,
   messagePageMain,
   navigationIcon,
 } from "@/styles/pages/member/message.css";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -41,17 +46,22 @@ export default function Page({ params }: { params: { member: string } }) {
   const pathname = usePathname();
 
   // State
-  const [currentMessage, setCurrentMessage] = useState(1); // current message number
+  const [currentMessage, setCurrentMessage] = useState(
+    defaultMessageNumber ?? 1,
+  ); // current message number
   const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
   const [messagesByRange, setMessagesByRange] = useState<
     IGetMessageResponseByRangeMessageData[]
   >([]);
-  const [messagesPreloaded, setmessagesPreloaded] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [nextMessage, setNextMessage] = useState(0);
 
   // Query
   const queryClient = useQueryClient();
   const cakeInfo = useQuery(getCakeQueryOption(params.member, 0));
+  const messageInfo = useQuery(readMessageByRangeQueryOption(params.member));
+  const deleteMessageQuery = useMutation(deleteMessageMutationOption);
 
   // Store
   const setError = useErrorStore((state) => state.setError);
@@ -59,6 +69,11 @@ export default function Page({ params }: { params: { member: string } }) {
   // Refs
   const pageRef = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
+
+  /* Custom functions */
+  const toggleDeleteModal = useCallback(() => {
+    setDeleteModal(!deleteModal);
+  }, [deleteModal]);
 
   /* Message Content */
   // Set total message count and owner nickname
@@ -69,32 +84,15 @@ export default function Page({ params }: { params: { member: string } }) {
     }
   }, [cakeInfo.data?.body.data]);
 
-  // Set initial messages when cake info is loaded
+  // Preload messages
   useEffect(() => {
-    const cakeInfoData = cakeInfo.data?.body.data;
-    if (cakeInfoData) {
-      const totalMessageCount = cakeInfoData.totalMessageCount;
-      const messageStartNumber = Math.max(
-        0,
-        defaultMessageNumber - (preloadCount - 1) / 2,
-      );
-      const messageEndNumber = Math.min(
-        totalMessageCount - 1,
-        defaultMessageNumber + (preloadCount - 1) / 2,
-      );
-      const defaultMessage: IGetMessageResponseByRangeMessageData = {
-        messageId: BigInt(1),
-        content: "",
-        senderNickname: "",
-        candleColor: "CANDLE_COLOR_1",
-        createdAt: "2024-09-30",
-      };
-
-      // set dummy message list
-      let defaultMessageList: IGetMessageResponseByRangeMessageData[] = [];
-      defaultMessageList.length = totalMessageCount;
-      defaultMessageList.fill(defaultMessage);
-
+    // The variation of the message number is 1
+    // This might be changed in the future
+    const messageStartNumber = defaultMessageNumber;
+    const messageEndNumber = defaultMessageNumber;
+    // Only load data when messageInfo is not success and cakeInfo is success
+    // This is to prevent loading data multiple times
+    if (!messageInfo.isSuccess && cakeInfo.isSuccess) {
       // query to load some data
       queryClient
         .ensureQueryData(
@@ -116,59 +114,58 @@ export default function Page({ params }: { params: { member: string } }) {
             // if status is 200 load data to state
             const loadedMessageData = res.body.data?.messages;
             if (loadedMessageData) {
-              let newMessageList = [
-                ...defaultMessageList.slice(0, messageStartNumber),
-                ...loadedMessageData,
-                ...defaultMessageList.slice(messageEndNumber - 1),
-              ];
-              setMessagesByRange(newMessageList);
+              setMessagesByRange((prev) => {
+                let newMessages = [...prev];
+                if (prev.length === 0) {
+                  // Fill the array with empty messages
+                  const emptyMessages: IGetMessageResponseByRangeMessageData = {
+                    messageId: BigInt(0),
+                    content: "",
+                    senderNickname: "",
+                    candleColor: "CANDLE_COLOR_1",
+                    createdAt: new Date().toISOString(),
+                  };
+                  newMessages = Array(preloadCount).fill(emptyMessages);
+                  // Add the pre-loaded message
+                  newMessages[messageStartNumber - 1] = loadedMessageData[0];
+                }
+                return newMessages;
+              });
             }
           }
-        })
-        .finally(() => {
-          setmessagesPreloaded(true);
         });
     }
   }, [
-    cakeInfo.data,
+    cakeInfo.isSuccess,
     defaultMessageNumber,
+    messageInfo.isSuccess,
     params.member,
     pathname,
     queryClient,
     router,
     setError,
+    totalMessageCount,
   ]);
 
   // Load all messages
   useEffect(() => {
-    const cakeInfoData = cakeInfo.data?.body.data;
-    // if message is preloaded and cake info is loaded run query
-    if (cakeInfoData && messagesPreloaded) {
-      queryClient
-        .ensureQueryData(readMessageByRangeQueryOption(params.member))
-        .then((res) => {
-          if (res.status === 403) {
-            setError(res.status, loginErrorMessage, res.body.code);
-            router.push(`/auth/signin?redirect=${pathname}`);
-            return;
-          } else if (res.status !== 200) {
-            setError(res.status, readErrorMessage, res.body.code);
-            router.push(`/${params.member}`);
-            return;
-          } else {
-            const messageData = res.body.data?.messages;
-            if (messageData) {
-              setMessagesByRange(messageData);
-            }
-          }
-        });
+    if (messageInfo.isSuccess && messageInfo.data) {
+      const data = messageInfo.data;
+      if (data.status === 200 && data.body.data) {
+        setMessagesByRange(data.body.data.messages);
+      } else if (data.status === 403) {
+        setError(data.status, loginErrorMessage, data.body.code);
+        router.push(`/auth/signin?redirect=${pathname}`);
+      } else {
+        setError(data.status, readErrorMessage, data.body.code);
+        router.push(`/${params.member}`);
+      }
     }
   }, [
-    cakeInfo.data?.body.data,
-    messagesPreloaded,
+    messageInfo.data,
+    messageInfo.isSuccess,
     params.member,
     pathname,
-    queryClient,
     router,
     setError,
   ]);
@@ -202,9 +199,11 @@ export default function Page({ params }: { params: { member: string } }) {
     }
   };
 
-  // Change the current message number based on messageNumber
+  // Set the current message number when the page is loaded
   useEffect(() => {
-    if (
+    if (nextMessage) {
+      setCurrentMessage(nextMessage);
+    } else if (
       defaultMessageNumber &&
       messageRef.current &&
       messagesByRange.length > 0
@@ -214,7 +213,45 @@ export default function Page({ params }: { params: { member: string } }) {
       messageRef.current.scrollLeft =
         (messageNumber - 1) * messageRef.current.clientWidth;
     }
-  }, [defaultMessageNumber, messagesByRange.length]);
+  }, [defaultMessageNumber, messagesByRange.length, nextMessage]);
+
+  // Delete message function
+  const deleteMessage = useCallback(() => {
+    deleteMessageQuery.mutate(
+      messagesByRange[currentMessage - 1].messageId.toString(),
+    );
+    setDeleteModal(false);
+  }, [currentMessage, deleteMessageQuery, messagesByRange]);
+
+  useEffect(() => {
+    if (
+      deleteMessageQuery.isSuccess &&
+      cakeInfo.data?.body.data?.totalMessageCount
+    ) {
+      // Invalidate the message query
+      queryClient.invalidateQueries({
+        queryKey: ["message"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["cake", params.member],
+      });
+      // Set the next message number
+      setNextMessage(Math.min(currentMessage, totalMessageCount));
+    }
+  }, [
+    cakeInfo.data?.body.data?.totalMessageCount,
+    currentMessage,
+    deleteMessageQuery.isSuccess,
+    params.member,
+    queryClient,
+    totalMessageCount,
+  ]);
+
+  useEffect(() => {
+    if (deleteMessageQuery.isError) {
+      setError(400, "메세지 삭제에 실패했습니다.", "400");
+    }
+  }, [currentMessage, deleteMessageQuery.isError, setError]);
 
   return (
     <div className={messagePageContainer} ref={pageRef}>
@@ -242,6 +279,7 @@ export default function Page({ params }: { params: { member: string } }) {
                 messages={message.content}
                 sendDates={new Date(message.createdAt)}
                 style={{ left: `${100 * idx}%` }}
+                toggleDeleteModal={toggleDeleteModal}
               />
             ))}
           </div>
@@ -253,9 +291,21 @@ export default function Page({ params }: { params: { member: string } }) {
             />
           )}
         </div>
-        <div className={cakePageCountContainer}>
-          {totalMessageCount > 0 && `${currentMessage} / ${totalMessageCount}`}
-        </div>
+        {deleteModal && (
+          <div className={messageDeleteModalContainer}>
+            <div className={messageDeleteModal}>
+              <div className={messageDeleteModalText}>삭제하시겠습니까?</div>
+              <div className={messageDeleteModalButton} onClick={deleteMessage}>
+                확인
+              </div>
+            </div>
+          </div>
+        )}
+        {!deleteModal && totalMessageCount > 0 && (
+          <div className={cakePageCountContainer}>
+            {`${currentMessage} / ${totalMessageCount}`}
+          </div>
+        )}
       </div>
     </div>
   );

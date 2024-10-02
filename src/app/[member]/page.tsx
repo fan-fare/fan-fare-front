@@ -32,18 +32,20 @@ import {
   logoutButton,
   logoutButtonContainer,
 } from "@/styles/pages/member/memberMain.css";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
-import { flexCenterContainer } from "@/styles/common/common.css";
 import Error from "@/components/Error";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
   const candlePerCake = 5; // number of candles per cake
+
+  // Query Client
+  const queryClient = useQueryClient();
 
   // State
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
@@ -201,7 +203,10 @@ export default function Home({ params }: { params: { member: string } }) {
   const logout = useCallback(() => {
     window.localStorage.removeItem("token");
     setLoggedIn(false);
-  }, []);
+    queryClient.invalidateQueries({
+      queryKey: ["member"],
+    });
+  }, [queryClient]);
 
   if (!isLoaded) {
     return null;

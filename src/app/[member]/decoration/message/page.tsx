@@ -69,7 +69,10 @@ export default function Page({ params }: { params: { member: string } }) {
     await createPost.mutateAsync(data).then((res) => {
       if (res && res.status === 200) {
         queryClient.invalidateQueries({
-          queryKey: ["cake"],
+          queryKey: ["cake", params.member],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["message", "read", params.member],
         });
         router.push(`/${params.member}`);
       } else {
