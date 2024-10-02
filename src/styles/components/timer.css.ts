@@ -166,6 +166,7 @@ export const birthdayLogoBackground = style({
 export const birthdayLogoText = style({
   display: "block",
   position: "absolute",
+  zIndex: 1,
   top: "calc(50% - 0.625rem)",
   fontFamily: lotteria,
   fontSize: "1.875rem",
