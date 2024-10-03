@@ -12,7 +12,7 @@ import {
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
 import { buttonDarkHalf } from "@/styles/common/button.css";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signupMutationOption } from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
@@ -28,6 +28,9 @@ export default function Page() {
 
   // Router
   const router = useRouter();
+
+  // Query Client
+  const queryClient = useQueryClient();
 
   // Search Params
   const member = useSearchParams().get("member");
@@ -73,6 +76,7 @@ export default function Page() {
     };
 
     await signup.mutateAsync(data).then((res) => {
+      queryClient.invalidateQueries();
       switch (res.status) {
         case 200:
           router.push(
