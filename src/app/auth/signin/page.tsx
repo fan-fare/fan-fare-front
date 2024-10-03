@@ -59,11 +59,9 @@ export default function Page() {
       password: formData.get("password") as string,
     };
     await signin.mutateAsync(data).then(async (res) => {
+      queryClient.invalidateQueries();
       switch (res.status) {
         case 200:
-          queryClient.invalidateQueries({
-            queryKey: ["member", "info"],
-          });
           if (member) {
             // redirect to the member page
             router.push(`/${member}`);
@@ -90,9 +88,6 @@ export default function Page() {
   useEffect(() => {
     const data = memberInfo.data?.body.data;
     if (data && data.memberUuid) {
-      //if (redirect) {
-      //  router.push(redirect);
-      //} else
       if (member) {
         router.push(`/${member}`);
       } else {
