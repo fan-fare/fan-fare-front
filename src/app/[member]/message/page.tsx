@@ -59,7 +59,7 @@ export default function Page({ params }: { params: { member: string } }) {
 
   // Query
   const queryClient = useQueryClient();
-  const cakeInfo = useQuery(getCakeQueryOption(params.member, 0));
+  const cakeInfo = useQuery(getCakeQueryOption(params.member));
   const messageInfo = useQuery(readMessageByRangeQueryOption(params.member));
   const deleteMessageQuery = useMutation(deleteMessageMutationOption);
 
@@ -79,7 +79,7 @@ export default function Page({ params }: { params: { member: string } }) {
   // Set total message count and owner nickname
   useEffect(() => {
     if (cakeInfo.data?.body.data) {
-      setTotalMessageCount(cakeInfo.data.body.data.totalMessageCount);
+      setTotalMessageCount(cakeInfo.data.body.data.messages.length);
       setOwnerNickname(cakeInfo.data.body.data.nickname);
     }
   }, [cakeInfo.data?.body.data]);
@@ -226,7 +226,7 @@ export default function Page({ params }: { params: { member: string } }) {
   useEffect(() => {
     if (
       deleteMessageQuery.isSuccess &&
-      cakeInfo.data?.body.data?.totalMessageCount
+      cakeInfo.data?.body.data
     ) {
       // Invalidate the message query
       queryClient.invalidateQueries({
@@ -238,14 +238,7 @@ export default function Page({ params }: { params: { member: string } }) {
       // Set the next message number
       setNextMessage(Math.min(currentMessage, totalMessageCount));
     }
-  }, [
-    cakeInfo.data?.body.data?.totalMessageCount,
-    currentMessage,
-    deleteMessageQuery.isSuccess,
-    params.member,
-    queryClient,
-    totalMessageCount,
-  ]);
+  }, [cakeInfo.data?.body.data, currentMessage, deleteMessageQuery.isSuccess, params.member, queryClient, totalMessageCount]);
 
   useEffect(() => {
     if (deleteMessageQuery.isError) {
