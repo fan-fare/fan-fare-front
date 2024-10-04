@@ -104,19 +104,10 @@ export const api = {
       true,
     );
   },
-  getCake: async ({
-    memberUuid,
-    page,
-  }: {
-    memberUuid: string;
-    page: number;
-  }) => {
-    return customFetch<IGetCakeResponse>(
-      `${url.getCake}/${memberUuid}?page=${page}`,
-      {
-        method: "GET",
-      },
-    );
+  getCake: async ({ memberUuid }: { memberUuid: string }) => {
+    return customFetch<IGetCakeResponse>(`${url.getCake}/${memberUuid}`, {
+      method: "GET",
+    });
   },
   writeMessage: async (data: ICreateMessageRequest) => {
     return customFetch<ICreateMessageResponse>(`${url.writeMessage}`, {

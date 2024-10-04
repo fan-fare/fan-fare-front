@@ -39,6 +39,7 @@ import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
 import Error from "@/components/Error";
+import { IGetCakeResponseMessageData } from "@/interfaces/response";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -51,13 +52,11 @@ export default function Home({ params }: { params: { member: string } }) {
   const [totalCakeCount, setTotalCakeCount] = useState(1); // total cake count
   const [cakeType, setCakeType] = useState<CakeType[]>([]); // cake type
   const [currentCake, setCurrentCake] = useState(1); // current cake number
-  const [totalMessageCount, setTotalMessageCount] = useState(0); // total message count
   const [ownerNickname, setOwnerNickname] = useState(""); // name of cake owner
-  const [names, setNames] = useState<string[]>([]); // name of message sender
-  const [candles, setCandles] = useState<CandleType[]>([]);
   const [birthday, setBirthday] = useState<Date | null>(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [messages, setMessages] = useState<IGetCakeResponseMessageData[]>([]);
 
   // Refs
   const pageButtomRef = useRef<HTMLDivElement>(null);
@@ -65,13 +64,7 @@ export default function Home({ params }: { params: { member: string } }) {
   const cakeRef = useRef<HTMLDivElement>(null);
 
   // Query
-  const cakeInfo = useQuery(
-    getCakeQueryOption(
-      params.member,
-      // totalCakeCount - currentCake, // reverse order of cake
-      currentCake - 1,
-    ),
-  );
+  const cakeInfo = useQuery(getCakeQueryOption(params.member));
   const memberInfo = useQuery(getMemberInfoQueryOption);
 
   // Constants
@@ -110,21 +103,11 @@ export default function Home({ params }: { params: { member: string } }) {
   useEffect(() => {
     const data = cakeInfo.data?.body.data;
     if (data) {
-      setTotalCakeCount(data.totalCakeCount !== 0 ? data.totalCakeCount : 1);
-      setTotalMessageCount(data.totalMessageCount ?? 0);
+      setTotalCakeCount(Math.ceil(data.messages.length / candlePerCake));
+      setMessages(data.messages);
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
       setBirthday(new Date(`${data.birthDay}T00:00:00+09:00`));
-      setNames((prev) => [
-        ...prev.slice(0, (currentCake - 1) * candlePerCake),
-        ...data.messageSenderNicknameList,
-        ...prev.slice(currentCake * candlePerCake),
-      ]);
-      setCandles((prev) => [
-        ...prev.slice(0, (currentCake - 1) * candlePerCake),
-        ...data.candleColorsList,
-        ...prev.slice(currentCake * candlePerCake),
-      ]);
     }
   }, [cakeInfo.data, currentCake]);
 
@@ -214,12 +197,16 @@ export default function Home({ params }: { params: { member: string } }) {
     return <Error message="케이크가 존재하지 않습니다." navigation="main" />;
   }
 
+  if (!cakeInfo.data || !memberInfo.data) {
+    return <></>;
+  }
+
   return (
     <div className={cakePageWrapper}>
       <Effect />
       <div className={cakePageContainer} ref={pageRef}>
         <div className={pageTop}>
-          <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
+          <CakeName userName={ownerNickname} messageCount={messages.length} />
           <Link href={questionMarkLink}>
             <Image
               src={"/assets/question-mark.svg"}
@@ -250,14 +237,18 @@ export default function Home({ params }: { params: { member: string } }) {
               >
                 <Cake
                   cakeType={cakeType[idx]}
-                  candles={candles.slice(
-                    idx * candlePerCake,
-                    idx * candlePerCake + candlePerCake,
-                  )}
-                  names={names.slice(
-                    idx * candlePerCake,
-                    idx * candlePerCake + candlePerCake,
-                  )}
+                  candles={messages
+                    .slice(
+                      idx * candlePerCake,
+                      idx * candlePerCake + candlePerCake,
+                    )
+                    .map((message) => message.candleColor as CandleType)}
+                  names={messages
+                    .slice(
+                      idx * candlePerCake,
+                      idx * candlePerCake + candlePerCake,
+                    )
+                    .map((message) => message.senderNickname)}
                 />
               </div>
             ))}

@@ -45,15 +45,17 @@ export interface IGetMessageResponse
     currentCount: number;
   }> {}
 
+export interface IGetCakeResponseMessageData {
+  messageId: BigInt;
+  senderNickname: string;
+  candleColor: CandleType;
+}
+
 export interface IGetCakeResponse
   extends IResponse<{
-    totalMessageCount: number;
     nickname: string;
     birthDay: string;
-    totalCakeCount: number;
-    messageIdList: BigInt[];
-    messageSenderNicknameList: string[];
-    candleColorsList: CandleType[];
+    messages: IGetCakeResponseMessageData[];
   }> {}
 
 export interface IDeleteMessageResponse extends IResponse<string> {}
