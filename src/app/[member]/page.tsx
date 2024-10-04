@@ -249,6 +249,9 @@ export default function Home({ params }: { params: { member: string } }) {
                       idx * candlePerCake + candlePerCake,
                     )
                     .map((message) => message.senderNickname)}
+                  memberUuid={params.member}
+                  cakeIndex={idx}
+                  loggedIn={loggedIn}
                 />
               </div>
             ))}

@@ -28,10 +28,16 @@ export default function Cake({
   cakeType = "default",
   candles,
   names,
+  memberUuid,
+  cakeIndex,
+  loggedIn = false,
 }: {
   cakeType?: CakeType;
   candles?: Array<CandleType>;
   names?: Array<string>;
+  memberUuid?: string;
+  cakeIndex?: number;
+  loggedIn?: boolean;
 }) {
   // Constants
   const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
@@ -58,6 +64,11 @@ export default function Cake({
     ["white_pink", "white_pink.svg"],
   ]); // cake image map
 
+  const messageIndexStart = (cakeIndex ?? 0) * 5 + 1;
+  const messageIndexes = Array.from({ length: candles?.length ?? 0 }).map(
+    (_, i) => i + messageIndexStart,
+  );
+
   return (
     <div className={cakeComponentContainer}>
       <div className={cake}>
@@ -72,6 +83,9 @@ export default function Cake({
                   candlePositionClass={candlePositions[i]}
                   candleNamePositionClass={candleNamePositions[i]}
                   name={names[i]}
+                  memberUuid={memberUuid}
+                  messageIndex={messageIndexes ? messageIndexes[i] : 0}
+                  loggedIn={loggedIn}
                 />
               ),
           )}
