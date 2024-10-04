@@ -60,11 +60,11 @@ export const getMemberInfoQueryOption = queryOptions({
   retry: normalRetryCount,
 });
 
-export const getCakeQueryOption = (memberId: string, page: number) =>
+export const getCakeQueryOption = (memberUuid: string) =>
   queryOptions({
-    queryKey: ["cake", memberId, page],
+    queryKey: ["cake", memberUuid],
     queryFn: async () => {
-      return await api.getCake({ memberUuid: memberId, page });
+      return await api.getCake({ memberUuid: memberUuid });
     },
     retry: normalRetryCount,
     staleTime: normalStaleTime,
