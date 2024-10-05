@@ -225,8 +225,6 @@ export default function Home({ params }: { params: { member: string } }) {
     return <></>;
   }
 
-  console.log(openMessageOnClick);
-
   return (
     <div className={cakePageWrapper}>
       <Effect />
