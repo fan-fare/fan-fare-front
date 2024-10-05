@@ -62,13 +62,8 @@ export default function Page() {
       queryClient.invalidateQueries();
       switch (res.status) {
         case 200:
-          if (member) {
-            // redirect to the member page
-            router.push(`/${member}`);
-          } else {
-            // redirect to the user page
-            router.push(`/${res.body.memberUuid}`);
-          }
+          // redirect to the user page
+          router.push(`/${res.body.memberUuid}`);
           break;
         case 401:
           //setError(res.status, res.body.message, res.body.code ?? "");
@@ -88,11 +83,7 @@ export default function Page() {
   useEffect(() => {
     const data = memberInfo.data?.body.data;
     if (data && data.memberUuid) {
-      if (member) {
-        router.push(`/${member}`);
-      } else {
-        router.push(`/${data.memberUuid}`);
-      }
+      router.push(`/${data.memberUuid}`);
     }
   }, [memberInfo.data, router, member]);
 

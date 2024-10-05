@@ -88,8 +88,8 @@ export default function Page({ params }: { params: { member: string } }) {
   useEffect(() => {
     // The variation of the message number is 1
     // This might be changed in the future
-    const messageStartNumber = defaultMessageNumber;
-    const messageEndNumber = defaultMessageNumber;
+    const messageStartNumber = defaultMessageNumber - 1;
+    const messageEndNumber = defaultMessageNumber - 1;
     // Only load data when messageInfo is not success and cakeInfo is success
     // This is to prevent loading data multiple times
     if (!messageInfo.isSuccess && cakeInfo.isSuccess) {
@@ -127,7 +127,7 @@ export default function Page({ params }: { params: { member: string } }) {
                   };
                   newMessages = Array(preloadCount).fill(emptyMessages);
                   // Add the pre-loaded message
-                  newMessages[messageStartNumber - 1] = loadedMessageData[0];
+                  newMessages[messageStartNumber] = loadedMessageData[0];
                 }
                 return newMessages;
               });
@@ -224,10 +224,7 @@ export default function Page({ params }: { params: { member: string } }) {
   }, [currentMessage, deleteMessageQuery, messagesByRange]);
 
   useEffect(() => {
-    if (
-      deleteMessageQuery.isSuccess &&
-      cakeInfo.data?.body.data
-    ) {
+    if (deleteMessageQuery.isSuccess && cakeInfo.data?.body.data) {
       // Invalidate the message query
       queryClient.invalidateQueries({
         queryKey: ["message"],
@@ -238,7 +235,14 @@ export default function Page({ params }: { params: { member: string } }) {
       // Set the next message number
       setNextMessage(Math.min(currentMessage, totalMessageCount));
     }
-  }, [cakeInfo.data?.body.data, currentMessage, deleteMessageQuery.isSuccess, params.member, queryClient, totalMessageCount]);
+  }, [
+    cakeInfo.data?.body.data,
+    currentMessage,
+    deleteMessageQuery.isSuccess,
+    params.member,
+    queryClient,
+    totalMessageCount,
+  ]);
 
   useEffect(() => {
     if (deleteMessageQuery.isError) {

@@ -108,6 +108,11 @@ export const candleNameBase = style({
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",
+  color: "#3E3E3E",
+
+  ":active": {
+    color: "#3E3E3E",
+  },
 });
 
 export const candle1 = style([candleBase, candleProp[0]]);
