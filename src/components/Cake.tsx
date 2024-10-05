@@ -85,7 +85,7 @@ export default function Cake({
                   name={names[i]}
                   memberUuid={memberUuid}
                   messageIndex={messageIndexes ? messageIndexes[i] : 0}
-                  canOpenMessage={openMessageOnClick}
+                  openMessageOnClick={openMessageOnClick}
                 />
               ),
           )}

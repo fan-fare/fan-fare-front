@@ -4,7 +4,6 @@ import {
   deleteMessageMutationOption,
   getCakeQueryOption,
   readMessageByRangeQueryOption,
-  readMessageQueryOption,
 } from "@/api/queryOptions";
 import CakeName from "@/components/CakeName";
 import Message from "@/components/Message";
