@@ -21,7 +21,7 @@ export default memo(function CakeCandle({
   name,
   memberUuid,
   messageIndex,
-  loggedIn = false,
+  openMessageOnClick = false,
 }: {
   candleType: CandleType;
   candlePositionClass: string;
@@ -30,9 +30,9 @@ export default memo(function CakeCandle({
   name: string;
   memberUuid?: string;
   messageIndex: number;
-  loggedIn?: boolean;
+  openMessageOnClick?: boolean;
 }) {
-  if (memberUuid && messageIndex > 0 && loggedIn) {
+  if (memberUuid && messageIndex > 0 && openMessageOnClick) {
     return (
       <Link
         href={`/${memberUuid}/message?default=${messageIndex}`}

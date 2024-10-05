@@ -30,14 +30,14 @@ export default function Cake({
   names,
   memberUuid,
   cakeIndex,
-  loggedIn = false,
+  openMessageOnClick = false,
 }: {
   cakeType?: CakeType;
   candles?: Array<CandleType>;
   names?: Array<string>;
   memberUuid?: string;
   cakeIndex?: number;
-  loggedIn?: boolean;
+  openMessageOnClick?: boolean;
 }) {
   // Constants
   const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
@@ -85,7 +85,7 @@ export default function Cake({
                   name={names[i]}
                   memberUuid={memberUuid}
                   messageIndex={messageIndexes ? messageIndexes[i] : 0}
-                  loggedIn={loggedIn}
+                  canOpenMessage={openMessageOnClick}
                 />
               ),
           )}

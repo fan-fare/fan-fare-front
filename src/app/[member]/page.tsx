@@ -57,6 +57,7 @@ export default function Home({ params }: { params: { member: string } }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [messages, setMessages] = useState<IGetCakeResponseMessageData[]>([]);
+  const [openMessageOnClick, setOpenMessageOnClick] = useState(false);
 
   // Refs
   const pageButtomRef = useRef<HTMLDivElement>(null);
@@ -159,6 +160,7 @@ export default function Home({ params }: { params: { member: string } }) {
     }
   }, []);
 
+  // Confetti effect
   useEffect(() => {
     if (isLoaded && cakeInfo.data && cakeInfo.data.status === 200) {
       const canvas = document.createElement("canvas");
@@ -181,6 +183,22 @@ export default function Home({ params }: { params: { member: string } }) {
       });
     }
   }, [cakeInfo.data, isLoaded]);
+
+  // Switch can open message
+  useEffect(() => {
+    if (loggedIn && birthday) {
+      // can open message for one week after birthday
+      const oneWeekAfterBirthday = new Date(birthday);
+      oneWeekAfterBirthday.setDate(oneWeekAfterBirthday.getDate() + 7);
+      if (new Date() <= oneWeekAfterBirthday) {
+        setOpenMessageOnClick(true);
+      } else {
+        setOpenMessageOnClick(false);
+      }
+    } else {
+      setOpenMessageOnClick(false);
+    }
+  }, [birthday, loggedIn]);
 
   // log out event
   const logout = useCallback(() => {
@@ -249,7 +267,7 @@ export default function Home({ params }: { params: { member: string } }) {
                     .map((message) => message.senderNickname)}
                   memberUuid={params.member}
                   cakeIndex={idx}
-                  loggedIn={loggedIn}
+                  openMessageOnClick={openMessageOnClick}
                 />
               </div>
             ))}
