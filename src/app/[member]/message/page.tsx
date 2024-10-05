@@ -6,6 +6,7 @@ import {
   readMessageByRangeQueryOption,
 } from "@/api/queryOptions";
 import CakeName from "@/components/CakeName";
+import Error from "@/components/Error";
 import Message from "@/components/Message";
 import { IGetMessageResponseByRangeMessageData } from "@/interfaces/response";
 import { useErrorStore } from "@/store/error.store";
@@ -24,6 +25,7 @@ import {
   messagePageMain,
   navigationIcon,
 } from "@/styles/pages/member/message.css";
+import { isNotPassedOneWeek } from "@/utils/birthday";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -248,6 +250,20 @@ export default function Page({ params }: { params: { member: string } }) {
       setError(400, "메세지 삭제에 실패했습니다.", "400");
     }
   }, [currentMessage, deleteMessageQuery.isError, setError]);
+
+  if (
+    cakeInfo.data?.body.data &&
+    !isNotPassedOneWeek(
+      new Date(`${cakeInfo.data.body.data.birthDay}T00:00:00+09:00`),
+    )
+  ) {
+    return (
+      <Error
+        message="생일 축하 메세지는 생일 당일부터 1주일간 볼 수 있습니다."
+        navigation="main"
+      />
+    );
+  }
 
   return (
     <div className={messagePageContainer} ref={pageRef}>

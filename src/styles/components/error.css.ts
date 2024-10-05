@@ -14,4 +14,6 @@ export const errorComponentText = style({
   fontFamily: pretendard,
   fontWeight: 700,
   color: "#474747",
+  padding: "0 3rem",
+  textAlign: "center",
 });

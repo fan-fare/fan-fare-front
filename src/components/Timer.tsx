@@ -16,6 +16,7 @@ import {
   birthdayLogoBackground,
   birthdayLogoBoxImg,
 } from "@/styles/components/timer.css";
+import { getRemainingTime } from "@/utils/birthday";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -40,7 +41,7 @@ export default function Timer({
   const activeDays = 7;
 
   // State for remains
-  const [remains, setRemains] = useState(1);
+  const [remaningTime, setRemainingTime] = useState(1);
   const [isBirthday, setIsBirthday] = useState(false);
   const [boxActive, setBoxActive] = useState(false);
 
@@ -49,20 +50,11 @@ export default function Timer({
     if (!birthday) {
       return;
     }
-    const now = new Date();
-    const nextBirthday = new Date(
-      now.getFullYear(),
-      birthday.getMonth(),
-      birthday.getDate(),
-    );
-    if (nextBirthday.getTime() < now.getTime()) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-    }
-    const diff = nextBirthday.getTime() - now.getTime();
-    setRemains(diff);
+    const remaining = getRemainingTime(birthday);
+    setRemainingTime(remaining);
 
     // If the birthday is today or the birthday has passed, set box active for a week
-    if (diff === 0 || diff > (365 - activeDays) * 24 * 60 * 60 * 1000) {
+    if (remaining === 0 || remaining > (365 - activeDays) * 24 * 60 * 60 * 1000) {
       // Set birthday flag if the birthday is today or the birthday has passed within a week
       setIsBirthday(true);
       if (loggedIn) {
@@ -153,19 +145,19 @@ export default function Timer({
           <div className={timerContent}>
             <div className={timerText}>
               D-
-              {Math.floor(remains / (1000 * 60 * 60 * 24)) + 1}
+              {Math.floor(remaningTime / (1000 * 60 * 60 * 24)) + 1}
             </div>
             <div className={timerText}>
               {/* HH:MM:SS */}
               {`${Math.floor(
-                (remains % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                (remaningTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
               )
                 .toString()
                 .padStart(2, "0")}:${Math.floor(
-                (remains % (1000 * 60 * 60)) / (1000 * 60),
+                (remaningTime % (1000 * 60 * 60)) / (1000 * 60),
               )
                 .toString()
-                .padStart(2, "0")}:${Math.floor((remains % (1000 * 60)) / 1000)
+                .padStart(2, "0")}:${Math.floor((remaningTime % (1000 * 60)) / 1000)
                 .toString()
                 .padStart(2, "0")}`}
             </div>
