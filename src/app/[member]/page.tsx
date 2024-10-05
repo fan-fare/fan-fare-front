@@ -40,6 +40,7 @@ import Image from "next/image";
 import cofetti from "canvas-confetti";
 import Error from "@/components/Error";
 import { IGetCakeResponseMessageData } from "@/interfaces/response";
+import { isNotPassedOneWeek } from "@/utils/birthday";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -188,17 +189,7 @@ export default function Home({ params }: { params: { member: string } }) {
   useEffect(() => {
     if (loggedIn && birthday) {
       // can open message for one week after birthday
-      const now = new Date();
-      const oneWeek = 7 * 24 * 60 * 60 * 1000;
-
-      const prevBirthday = new Date(
-        now.getFullYear(),
-        birthday.getMonth(),
-        birthday.getDate(),
-      );
-      const diff = now.getTime() - prevBirthday.getTime();
-
-      if (diff <= oneWeek && diff >= 0) {
+      if (isNotPassedOneWeek(birthday)) {
         setOpenMessageOnClick(true);
       } else {
         setOpenMessageOnClick(false);
