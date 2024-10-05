@@ -188,9 +188,17 @@ export default function Home({ params }: { params: { member: string } }) {
   useEffect(() => {
     if (loggedIn && birthday) {
       // can open message for one week after birthday
-      const oneWeekAfterBirthday = new Date(birthday);
-      oneWeekAfterBirthday.setDate(oneWeekAfterBirthday.getDate() + 7);
-      if (new Date() <= oneWeekAfterBirthday) {
+      const now = new Date();
+      const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+      const prevBirthday = new Date(
+        now.getFullYear(),
+        birthday.getMonth(),
+        birthday.getDate(),
+      );
+      const diff = now.getTime() - prevBirthday.getTime();
+
+      if (diff <= oneWeek && diff >= 0) {
         setOpenMessageOnClick(true);
       } else {
         setOpenMessageOnClick(false);
@@ -216,6 +224,8 @@ export default function Home({ params }: { params: { member: string } }) {
   if (!cakeInfo.data || !memberInfo.data) {
     return <></>;
   }
+
+  console.log(openMessageOnClick);
 
   return (
     <div className={cakePageWrapper}>
