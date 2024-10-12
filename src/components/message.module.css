@@ -1,0 +1,79 @@
+.messageContainer {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 2.5rem;
+  scroll-snap-align: center;
+}
+
+.message {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 1.125rem 1.125rem 0 1.125rem;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.deleteIconContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 0.75rem;
+}
+
+.messageContentContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 2px dashed #f58989;
+  font-family: var(--font-uiyeun);
+  font-size: 1.25rem;
+  background-color: none;
+}
+
+.messageText {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  color: #474747;
+  font-weight: 400;
+  white-space: pre-wrap;
+}
+
+.messageInfoContainer {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.messageInfo {
+  display: block;
+  color: #474747;
+  font-weight: 400;
+}

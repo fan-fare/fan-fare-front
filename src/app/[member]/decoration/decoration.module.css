@@ -1,0 +1,65 @@
+.decoPageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-family: var(--font-uiyeun);
+  align-items: center;
+  justify-content: center;
+}
+
+@container style(--is-pc: true) {
+  .decoPageContainer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.decoPageWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.prevPageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.decoMessage {
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #3E3E3E;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.decoBtnContainer {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  font-family: var(--font-prentendard);
+  font-size: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}

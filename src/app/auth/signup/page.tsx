@@ -1,24 +1,15 @@
 "use client";
 
-import AuthLinks from "@/components/AuthLinks";
-import {
-  authPageContainer,
-  authForm,
-  authFormButtonContainer,
-  formElement,
-  authFormInput,
-  authFormLabel,
-  authPageWrapper,
-  prevPageContainer,
-} from "@/styles/pages/auth/auth.css";
-import { buttonDarkHalf } from "@/styles/common/button.css";
+import AuthLinks from "@/components/authLinks";
+import styles from "../auth.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signupMutationOption } from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import PrevPage from "@/components/PrevPage";
+import PrevPage from "@/components/prevPage";
 import { useErrorStore } from "@/store/error.store";
+import Button from "@/components/button";
 
 export default function Page() {
   // Constants
@@ -94,15 +85,15 @@ export default function Page() {
   };
 
   return (
-    <div className={authPageContainer}>
-      <div className={authPageWrapper}>
-        <div className={prevPageContainer}>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.prevPageContainer}>
           <PrevPage url={member ? `/${member}` : "/"} />
         </div>
         <AuthLinks current="signup" member={member} />
-        <form action={signupAction} className={authForm}>
-          <div className={formElement}>
-            <label htmlFor="nickname" className={authFormLabel}>
+        <form action={signupAction} className={styles.authForm}>
+          <div className={styles.formElement}>
+            <label htmlFor="nickname" className={`${styles.authFormLabel} formLable`}>
               닉네임
             </label>
             <input
@@ -111,11 +102,11 @@ export default function Page() {
               type="text"
               placeholder="닉네임을 입력해주세요."
               maxLength={maxNicknameLength}
-              className={authFormInput}
+              className={`${styles.authFormInput} formInput`}
             />
           </div>
-          <div className={formElement}>
-            <label htmlFor="birth" className={authFormLabel}>
+          <div className={styles.formElement}>
+            <label htmlFor="birth" className={`${styles.authFormLabel} formLable`}>
               생일
             </label>
             <input
@@ -127,11 +118,11 @@ export default function Page() {
                   .toISOString()
                   .split("T")[0]
               }
-              className={authFormInput}
+              className={`${styles.authFormInput} formInput`}
             />
           </div>
-          <div className={formElement}>
-            <label htmlFor="id" className={authFormLabel}>
+          <div className={styles.formElement}>
+            <label htmlFor="id" className={`${styles.authFormLabel} formLable`}>
               아이디
             </label>
             <input
@@ -140,11 +131,11 @@ export default function Page() {
               type="text"
               placeholder="아이디를 입력해주세요. (영어/숫자 혼합)"
               maxLength={maxIdLength}
-              className={authFormInput}
+              className={`${styles.authFormInput} formInput`}
             />
           </div>
-          <div className={formElement}>
-            <label htmlFor="password" className={authFormLabel}>
+          <div className={styles.formElement}>
+            <label htmlFor="password" className={`${styles.authFormLabel} formLable`}>
               비밀번호
             </label>
             <input
@@ -153,13 +144,11 @@ export default function Page() {
               type="password"
               placeholder="비밀번호를 입력해주세요. (영어/숫자/특수문자 혼합)"
               maxLength={maxPasswordLength}
-              className={authFormInput}
+              className={`${styles.authFormInput} formInput`}
             />
           </div>
-          <div className={authFormButtonContainer}>
-            <button type="submit" className={buttonDarkHalf}>
-              완료
-            </button>
+          <div className={styles.authFormButtonContainer}>
+            <Button size="half" color="dark" content="완료" type="submit" />
           </div>
         </form>
       </div>

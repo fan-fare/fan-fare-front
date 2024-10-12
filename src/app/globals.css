@@ -1,0 +1,76 @@
+:root {
+  --is-mobile: false;
+  --is-tablet: false;
+  --is-pc: false;
+
+  @media (max-width: 767px) {
+    --is-mobile: true;
+  }
+  @media (min-width: 768px) {
+    --is-tablet: true;
+  }
+  @media (min-width: 1024px) {
+    --is-pc: true;
+  }
+}
+
+html, body {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-pretendard);
+  min-height: 650px;
+}
+
+.uiyeun {
+  font-family: var(--font-uiyeun);
+}
+.pretendard {
+  font-family: var(--font-pretendard);
+}
+.lotteria {
+  font-family: var(--font-lotteria);
+}
+
+.formLable {
+  display: flex;
+  width: 100%;
+  font-weight: 400;
+  color: #000000;
+}
+
+.formInput {
+  display: flex;
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #000000;
+  justify-content: center;
+  background-color: #FFFFFF;
+  font-family: var(--font-uiyeun);
+  -webkit-appearance: none;
+
+  /* input placeholder */
+  &::placeholder {
+    color: #D2D2D2;
+  }
+}
+
+.questionMark {
+  display: block;
+  color: #000000;
+  opacity: 70%;
+
+  &:active {
+    color: #000000;
+  }
+}

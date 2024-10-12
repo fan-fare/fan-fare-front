@@ -1,0 +1,109 @@
+.effectContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  overflow: hidden;
+  z-index: -10;
+  top: 0;
+}
+
+.effect {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  position: relative;
+  padding: 2rem 0;
+  box-sizing: border-box;
+}
+@container style(--is-tablet: true) {
+  .effect {
+    height: 80%;
+  }
+}
+
+@container style(--is-pc: true) {
+  .effect {
+    height: 70%;
+  }
+}
+
+@keyframes glitterImgAnimation {
+  0% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.glitterImg {
+  position: absolute;
+  top: 30%;
+  width: 150%;
+  height: auto;
+  overflow: hidden;
+  animation: glitterImgAnimation 1.5s infinite;
+}
+
+.flagsImg {
+  display: block;
+  position: absolute;
+  width: 230%;
+  height: auto;
+  z-index: 1;
+}
+@container style(--is-tablet: true) {
+  .flagsImg {
+    width: 150%;
+  }
+}
+
+.papersImg {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  bottom: 0;
+}
+
+.balloonContainer {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+@container style(--is-tablet: true) {
+  .balloonContainer {
+    width: 90%;
+  }
+}
+
+@keyframes balloonBaseAnimation {
+  0% {
+    transform: translateY(200%);
+  }
+  50% {
+    transform: translateY(-3%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.balloonBase {
+  position: absolute;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  scale: 1;
+}

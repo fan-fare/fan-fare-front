@@ -5,26 +5,13 @@ import {
   getCakeQueryOption,
   readMessageByRangeQueryOption,
 } from "@/api/queryOptions";
-import CakeName from "@/components/CakeName";
-import Error from "@/components/Error";
-import Message from "@/components/Message";
+import CakeName from "@/components/cakeName";
+import Error from "@/components/error";
+import Message from "@/components/message";
 import { IGetMessageResponseByRangeMessageData } from "@/interfaces/response";
 import { useErrorStore } from "@/store/error.store";
-import {
-  cakePageCountContainer,
-  pageTop,
-} from "@/styles/pages/member/memberMain.css";
-import {
-  messageDeleteModal,
-  messageDeleteModalButton,
-  messageDeleteModalContainer,
-  messageDeleteModalText,
-  messageDisplay,
-  messageDisplayContainer,
-  messagePageContainer,
-  messagePageMain,
-  navigationIcon,
-} from "@/styles/pages/member/message.css";
+import member from "../page.module.css";
+import page from './page.module.css';
 import { isNotPassedOneWeek } from "@/utils/birthday";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
@@ -114,7 +101,7 @@ export default function Page({ params }: { params: { member: string } }) {
           } else {
             // if status is 200 load data to state
             const loadedMessageData = res.body.data?.messages;
-            if (loadedMessageData) {
+            if (loadedMessageData && loadedMessageData.length > 0) {
               setMessagesByRange((prev) => {
                 let newMessages = [...prev];
                 if (prev.length === 0) {
@@ -266,21 +253,21 @@ export default function Page({ params }: { params: { member: string } }) {
   }
 
   return (
-    <div className={messagePageContainer} ref={pageRef}>
-      <Link className={pageTop} href={`/${params.member}`}>
+    <div className={page.messagePageContainer} ref={pageRef}>
+      <Link className={member.pageTop} href={`/${params.member}`}>
         <CakeName userName={ownerNickname} messageCount={totalMessageCount} />
       </Link>
-      <div className={messagePageMain}>
-        <div className={messageDisplayContainer}>
+      <div className={page.messagePageMain}>
+        <div className={page.messageDisplayContainer}>
           {currentMessage === 1 ? null : (
             <IoIosArrowBack
-              className={navigationIcon}
+              className={page.navigationIcon}
               onClick={swipeRight}
               style={{ left: "0" }}
             />
           )}
           <div
-            className={messageDisplay}
+            className={page.messageDisplay}
             ref={messageRef}
             onScroll={handleScroll}
           >
@@ -297,24 +284,24 @@ export default function Page({ params }: { params: { member: string } }) {
           </div>
           {currentMessage >= totalMessageCount ? null : (
             <IoIosArrowForward
-              className={navigationIcon}
+              className={page.navigationIcon}
               onClick={swipeLeft}
               style={{ right: "0" }}
             />
           )}
         </div>
         {deleteModal && (
-          <div className={messageDeleteModalContainer}>
-            <div className={messageDeleteModal}>
-              <div className={messageDeleteModalText}>삭제하시겠습니까?</div>
-              <div className={messageDeleteModalButton} onClick={deleteMessage}>
+          <div className={page.messageDeleteModalContainer}>
+            <div className={page.messageDeleteModal}>
+              <div className={page.messageDeleteModalText}>삭제하시겠습니까?</div>
+              <div className={page.messageDeleteModalButton} onClick={deleteMessage}>
                 확인
               </div>
             </div>
           </div>
         )}
         {!deleteModal && totalMessageCount > 0 && (
-          <div className={cakePageCountContainer}>
+          <div className={member.cakePageCountContainer}>
             {`${currentMessage} / ${totalMessageCount}`}
           </div>
         )}

@@ -4,43 +4,23 @@ import {
   getCakeQueryOption,
   getMemberInfoQueryOption,
 } from "@/api/queryOptions";
-import Cake from "@/components/Cake";
-import CakeName from "@/components/CakeName";
-import Effect from "@/components/Effect";
-import Timer from "@/components/Timer";
+import Cake from "@/components/cake";
+import CakeName from "@/components/cakeName";
+import Effect from "@/components/effect";
+import Timer from "@/components/timer";
 import { CakeType } from "@/interfaces/cakes";
 import { CandleType } from "@/interfaces/candles";
-import {
-  buttonPrimaryFull,
-  buttonPrimaryHalf,
-  buttonWhiteHalf,
-  buttonWhiteLinkFull,
-} from "@/styles/common/button.css";
-import {
-  cakePageContainer,
-  pageTop,
-  questionMark,
-  halfButtonContainer,
-  cakeContainer,
-  cakePageCountContainer,
-  fullButtonContainer,
-  cakePageBottomContainer,
-  timerContainer,
-  cakeDisplay,
-  cakeDisplayItem,
-  cakePageWrapper,
-  logoutButton,
-  logoutButtonContainer,
-} from "@/styles/pages/member/memberMain.css";
+import page from "./page.module.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
-import Error from "@/components/Error";
+import Error from "@/components/error";
 import { IGetCakeResponseMessageData } from "@/interfaces/response";
 import { isNotPassedOneWeek } from "@/utils/birthday";
+import Button from "@/components/button";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -107,7 +87,7 @@ export default function Home({ params }: { params: { member: string } }) {
     if (data) {
       setTotalCakeCount(
         Math.max(Math.ceil(data.messages.length / candlePerCake), 1), // at least 1 cake to show the cake
-       );
+      );
       setMessages(data.messages);
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
@@ -219,10 +199,10 @@ export default function Home({ params }: { params: { member: string } }) {
   }
 
   return (
-    <div className={cakePageWrapper}>
+    <div className={page.cakePageWrapper}>
       <Effect />
-      <div className={cakePageContainer} ref={pageRef}>
-        <div className={pageTop}>
+      <div className={page.cakePageContainer} ref={pageRef}>
+        <div className={page.pageTop}>
           <CakeName userName={ownerNickname} messageCount={messages.length} />
           <Link href={questionMarkLink}>
             <Image
@@ -230,24 +210,28 @@ export default function Home({ params }: { params: { member: string } }) {
               alt="question-mark"
               width={40}
               height={40}
-              className={questionMark}
+              className={"questionMark"}
               loading="eager"
             />
           </Link>
         </div>
-        <div className={timerContainer}>
+        <div className={page.timerContainer}>
           <Timer
             birthday={birthday}
             member={params.member}
             loggedIn={loggedIn}
           />
         </div>
-        <div className={cakeContainer}>
-          <div className={cakeDisplay} ref={cakeRef} onScroll={handleScroll}>
+        <div className={page.cakeContainer}>
+          <div
+            className={page.cakeDisplay}
+            ref={cakeRef}
+            onScroll={handleScroll}
+          >
             {Array.from({ length: totalCakeCount }).map((_, idx) => (
               <div
                 key={idx}
-                className={cakeDisplayItem}
+                className={page.cakeDisplayItem}
                 style={{
                   left: `${idx * 100}%`,
                 }}
@@ -273,41 +257,51 @@ export default function Home({ params }: { params: { member: string } }) {
               </div>
             ))}
           </div>
-          <div className={cakePageCountContainer}>
+          <div className={page.cakePageCountContainer}>
             {`${currentCake} / ${totalCakeCount}`}
           </div>
         </div>
       </div>
-      <div className={cakePageBottomContainer} ref={pageButtomRef}>
+      <div className={page.cakePageBottomContainer} ref={pageButtomRef}>
         {loggedIn && (
-          <div className={fullButtonContainer}>
-            <div className={buttonWhiteLinkFull} onClick={handleCopyLink}>
-              🔗 링크 공유하고 축하받기
-            </div>
-            <div className={buttonPrimaryFull} onClick={handleCapture}>
-              🥳 사진 저장하고 자랑하기
-            </div>
+          <div className={page.fullButtonContainer}>
+            <Button
+              onClick={handleCopyLink}
+              content="🔗 링크 공유하고 축하받기"
+              color="white-link"
+              size="full"
+            />
+            <Button
+              content="🥳 사진 저장하고 자랑하기"
+              color="primary"
+              size="full"
+              onClick={handleCapture}
+            />
           </div>
         )}
         {!loggedIn && (
-          <div className={halfButtonContainer}>
-            <Link
+          <div className={page.halfButtonContainer}>
+            <Button
+              content="👀 내 케이크 보러가기"
+              color="white"
+              size="half"
               href={`/auth/signin?member=${params.member}`}
-              className={buttonWhiteHalf}
-            >
-              👀 내 케이크 보러가기
-            </Link>
-            <Link
+            />
+            <Button
+              content="🪄 이 케이크 꾸미기"
+              color="primary"
+              size="half"
               href={`/${params.member}/decoration/candle`}
-              className={buttonPrimaryHalf}
-            >
-              🪄 이 케이크 꾸미기
-            </Link>
+            />
           </div>
         )}
-        <div className={logoutButtonContainer}>
+        <div className={page.logoutButtonContainer}>
           {loggedIn && (
-            <div className={logoutButton} onClick={logout} onTouchEnd={logout}>
+            <div
+              className={page.logoutButton}
+              onClick={logout}
+              onTouchEnd={logout}
+            >
               logout&nbsp;
               <Image
                 src={"/assets/logout.svg"}
