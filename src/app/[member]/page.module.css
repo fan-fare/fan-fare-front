@@ -1,0 +1,212 @@
+.cakePageWrapper {
+  padding: 1rem 0;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@container style(--is-pc: true) {
+  .cakePageWrapper {
+    justify-content: center;
+    min-height: 900px;
+  }
+}
+
+.cakePageContainer {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  min-height: 600px;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+@container style(--is-pc: true) {
+  .cakePageContainer {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.pageTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+@container style(--is-mobile: true) {
+  .pageTop {
+    padding: 0 1rem;
+  }
+}
+
+.timerContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.cakeContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 350px;
+  max-height: 360px;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@container style(--is-tablet: true) {
+  .cakeContainer {
+    min-height: 360px;
+  }
+}
+
+.cakeDisplay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-flow: row nowrap;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scroll-behavior: smooth;
+  align-items: center;
+  justify-content: center;
+}
+
+.cakeDisplayItem {
+  display: flex;
+  width: 100%;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  box-sizing: border-box;
+  scroll-snap-align: center;
+}
+
+.cakePageCountContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 78px;
+  height: 32px;
+  color: #f58989;
+  font-weight: 700;
+  font-family: var(--font-prentendard);
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  border-radius: 98px;
+  background-image: linear-gradient(#fff, #fff), linear-gradient(99deg, #fee9e6 7.8%, #b9e1e7 100%);
+  border: 1px solid transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  @container style(--is-mobile: true) {
+    .cakePageCountContainer {
+      font-size: 0.75rem;
+    }
+  }
+
+  @container style(--is-tablet: true) {
+    .cakePageCountContainer {
+      font-size: 1rem;
+    }
+  }
+}
+
+.cakePageBottomContainer {
+  display: flex;
+  bottom: 0;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+  padding-top: 2rem;
+
+  @container style(--is-pc: true) {
+    .cakePageBottomContainer {
+      padding-top: 2rem;
+      position: relative;
+      height: auto;
+    }
+  }
+}
+
+.fullButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-family: var(--font-prentendard);
+  font-weight: 700;
+}
+
+.halfButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-prentendard);
+}
+
+.logoutButtonContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+}
+
+.logoutButton {
+  display: block;
+  text-align: center;
+  gap: 1rem;
+  color: #872b2b;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: var(--font-uiyeun);
+}

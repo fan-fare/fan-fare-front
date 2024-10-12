@@ -6,23 +6,8 @@ import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";
-import {
-  decoBtnContainer,
-  decoMessage,
-  decoPageContainer,
-  decoPageWrapper,
-  prevPageContainer,
-} from "@/styles/pages/decoration/index.css";
-import {
-  decoForm,
-  decoFormContainer,
-  decoFormContentContainer,
-  decoFormInputContainer,
-  decoFormNickname,
-  decoFormNicknameCount,
-  decoFormTextArea,
-  decoFormTextAreaCount,
-} from "@/styles/pages/decoration/message.css";
+import deco from "../decoration.module.css";
+import page from "./page.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -76,40 +61,40 @@ export default function Page({ params }: { params: { member: string } }) {
   };
 
   return (
-    <div className={decoPageContainer}>
-      <div className={decoPageWrapper}>
-        <div className={prevPageContainer}>
+    <div className={deco.decoPageContainer}>
+      <div className={deco.decoPageWrapper}>
+        <div className={deco.prevPageContainer}>
           <PrevPage url={`/${params.member}/decoration/candle`} />
         </div>
-        <div className={decoMessage}>생일을 축하해주세요!</div>
-        <div className={decoFormContainer}>
-          <form className={decoForm} onSubmit={createPostEvent}>
-            <div className={decoFormContentContainer}>
-              <div className={decoFormInputContainer}>
+        <div className={deco.decoMessage}>생일을 축하해주세요!</div>
+        <div className={page.decoFormContainer}>
+          <form className={page.decoForm} onSubmit={createPostEvent}>
+            <div className={page.decoFormContentContainer}>
+              <div className={page.decoFormInputContainer}>
                 <textarea
                   placeholder={messageInputText}
-                  className={decoFormTextArea}
+                  className={`${page.decoFormTextArea} formInput`}
                   maxLength={maxMessageLength}
                   onChange={(e) => setMessage(e.target.value)}
                 />
-                <div className={decoFormTextAreaCount}>
+                <div className={page.decoFormTextAreaCount}>
                   {message.length}/{maxMessageLength}자
                 </div>
               </div>
-              <div className={decoFormInputContainer}>
+              <div className={page.decoFormInputContainer}>
                 <input
                   type="text"
                   placeholder="닉네임을 입력하세요."
-                  className={decoFormNickname}
+                  className={`${page.decoFormNickname} formInput`}
                   maxLength={maxNicknameLength}
                   onChange={(e) => setNickname(e.target.value)}
                 />
-                <div className={decoFormNicknameCount}>
+                <div className={page.decoFormNicknameCount}>
                   {nickname.length}/{maxNicknameLength}자
                 </div>
               </div>
             </div>
-            <div className={decoBtnContainer}>
+            <div className={deco.decoBtnContainer}>
               <Button
                 type="submit"
                 color="primary"

@@ -10,22 +10,7 @@ import Effect from "@/components/Effect";
 import Timer from "@/components/Timer";
 import { CakeType } from "@/interfaces/cakes";
 import { CandleType } from "@/interfaces/candles";
-import {
-  cakePageContainer,
-  pageTop,
-  questionMark,
-  halfButtonContainer,
-  cakeContainer,
-  cakePageCountContainer,
-  fullButtonContainer,
-  cakePageBottomContainer,
-  timerContainer,
-  cakeDisplay,
-  cakeDisplayItem,
-  cakePageWrapper,
-  logoutButton,
-  logoutButtonContainer,
-} from "@/styles/pages/member/memberMain.css";
+import page from "./page.module.css";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -214,10 +199,10 @@ export default function Home({ params }: { params: { member: string } }) {
   }
 
   return (
-    <div className={cakePageWrapper}>
+    <div className={page.cakePageWrapper}>
       <Effect />
-      <div className={cakePageContainer} ref={pageRef}>
-        <div className={pageTop}>
+      <div className={page.cakePageContainer} ref={pageRef}>
+        <div className={page.pageTop}>
           <CakeName userName={ownerNickname} messageCount={messages.length} />
           <Link href={questionMarkLink}>
             <Image
@@ -225,24 +210,28 @@ export default function Home({ params }: { params: { member: string } }) {
               alt="question-mark"
               width={40}
               height={40}
-              className={questionMark}
+              className={"questionMark"}
               loading="eager"
             />
           </Link>
         </div>
-        <div className={timerContainer}>
+        <div className={page.timerContainer}>
           <Timer
             birthday={birthday}
             member={params.member}
             loggedIn={loggedIn}
           />
         </div>
-        <div className={cakeContainer}>
-          <div className={cakeDisplay} ref={cakeRef} onScroll={handleScroll}>
+        <div className={page.cakeContainer}>
+          <div
+            className={page.cakeDisplay}
+            ref={cakeRef}
+            onScroll={handleScroll}
+          >
             {Array.from({ length: totalCakeCount }).map((_, idx) => (
               <div
                 key={idx}
-                className={cakeDisplayItem}
+                className={page.cakeDisplayItem}
                 style={{
                   left: `${idx * 100}%`,
                 }}
@@ -268,14 +257,14 @@ export default function Home({ params }: { params: { member: string } }) {
               </div>
             ))}
           </div>
-          <div className={cakePageCountContainer}>
+          <div className={page.cakePageCountContainer}>
             {`${currentCake} / ${totalCakeCount}`}
           </div>
         </div>
       </div>
-      <div className={cakePageBottomContainer} ref={pageButtomRef}>
+      <div className={page.cakePageBottomContainer} ref={pageButtomRef}>
         {loggedIn && (
-          <div className={fullButtonContainer}>
+          <div className={page.fullButtonContainer}>
             <Button
               onClick={handleCopyLink}
               content="🔗 링크 공유하고 축하받기"
@@ -291,7 +280,7 @@ export default function Home({ params }: { params: { member: string } }) {
           </div>
         )}
         {!loggedIn && (
-          <div className={halfButtonContainer}>
+          <div className={page.halfButtonContainer}>
             <Button
               content="👀 내 케이크 보러가기"
               color="white"
@@ -306,9 +295,13 @@ export default function Home({ params }: { params: { member: string } }) {
             />
           </div>
         )}
-        <div className={logoutButtonContainer}>
+        <div className={page.logoutButtonContainer}>
           {loggedIn && (
-            <div className={logoutButton} onClick={logout} onTouchEnd={logout}>
+            <div
+              className={page.logoutButton}
+              onClick={logout}
+              onTouchEnd={logout}
+            >
               logout&nbsp;
               <Image
                 src={"/assets/logout.svg"}

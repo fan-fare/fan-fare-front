@@ -64,3 +64,13 @@ html, body {
     color: #D2D2D2;
   }
 }
+
+.questionMark {
+  display: block;
+  color: #000000;
+  opacity: 70%;
+
+  &:active {
+    color: #000000;
+  }
+}
