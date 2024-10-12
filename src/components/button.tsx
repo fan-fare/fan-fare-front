@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styles from "./button.module.css";
-import fonts from "../app/fonts.module.css";
 
 export default function Button({
   size = "full",
@@ -64,26 +63,13 @@ export default function Button({
   if (disabled) {
     buttonColor = styles.disabled;
   }
-  // Font
-  let fontType: string = "";
-  switch (font) {
-    case "pretendard":
-      fontType = fonts.pretendard;
-      break;
-    case "uiyeun":
-      fontType = fonts.uiyeun;
-      break;
-    case "lotteria":
-      fontType = fonts.lotteria;
-      break;
-  }
   // Shadow
   const shadowStyle = shadow ? styles.shadow : "";
 
   if (href) {
     return (
       <Link
-        className={`${styles.default} ${buttonSize} ${buttonColor} ${shadowStyle} ${fontType}`}
+        className={`${styles.default} ${buttonSize} ${buttonColor} ${shadowStyle} ${font}`}
         href={href}
         style={{
           ...style,
@@ -100,7 +86,7 @@ export default function Button({
 
   return (
     <button
-      className={`${styles.default} ${buttonSize} ${buttonColor} ${shadowStyle} ${fontType}`}
+      className={`${styles.default} ${buttonSize} ${buttonColor} ${shadowStyle} ${font}`}
       onClick={onClick}
       disabled={disabled}
       type={type}
