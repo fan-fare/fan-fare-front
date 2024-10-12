@@ -3,11 +3,6 @@ import Cake from "@/components/Cake";
 import Effect from "@/components/Effect";
 import { CandleType } from "@/interfaces/candles";
 import {
-  buttonPinkFull,
-  buttonShadow,
-  buttonWhiteFull,
-} from "@/styles/common/button.css";
-import {
   buttonContainer,
   mainPageCakeContainer,
   mainLogoImage,

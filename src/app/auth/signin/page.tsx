@@ -9,7 +9,6 @@ import Button from "@/components/button";
 import PrevPage from "@/components/PrevPage";
 import { ISigninRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";
-import { buttonDarkHalf } from "@/styles/common/button.css";
 import {
   authPageContainer,
   authForm,

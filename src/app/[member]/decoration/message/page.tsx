@@ -7,10 +7,6 @@ import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";
 import {
-  buttonPrimaryHalf,
-  disabledButtonHalf,
-} from "@/styles/common/button.css";
-import {
   decoBtnContainer,
   decoMessage,
   decoPageContainer,

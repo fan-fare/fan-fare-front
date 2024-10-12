@@ -11,7 +11,6 @@ import {
   authPageWrapper,
   prevPageContainer,
 } from "@/styles/pages/auth/auth.css";
-import { buttonDarkHalf } from "@/styles/common/button.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signupMutationOption } from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";

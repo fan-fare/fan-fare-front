@@ -11,12 +11,6 @@ import Timer from "@/components/Timer";
 import { CakeType } from "@/interfaces/cakes";
 import { CandleType } from "@/interfaces/candles";
 import {
-  buttonPrimaryFull,
-  buttonPrimaryHalf,
-  buttonWhiteHalf,
-  buttonWhiteLinkFull,
-} from "@/styles/common/button.css";
-import {
   cakePageContainer,
   pageTop,
   questionMark,
@@ -298,18 +292,18 @@ export default function Home({ params }: { params: { member: string } }) {
         )}
         {!loggedIn && (
           <div className={halfButtonContainer}>
-            <Link
+            <Button
+              content="👀 내 케이크 보러가기"
+              color="white"
+              size="half"
               href={`/auth/signin?member=${params.member}`}
-              className={buttonWhiteHalf}
-            >
-              👀 내 케이크 보러가기
-            </Link>
-            <Link
+            />
+            <Button
+              content="🪄 이 케이크 꾸미기"
+              color="primary"
+              size="half"
               href={`/${params.member}/decoration/candle`}
-              className={buttonPrimaryHalf}
-            >
-              🪄 이 케이크 꾸미기
-            </Link>
+            />
           </div>
         )}
         <div className={logoutButtonContainer}>
