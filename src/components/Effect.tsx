@@ -94,7 +94,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
           height={0}
           className={flagsImg}
           style={main ? mainPageFlagsProps : defaultFlagsProps}
-          loading="eager"
+        priority
         />
         <Image
           src={"/assets/glitter.svg"}
@@ -112,7 +112,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
             width={1000}
             height={0}
             className={papersImg}
-            loading="eager"
+            priority
           />
         )}
         <div className={balloonContainer}>
@@ -123,7 +123,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
               width={0}
               height={0}
               className={balloonBase}
-              loading="eager"
+              priority
               key={i}
               style={
                 main

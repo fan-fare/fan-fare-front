@@ -4,7 +4,6 @@ import {
   cakeTitle,
   textPoint,
 } from "@/styles/components/cakeName.css";
-import {} from "@/styles/pages/member/memberMain.css";
 
 /**
  * CakeName component
