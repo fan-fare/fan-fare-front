@@ -1,8 +1,7 @@
 "use client";
 
 import { useErrorStore } from "@/store/error.store";
-import { background, mainContainer } from "@/styles/pages/layout.css";
-import { errorContainer, errorText } from "@/styles/pages/template.css";
+import styles from "./template.module.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
 
@@ -12,12 +11,12 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={background}></div>
+      <div className={styles.background}></div>
       <Suspense fallback={<></>}>
-        <div className={mainContainer}>{children}</div>
+        <div className={styles.mainContainer}>{children}</div>
         {error.message && (
-          <div className={errorContainer}>
-            <div className={errorText}>{error.message}</div>
+          <div className={styles.errorContainer}>
+            <div className={styles.errorText}>{error.message}</div>
           </div>
         )}
       </Suspense>
