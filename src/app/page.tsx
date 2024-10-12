@@ -1,6 +1,6 @@
 import Button from "@/components/button";
-import Cake from "@/components/Cake";
-import Effect from "@/components/Effect";
+import Cake from "@/components/cake";
+import Effect from "@/components/effect";
 import { CandleType } from "@/interfaces/candles";
 import page from "./page.module.css";
 import Image from "next/image";

@@ -1,13 +1,13 @@
 "use client";
 
-import AuthLinks from "@/components/AuthLinks";
+import AuthLinks from "@/components/authLinks";
 import styles from "../auth.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signupMutationOption } from "@/api/queryOptions";
 import { ISignupRequest } from "@/interfaces/request";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import PrevPage from "@/components/PrevPage";
+import PrevPage from "@/components/prevPage";
 import { useErrorStore } from "@/store/error.store";
 import Button from "@/components/button";
 

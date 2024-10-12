@@ -1,0 +1,31 @@
+.authLinksContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: auto;
+}
+
+.defaultLink {
+  color: #DADADA;
+  font-size: 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--font-uiyeun);
+}
+
+.activatedLink {
+  color: #3E3E3E;
+  cursor: default;
+
+  &:after {
+    content: "";
+    display: block;
+    width: 80%;
+    border-bottom: 2px solid #000000;
+    box-sizing: border-box;
+    margin: auto;
+  }
+}

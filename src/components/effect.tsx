@@ -1,13 +1,4 @@
-import {
-  effectContainer,
-  glitterImg,
-  flagsImg,
-  balloonContainer,
-  effect,
-  balloonBase,
-  papersImg,
-  balloonBaseAnimation,
-} from "@/styles/components/effect.css";
+import styles from "./effect.module.css";
 import Image from "next/image";
 import { CSSProperties } from "react";
 
@@ -85,14 +76,14 @@ export default function Effect({ main = false }: { main?: boolean }) {
   };
 
   return (
-    <div className={effectContainer}>
-      <div className={effect}>
+    <div className={styles.effectContainer}>
+      <div className={styles.effect}>
         <Image
           src={"/assets/flags.svg"}
           alt="flags"
           width={0}
           height={0}
-          className={flagsImg}
+          className={styles.flagsImg}
           style={main ? mainPageFlagsProps : defaultFlagsProps}
         priority
         />
@@ -101,7 +92,7 @@ export default function Effect({ main = false }: { main?: boolean }) {
           alt="glitter"
           width={0}
           height={0}
-          className={glitterImg}
+          className={styles.glitterImg}
           loading="eager"
           priority
         />
@@ -111,31 +102,31 @@ export default function Effect({ main = false }: { main?: boolean }) {
             alt="papers"
             width={1000}
             height={0}
-            className={papersImg}
+            className={styles.papersImg}
             priority
           />
         )}
-        <div className={balloonContainer}>
+        <div className={styles.balloonContainer}>
           {ballonImgs.map((src, i) => (
             <Image
               src={src}
               alt="balloon"
               width={0}
               height={0}
-              className={balloonBase}
+              className={styles.balloonBase}
               priority
               key={i}
               style={
                 main
                   ? {
                       ...mainPageBallonProps[i],
-                      animation: `${balloonBaseAnimation} ${
+                      animation: `${styles.balloonBaseAnimation} ${
                         Math.random() * 0.5 + 1
                       }s`,
                     }
                   : {
                       ...defaultBallonProps[i],
-                      animation: `${balloonBaseAnimation} ${
+                      animation: `${styles.balloonBaseAnimation} ${
                         Math.random() * 0.5 + 1
                       }s`,
                     }

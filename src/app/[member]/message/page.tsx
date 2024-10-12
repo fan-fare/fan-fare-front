@@ -5,9 +5,9 @@ import {
   getCakeQueryOption,
   readMessageByRangeQueryOption,
 } from "@/api/queryOptions";
-import CakeName from "@/components/CakeName";
-import Error from "@/components/Error";
-import Message from "@/components/Message";
+import CakeName from "@/components/cakeName";
+import Error from "@/components/error";
+import Message from "@/components/message";
 import { IGetMessageResponseByRangeMessageData } from "@/interfaces/response";
 import { useErrorStore } from "@/store/error.store";
 import member from "../page.module.css";

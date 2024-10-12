@@ -1,5 +1,5 @@
 'use client';
-import { prevLink } from '@/styles/components/prevPage.css';
+import styles from './prevPage.module.css';
 import Link from 'next/link';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
 
@@ -14,7 +14,7 @@ export default function PrevPage({
   url: string;
 }) {
   return (
-      <Link href={url} className={prevLink}>
+      <Link href={url} className={styles.prevLink}>
         <MdKeyboardArrowLeft />
         이전으로
       </Link>

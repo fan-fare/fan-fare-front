@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  deleteIconContainer,
-  message,
-  messageContainer,
-  messageContentContainer,
-  messageInfoContainer,
-  messageText,
-} from "@/styles/components/message.css";
+import styles from "./message.module.css";
 import Image from "next/image";
 import { memo, useEffect, useRef, useState } from "react";
 
@@ -65,16 +58,16 @@ export default memo(function Message({
   }, [sendDates]);
 
   return (
-    <div className={messageContainer} ref={ref} style={style}>
-      <div className={message} ref={messageRef}>
-        <div className={messageContentContainer}>
-          <div className={messageText}>{messages}</div>
-          <div className={messageInfoContainer}>
+    <div className={styles.messageContainer} ref={ref} style={style}>
+      <div className={styles.message} ref={messageRef}>
+        <div className={styles.messageContentContainer}>
+          <div className={styles.messageText}>{messages}</div>
+          <div className={styles.messageInfoContainer}>
             <div>{date}</div>
             <div>by. {senderNicknames}</div>
           </div>
         </div>
-        <div className={deleteIconContainer}>
+        <div className={styles.deleteIconContainer}>
           <Image
             src={"/assets/delete_button.png"}
             width={24}

@@ -1,20 +1,6 @@
-import {
-  cake,
-  cakeComponentContainer,
-  cakeImg,
-  candle1,
-  candle2,
-  candle3,
-  candle4,
-  candle5,
-  candleName1,
-  candleName2,
-  candleName3,
-  candleName4,
-  candleName5,
-} from "@/styles/components/cake.css";
+import styles from "./cake.module.css";
 import Image from "next/image";
-import CakeCandle from "./CakeCandle";
+import CakeCandle from "./cakeCandle";
 import { CakeType } from "@/interfaces/cakes";
 import { CandleType } from "@/interfaces/candles";
 
@@ -40,13 +26,19 @@ export default function Cake({
   openMessageOnClick?: boolean;
 }) {
   // Constants
-  const candlePositions = [candle1, candle2, candle3, candle4, candle5]; // candle positions
+  const candlePositions = [
+    styles.candle1,
+    styles.candle2,
+    styles.candle3,
+    styles.candle4,
+    styles.candle5,
+  ]; // candle positions
   const candleNamePositions = [
-    candleName1,
-    candleName2,
-    candleName3,
-    candleName4,
-    candleName5,
+    styles.candleName1,
+    styles.candleName2,
+    styles.candleName3,
+    styles.candleName4,
+    styles.candleName5,
   ]; // candle name positions
   const cakeImage = new Map<CakeType, string>([
     ["default", "default.svg"],
@@ -70,8 +62,8 @@ export default function Cake({
   );
 
   return (
-    <div className={cakeComponentContainer}>
-      <div className={cake}>
+    <div className={styles.cakeComponentContainer}>
+      <div className={styles.cake}>
         {candles &&
           names &&
           candles.map(
@@ -80,8 +72,8 @@ export default function Cake({
                 <CakeCandle
                   key={i}
                   candleType={candle}
-                  candlePositionClass={candlePositions[i]}
-                  candleNamePositionClass={candleNamePositions[i]}
+                  candlePositionClass={`${candlePositions[i]} ${styles.candleBase}`}
+                  candleNamePositionClass={`${candleNamePositions[i]} ${styles.candleNameBase}`}
                   name={names[i]}
                   memberUuid={memberUuid}
                   messageIndex={messageIndexes ? messageIndexes[i] : 0}
@@ -94,7 +86,7 @@ export default function Cake({
           alt="cake"
           width={0}
           height={0}
-          className={cakeImg}
+          className={styles.cakeImg}
           priority
         />
       </div>

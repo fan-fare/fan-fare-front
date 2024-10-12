@@ -1,8 +1,4 @@
-import {
-  activatedLink,
-  authLinksContainer,
-  defaultLink,
-} from "@/styles/components/authLink.css";
+import styles from "./authLink.module.css";
 import Link from "next/link";
 
 /**
@@ -19,16 +15,16 @@ export default function AuthLinks({
   member: string | null;
 }) {
   return (
-    <div className={authLinksContainer}>
+    <div className={styles.authLinksContainer}>
       <Link
         href={member ? `/auth/signin?member=${member}` : "/auth/signin"}
-        className={current === "signin" ? activatedLink : defaultLink}
+        className={`${styles.defaultLink} ${current === "signin" ? styles.activatedLink : ""}`}
       >
         로그인
       </Link>
       <Link
         href={member ? `/auth/signup?member=${member}` : "/auth/signup"}
-        className={current === "signup" ? activatedLink : defaultLink}
+        className={`${styles.defaultLink} ${current === "signup" ? styles.activatedLink : ""}`}
       >
         회원가입
       </Link>

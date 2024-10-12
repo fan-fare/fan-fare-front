@@ -4,10 +4,10 @@ import {
   getCakeQueryOption,
   getMemberInfoQueryOption,
 } from "@/api/queryOptions";
-import Cake from "@/components/Cake";
-import CakeName from "@/components/CakeName";
-import Effect from "@/components/Effect";
-import Timer from "@/components/Timer";
+import Cake from "@/components/cake";
+import CakeName from "@/components/cakeName";
+import Effect from "@/components/effect";
+import Timer from "@/components/timer";
 import { CakeType } from "@/interfaces/cakes";
 import { CandleType } from "@/interfaces/candles";
 import page from "./page.module.css";
@@ -17,7 +17,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import Image from "next/image";
 import cofetti from "canvas-confetti";
-import Error from "@/components/Error";
+import Error from "@/components/error";
 import { IGetCakeResponseMessageData } from "@/interfaces/response";
 import { isNotPassedOneWeek } from "@/utils/birthday";
 import Button from "@/components/button";

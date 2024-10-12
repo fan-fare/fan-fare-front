@@ -2,7 +2,7 @@
 
 import { createPostMutationOption } from "@/api/queryOptions";
 import Button from "@/components/button";
-import PrevPage from "@/components/PrevPage";
+import PrevPage from "@/components/prevPage";
 import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";

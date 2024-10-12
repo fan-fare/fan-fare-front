@@ -1,8 +1,8 @@
 import { memo } from "react";
-import Candle from "./Candle";
+import Candle from "./candle";
 import { CandleType } from "@/interfaces/candles";
-import { flexCenterContainer } from "@/styles/common/common.css";
 import Link from "next/link";
+import styles from "./cakeCandle.module.css";
 
 /**
  * Cake candle component
@@ -36,7 +36,7 @@ export default memo(function CakeCandle({
     return (
       <Link
         href={`/${memberUuid}/message?default=${messageIndex}`}
-        className={flexCenterContainer}
+        className={styles.container}
       >
         <div className={candleNamePositionClass}>{name}</div>
         <div className={candlePositionClass}>
@@ -47,7 +47,7 @@ export default memo(function CakeCandle({
   }
 
   return (
-    <div className={flexCenterContainer}>
+    <div className={styles.container}>
       <div className={candleNamePositionClass}>{name}</div>
       <div className={candlePositionClass}>
         <Candle candleType={candleType} isGlittering={isGlittering} />

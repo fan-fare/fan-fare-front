@@ -1,21 +1,6 @@
 "use client";
 
-import {
-  timer,
-  timerContent,
-  birthdayText,
-  timerText,
-  boxesImg,
-  timerComponentContainer,
-  clickableBoxesImg,
-  timerContainer,
-  textBalloon,
-  endedTimerComponentContainer,
-  birthdayLogoContainer,
-  birthdayLogoText,
-  birthdayLogoBackground,
-  birthdayLogoBoxImg,
-} from "@/styles/components/timer.css";
+import styles from "./timer.module.css";
 import { getRemainingTime } from "@/utils/birthday";
 import Image from "next/image";
 import Link from "next/link";
@@ -54,7 +39,10 @@ export default function Timer({
     setRemainingTime(remaining);
 
     // If the birthday is today or the birthday has passed, set box active for a week
-    if (remaining === 0 || remaining > (365 - activeDays) * 24 * 60 * 60 * 1000) {
+    if (
+      remaining === 0 ||
+      remaining > (365 - activeDays) * 24 * 60 * 60 * 1000
+    ) {
       // Set birthday flag if the birthday is today or the birthday has passed within a week
       setIsBirthday(true);
       if (loggedIn) {
@@ -82,8 +70,11 @@ export default function Timer({
 
   if (boxActive && isBirthday) {
     return (
-      <div className={endedTimerComponentContainer} style={{ height: "100%" }}>
-        <div className={textBalloon}>
+      <div
+        className={`${styles.timerComponentContainer} ${styles.endedTimerComponentContainer}`}
+        style={{ height: "100%" }}
+      >
+        <div className={styles.textBalloon}>
           이제 친구들의 축하글을 열어볼 수 있어요!
           <br />
           편지는 “일주일”간 보관돼요.
@@ -94,7 +85,7 @@ export default function Timer({
             alt="boxes"
             width={0}
             height={0}
-            className={clickableBoxesImg}
+            className={styles.clickableBoxesImg}
             loading="eager"
           />
         </Link>
@@ -102,13 +93,13 @@ export default function Timer({
     );
   } else if (isBirthday) {
     return (
-      <div className={birthdayLogoContainer}>
+      <div className={styles.birthDayLogoContainer}>
         <Image
           src={"/assets/boxes.svg"}
           alt="boxes"
           width={0}
           height={0}
-          className={birthdayLogoBoxImg}
+          className={styles.birthdayLogoBoxImg}
           loading="eager"
         />
         <Image
@@ -117,10 +108,10 @@ export default function Timer({
           width={334}
           height={85}
           loading="eager"
-          className={birthdayLogoBackground}
+          className={styles.birthdayLogoBackground}
         />
-        <div className={birthdayLogoText}>생일을 축하해주세요!</div>
-        <div className={birthdayText}>
+        <div className={styles.birthdayLogoText}>생일을 축하해주세요!</div>
+        <div className={styles.birthdayText}>
           {birthday &&
             `Birthday: ${birthday.getFullYear()}.${
               birthday.getMonth() + 1
@@ -131,23 +122,23 @@ export default function Timer({
   }
 
   return (
-    <div className={timerComponentContainer}>
-      <div className={timerContainer}>
+    <div className={styles.timerComponentContainer}>
+      <div className={styles.timerContainer}>
         <Image
           src={"/assets/boxes.svg"}
           alt="boxes"
           width={0}
           height={0}
-          className={boxesImg}
+          className={styles.boxesImg}
           loading="eager"
         />
-        <div className={timer}>
-          <div className={timerContent}>
-            <div className={timerText}>
+        <div className={styles.timer}>
+          <div className={styles.timerContent}>
+            <div className={styles.timerText}>
               D-
               {Math.floor(remaningTime / (1000 * 60 * 60 * 24)) + 1}
             </div>
-            <div className={timerText}>
+            <div className={styles.timerText}>
               {/* HH:MM:SS */}
               {`${Math.floor(
                 (remaningTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
@@ -157,14 +148,16 @@ export default function Timer({
                 (remaningTime % (1000 * 60 * 60)) / (1000 * 60),
               )
                 .toString()
-                .padStart(2, "0")}:${Math.floor((remaningTime % (1000 * 60)) / 1000)
+                .padStart(2, "0")}:${Math.floor(
+                (remaningTime % (1000 * 60)) / 1000,
+              )
                 .toString()
                 .padStart(2, "0")}`}
             </div>
           </div>
         </div>
       </div>
-      <div className={birthdayText}>
+      <div className={styles.birthdayText}>
         {birthday &&
           `Birthday: ${birthday.getFullYear()}.${
             birthday.getMonth() + 1

@@ -1,8 +1,8 @@
 "use client";
 
 import Button from "@/components/button";
-import Candle from "@/components/Candle";
-import PrevPage from "@/components/PrevPage";
+import Candle from "@/components/candle";
+import PrevPage from "@/components/prevPage";
 import { CandleType } from "@/interfaces/candles";
 import deco from "../decoration.module.css";
 import page from "./page.module.css";

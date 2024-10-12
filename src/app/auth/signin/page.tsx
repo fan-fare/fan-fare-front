@@ -4,9 +4,9 @@ import {
   getMemberInfoQueryOption,
   signinMutationOption,
 } from "@/api/queryOptions";
-import AuthLinks from "@/components/AuthLinks";
+import AuthLinks from "@/components/authLinks";
 import Button from "@/components/button";
-import PrevPage from "@/components/PrevPage";
+import PrevPage from "@/components/prevPage";
 import { ISigninRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";
 import styles from '../auth.module.css';

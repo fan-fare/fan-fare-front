@@ -1,0 +1,52 @@
+.cakeNameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  gap: 0.25rem;
+}
+
+.cakeTitle {
+  display: flex;
+  width: auto;
+  font-size: 1.75rem;
+  font-weight: 800;
+  align-items: center;
+  color: black;
+
+  &:active {
+    color: black;
+  }
+}
+@container style(--is-mobile: true) {
+  .cakeTitle {
+    font-size: 1.5rem;
+  }
+}
+
+.textPoint {
+  color: #f58989;
+
+  &:active {
+    color: #f58989;
+  }
+}
+
+.cakeMessage {
+  display: flex;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  color: black;
+
+  &:active {
+    color: black;
+  }
+}
+@container style(--is-mobile: true) {
+  .cakeMessage {
+    font-size: 0.875rem;
+  }
+}

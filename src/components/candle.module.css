@@ -1,0 +1,46 @@
+.candleImgContainer {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.candleImg {
+  display: block;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  z-index: 2;
+  background-size: cover;
+}
+
+/* glitter animation */
+@keyframes glitteringCandle {
+  0% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.glittering {
+  display: block;
+  position: absolute;
+  width: 300%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  top: -20%;
+  left: -100%;
+  background: radial-gradient(45% 55% at 50% 50%, #F0CB35 0%, rgba(255, 255, 255, 0) 100%);
+  animation: glitteringCandle 1.5s infinite;
+}

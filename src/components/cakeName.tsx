@@ -1,9 +1,4 @@
-import {
-  cakeMessage,
-  cakeNameContainer,
-  cakeTitle,
-  textPoint,
-} from "@/styles/components/cakeName.css";
+import styles from "./cakeName.module.css";
 
 /**
  * CakeName component
@@ -19,14 +14,14 @@ export default function CakeName({
   messageCount: number;
 }) {
   return (
-    <div className={cakeNameContainer}>
-      <div className={cakeTitle}>
-        <div className={textPoint}>{userName}</div>
+    <div className={styles.cakeNameContainer}>
+      <div className={styles.cakeTitle}>
+        <div className={styles.textPoint}>{userName}</div>
         🎂&apos;s cake
       </div>
-      <div className={cakeMessage}>
+      <div className={styles.cakeMessage}>
         지금까지
-        <div className={textPoint}>&nbsp;{messageCount}</div>
+        <div className={styles.textPoint}>&nbsp;{messageCount}</div>
         개의 생일축하를 받았어요!
       </div>
     </div>

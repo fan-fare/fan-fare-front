@@ -1,10 +1,6 @@
 import { CandleType } from "@/interfaces/candles";
-import {
-  candleImg,
-  candleImgContainer,
-  glittering,
-} from "@/styles/components/candle.css";
 import Image from "next/image";
+import styles from "./candle.module.css";
 import { memo } from "react";
 
 /**
@@ -36,10 +32,10 @@ export default memo(function Candle({
   const glitteringDelay = Math.random() * 0.5;
 
   return (
-    <div className={candleImgContainer}>
+    <div className={styles.candleImgContainer}>
       {isGlittering && (
         <div
-          className={glittering}
+          className={styles.glittering}
           style={{ animationDelay: `${glitteringDelay}s` }}
         ></div>
       )}
@@ -48,7 +44,7 @@ export default memo(function Candle({
         alt={candleMap.get(candleType) || ""}
         width={0}
         height={0}
-        className={candleImg}
+        className={styles.candleImg}
         loading="eager"
       />
     </div>
