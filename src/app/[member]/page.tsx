@@ -105,7 +105,9 @@ export default function Home({ params }: { params: { member: string } }) {
   useEffect(() => {
     const data = cakeInfo.data?.body.data;
     if (data) {
-      setTotalCakeCount(Math.ceil(data.messages.length / candlePerCake));
+      setTotalCakeCount(
+        Math.max(Math.ceil(data.messages.length / candlePerCake), 1), // at least 1 cake to show the cake
+       );
       setMessages(data.messages);
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
