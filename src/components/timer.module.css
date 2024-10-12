@@ -63,7 +63,7 @@
   justify-content: center;
   gap: 1rem;
 }
-@container (--is-tablet: true) {
+@container style(--is-tablet: true) {
   .timerContent {
     gap: 2rem;
   }
