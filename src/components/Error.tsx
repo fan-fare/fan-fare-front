@@ -1,9 +1,8 @@
-import { buttonPrimaryHalf } from "@/styles/common/button.css";
 import {
   errorComponentText,
   errorCompponent,
 } from "@/styles/components/error.css";
-import Link from "next/link";
+import Button from "./button";
 
 export default function Error({
   message,
@@ -16,9 +15,7 @@ export default function Error({
     <div className={errorCompponent}>
       <p className={errorComponentText}>{message}</p>
       {navigation === "main" && (
-        <Link href={"/"} className={buttonPrimaryHalf}>
-          메인으로
-        </Link>
+        <Button size="half" color="primary" content="메인으로" href={"/"} />
       )}
     </div>
   );

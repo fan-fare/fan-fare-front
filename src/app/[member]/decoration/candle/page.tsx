@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/button";
 import Candle from "@/components/Candle";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
@@ -63,18 +64,13 @@ export default function Page({ params }: { params: { member: string } }) {
           ))}
         </div>
         <div className={decoBtnContainer}>
-          <Link
-            href={
-              selected
-                ? `/${params.member}/decoration/message?candle_type=${selected}`
-                : "#"
-            }
-            className={
-              selected !== null ? buttonPrimaryHalf : disabledButtonHalf
-            }
-          >
-            다음으로
-          </Link>
+          <Button
+            href={`/${params.member}/decoration/message?candle_type=${selected}`}
+            content="다음으로"
+            color="primary"
+            size="half"
+            disabled={selected === null}
+          />
         </div>
       </div>
     </div>

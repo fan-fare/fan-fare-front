@@ -1,0 +1,56 @@
+.default {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/*button size*/
+.halfSize {
+  width: 148px;
+  height: 55px;
+}
+.fullSize {
+  width: 100%;
+  height: 55px;
+}
+
+/*button color*/
+.white {
+  background-color: #FFFFFF;
+  color: #474747;
+}
+.whiteLink {
+  background-image: linear-gradient(#fff, #fff), linear-gradient(99deg, #FEE9E6 7.8%, #B9E1E7 100%);
+  color: #474747;
+  border: 2px solid transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+.pink {
+  background-color: #F589A9;
+  color: #fff;
+}
+.primary {
+  background-color: #F58989;
+  color: #fff;
+}
+.dark {
+  background-color: #000000;
+  color: #fff;
+}
+.disabled {
+  background-color: #D2D2D2;
+  color: #FFFFFF;
+  pointer-events: none;
+}
+
+/*button shadow*/
+.buttonShadow {
+  box-shadow: 0px 4px 4px 0px #0000001A;
+}

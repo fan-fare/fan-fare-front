@@ -5,6 +5,7 @@ import {
   signinMutationOption,
 } from "@/api/queryOptions";
 import AuthLinks from "@/components/AuthLinks";
+import Button from "@/components/button";
 import PrevPage from "@/components/PrevPage";
 import { ISigninRequest } from "@/interfaces/request";
 import { useErrorStore } from "@/store/error.store";
@@ -136,9 +137,7 @@ export default function Page() {
             />
           </div>
           <div className={authFormButtonContainer}>
-            <button type="submit" className={buttonDarkHalf}>
-              완료
-            </button>
+            <Button size="half" color="dark" content="완료" type="submit" />
           </div>
         </form>
       </div>

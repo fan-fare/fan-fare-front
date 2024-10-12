@@ -1,3 +1,4 @@
+import Button from "@/components/button";
 import Cake from "@/components/Cake";
 import Effect from "@/components/Effect";
 import { CandleType } from "@/interfaces/candles";
@@ -50,18 +51,28 @@ export default function Home() {
         <Cake cakeType="pink_white" candles={candles} names={[]} />
       </div>
       <div className={buttonContainer}>
-        <Link
+        <Button
+          size="full"
+          color="white"
+          content="🥳 회원가입하고 케이크 만들러 가기"
+          font="uiyeun"
+          fontSize={20}
           href={"/auth/signup"}
-          className={`${buttonWhiteFull} ${buttonShadow}`}
-        >
-          🥳 회원가입하고 케이크 만들러 가기
-        </Link>
-        <Link
+          style={{
+            fontWeight: 400,
+          }}
+        />
+        <Button
+          size="full"
+          color="pink"
+          content="🎁 로그인하고 메시지 확인하기"
+          font="uiyeun"
+          fontSize={20}
           href={"/auth/signin"}
-          className={`${buttonPinkFull} ${buttonShadow}`}
-        >
-          🎁 로그인하고 메시지 확인하기
-        </Link>
+          style={{
+            fontWeight: 400,
+          }}
+        />
       </div>
       <div className={mainPageBottomContainer}>
         <div className={teamInfoContainer}>

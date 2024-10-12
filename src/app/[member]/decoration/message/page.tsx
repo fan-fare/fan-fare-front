@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  createPostMutationOption,
-  getCakeQueryOption,
-} from "@/api/queryOptions";
+import { createPostMutationOption } from "@/api/queryOptions";
+import Button from "@/components/button";
 import PrevPage from "@/components/PrevPage";
 import { CandleType } from "@/interfaces/candles";
 import { ICreateMessageRequest } from "@/interfaces/request";
@@ -31,7 +29,7 @@ import {
 } from "@/styles/pages/decoration/message.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function Page({ params }: { params: { member: string } }) {
   // Constants
@@ -116,14 +114,13 @@ export default function Page({ params }: { params: { member: string } }) {
               </div>
             </div>
             <div className={decoBtnContainer}>
-              <button
+              <Button
                 type="submit"
-                className={
-                  nickname && message ? buttonPrimaryHalf : disabledButtonHalf
-                }
-              >
-                완료
-              </button>
+                color="primary"
+                disabled={!nickname || !message}
+                size="half"
+                content="완료"
+              />
             </div>
           </form>
         </div>

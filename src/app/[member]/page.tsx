@@ -41,6 +41,7 @@ import cofetti from "canvas-confetti";
 import Error from "@/components/Error";
 import { IGetCakeResponseMessageData } from "@/interfaces/response";
 import { isNotPassedOneWeek } from "@/utils/birthday";
+import Button from "@/components/button";
 
 export default function Home({ params }: { params: { member: string } }) {
   // Constants
@@ -107,7 +108,7 @@ export default function Home({ params }: { params: { member: string } }) {
     if (data) {
       setTotalCakeCount(
         Math.max(Math.ceil(data.messages.length / candlePerCake), 1), // at least 1 cake to show the cake
-       );
+      );
       setMessages(data.messages);
       setOwnerNickname(data.nickname ?? "빵빠레");
       // korean time
@@ -281,12 +282,18 @@ export default function Home({ params }: { params: { member: string } }) {
       <div className={cakePageBottomContainer} ref={pageButtomRef}>
         {loggedIn && (
           <div className={fullButtonContainer}>
-            <div className={buttonWhiteLinkFull} onClick={handleCopyLink}>
-              🔗 링크 공유하고 축하받기
-            </div>
-            <div className={buttonPrimaryFull} onClick={handleCapture}>
-              🥳 사진 저장하고 자랑하기
-            </div>
+            <Button
+              onClick={handleCopyLink}
+              content="🔗 링크 공유하고 축하받기"
+              color="white-link"
+              size="full"
+            />
+            <Button
+              content="🥳 사진 저장하고 자랑하기"
+              color="primary"
+              size="full"
+              onClick={handleCapture}
+            />
           </div>
         )}
         {!loggedIn && (

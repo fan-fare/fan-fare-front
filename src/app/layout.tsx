@@ -1,4 +1,6 @@
 import { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -15,6 +17,21 @@ export const metadata: Metadata = {
   },
 };
 
+const uiyeun = localFont({
+  src: "./fonts/Uiyeun.ttf",
+  variable: "--font-uiyeun",
+});
+
+const pretendard = localFont({
+  src: "./fonts/Pretendard-Regular.woff",
+  variable: "--font-pretendard",
+});
+
+const lotteria = localFont({
+  src: "./fonts/LOTTERIACHAB.woff2",
+  variable: "--font-lotteria",
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -22,7 +39,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body
+        className={`${uiyeun.variable} 
+        ${pretendard.variable} 
+        ${lotteria.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

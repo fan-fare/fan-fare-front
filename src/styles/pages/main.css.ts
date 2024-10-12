@@ -47,7 +47,6 @@ export const buttonContainer = style({
   boxSizing: "border-box",
   fontSize: "20px",
   fontWeight: 400,
-  fontFamily: uiyeun,
 });
 
 export const mainPageBottomContainer = style({
